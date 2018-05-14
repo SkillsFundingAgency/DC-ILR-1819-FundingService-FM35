@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface\ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface.csproj" />
+    <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.ExternalData\ESFA.DC.ILR.FundingService.FM35.ExternalData.csproj" />
+    <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.Service.Interface\ESFA.DC.ILR.FundingService.FM35.Service.Interface.csproj" />
+  </ItemGroup>
+
+</Project>
