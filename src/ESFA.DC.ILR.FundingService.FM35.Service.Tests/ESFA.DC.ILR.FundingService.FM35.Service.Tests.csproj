@@ -88,10 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface\ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface.csproj">
-      <Project>{3c37c430-82fa-49cc-8db7-af184d9d9d1d}</Project>
-      <Name>ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.ExternalData\ESFA.DC.ILR.FundingService.FM35.ExternalData.csproj">
       <Project>{e5627e4c-80bc-4fba-8eea-fbe3f8358dea}</Project>
       <Name>ESFA.DC.ILR.FundingService.FM35.ExternalData</Name>

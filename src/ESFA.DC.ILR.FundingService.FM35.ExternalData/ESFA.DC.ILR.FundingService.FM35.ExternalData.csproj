@@ -13,11 +13,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ESFA.DC.Data.LARS.Model" Version="0.1.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta007" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface\ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface.csproj" />
   </ItemGroup>
 
 </Project>
