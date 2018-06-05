@@ -47,11 +47,29 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ESFA.DC.OPA.Model, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.Model.0.1.0-beta0001\lib\netstandard2.0\ESFA.DC.OPA.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.OPA.Model.Interface, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.Model.Interface.0.1.0-beta0001\lib\netstandard2.0\ESFA.DC.OPA.Model.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.OPA.Service, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.Service.0.1.2-beta0001\lib\netstandard2.0\ESFA.DC.OPA.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.OPA.Service.Interface, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.Service.Interface.0.1.2-beta0001\lib\netstandard2.0\ESFA.DC.OPA.Service.Interface.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions, Version=5.3.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.5.3.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.Determinations.Engine, Version=10.4.0.0, Culture=neutral, PublicKeyToken=863065c849b9b316, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.RunTime.DLLs.0.1.1-beta0001\lib\Oracle.Determinations.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.Determinations.Masquerade, Version=10.4.0.0, Culture=neutral, PublicKeyToken=863065c849b9b316, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.RunTime.DLLs.0.1.1-beta0001\lib\Oracle.Determinations.Masquerade.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
