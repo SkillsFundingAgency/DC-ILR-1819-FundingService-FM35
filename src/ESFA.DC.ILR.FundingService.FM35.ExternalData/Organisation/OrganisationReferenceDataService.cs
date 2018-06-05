@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Model;
+
+namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation
+{
+    public class OrganisationReferenceDataService : IOrganisationReferenceDataService
+    {
+        private readonly IReferenceDataCache _referenceDataCache;
+
+        public OrganisationReferenceDataService(IReferenceDataCache referenceDataCache)
+        {
+            _referenceDataCache = referenceDataCache;
+        }
+
+        IEnumerable<OrgFunding> IOrganisationReferenceDataService.OrganisationFundingForUKPRN(int ukprn)
+        {
+            try
+            {
+                return _referenceDataCache.OrgFunding[ukprn];
+            }
+            catch (Exception ex)
+            {
+                throw new KeyNotFoundException(string.Format("Cannot find UKPRN: " + ukprn + " in the Org Funding Dictionary. Exception details: " + ex));
+            }
+        }
+
+        string IOrganisationReferenceDataService.OrganisationVersion()
+        {
+            return _referenceDataCache.OrgVersion;
+        }
+    }
+}

@@ -8,7 +8,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model
 
         public int CategoryRef { get; set; }
 
-        public DateTime EffectiveFrom { get; set; }
+        public DateTime EffectiveFromFrom { get; set; }
 
         public DateTime? EffectiveTo { get; set; }
     }

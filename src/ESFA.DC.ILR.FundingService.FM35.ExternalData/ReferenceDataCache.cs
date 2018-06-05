@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
-using ESFA.DC.ILR.FundingService.FM35.ExternalData.ExternalCache.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Model;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Model;
 
-namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.ExternalCache.Implementation
+namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
 {
     public class ReferenceDataCache : IReferenceDataCache
     {
@@ -18,12 +21,16 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.ExternalCache.Implementat
 
         public string LARSCurrentVersion { get; set; }
 
-        // public IDictionary<string, IEnumerable<SfaAreaCost>> SfaAreaCost { get; set; } = new Dictionary<string, IEnumerable<SfaAreaCost>>();
+        public IDictionary<string, IEnumerable<SfaAreaCost>> SfaAreaCost { get; set; } = new Dictionary<string, IEnumerable<SfaAreaCost>>();
 
-        // public string PostcodeCurrentVersion { get; set; }
+        public IDictionary<string, IEnumerable<SfaDisadvantage>> SfaDisadvantage { get; set; } = new Dictionary<string, IEnumerable<SfaDisadvantage>>();
 
-        // ORG
+        public string PostcodeCurrentVersion { get; set; }
 
-        // LEMP
+        public string OrgVersion { get; set; }
+
+        public IDictionary<int, IEnumerable<OrgFunding>> OrgFunding { get; set; } = new Dictionary<int, IEnumerable<OrgFunding>>();
+
+        public IDictionary<int, IEnumerable<LargeEmployers>> LargeEmployers { get; set; } = new Dictionary<int, IEnumerable<LargeEmployers>>();
     }
 }

@@ -6,7 +6,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model
     {
         public string LearnAimRef { get; set; }
 
-        public int BasicSkillsType { get; set; }
+        public int? BasicSkillsType { get; set; }
 
         public DateTime EffectiveFrom { get; set; }
 
