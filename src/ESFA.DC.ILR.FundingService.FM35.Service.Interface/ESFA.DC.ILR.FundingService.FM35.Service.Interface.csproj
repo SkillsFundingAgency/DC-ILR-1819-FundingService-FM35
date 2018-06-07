@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Builders\" />
+    <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface.csproj" />
   </ItemGroup>
 
 </Project>

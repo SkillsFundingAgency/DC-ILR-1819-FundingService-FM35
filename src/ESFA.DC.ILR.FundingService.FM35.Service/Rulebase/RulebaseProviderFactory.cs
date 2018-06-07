@@ -13,6 +13,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Rulebase
                 Assembly.GetExecutingAssembly().GetManifestResourceNames()
                 .Where(n => n.Contains("Rulebase"))
                 .Select(r => r).SingleOrDefault();
+
             return new RulebaseProvider(rulebaseZipPath);
         }
     }

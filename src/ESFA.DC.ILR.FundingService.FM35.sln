@@ -27,17 +27,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.ILR.FundingService.FM35.Contexts", "ESFA.DC.ILR.FundingService.FM35.Contexts\ESFA.DC.ILR.FundingService.FM35.Contexts.csproj", "{B004E60E-82E4-4044-8DB2-4E48F30E07C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.csproj", "{7541EB49-DDCD-46B9-8919-80909D0C1A5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.csproj", "{7541EB49-DDCD-46B9-8919-80909D0C1A5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface.csproj", "{9A01F8EF-6C64-424C-9DE3-A697631E4004}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface.csproj", "{9A01F8EF-6C64-424C-9DE3-A697631E4004}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.csproj", "{5FE52B2F-B11A-41AC-83B1-026BB53C8D82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.csproj", "{5FE52B2F-B11A-41AC-83B1-026BB53C8D82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface.csproj", "{720F5DA0-59F8-4833-86CA-C1725250E1CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface.csproj", "{720F5DA0-59F8-4833-86CA-C1725250E1CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Tests", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Tests\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Tests.csproj", "{D5D71ADC-C2DE-47D7-B168-DC159F842F9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Tests", "ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Tests\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Tests.csproj", "{A2E42AB5-D3E1-4912-AE7D-3C09C25595B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.TestHelpers.Mock", "ESFA.DC.TestHelpers.Mock\ESFA.DC.TestHelpers.Mock.csproj", "{2CF23289-3B39-4364-A9E3-0C39A9B99E05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{A2E42AB5-D3E1-4912-AE7D-3C09C25595B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E42AB5-D3E1-4912-AE7D-3C09C25595B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E42AB5-D3E1-4912-AE7D-3C09C25595B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF23289-3B39-4364-A9E3-0C39A9B99E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF23289-3B39-4364-A9E3-0C39A9B99E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF23289-3B39-4364-A9E3-0C39A9B99E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF23289-3B39-4364-A9E3-0C39A9B99E05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

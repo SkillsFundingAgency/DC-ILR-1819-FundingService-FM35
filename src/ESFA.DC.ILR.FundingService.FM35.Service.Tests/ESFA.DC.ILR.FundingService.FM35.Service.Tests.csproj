@@ -24,8 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Tests\ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,6 +46,18 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ESFA.DC.Data.LARS.Model, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.Data.LARS.Model.0.1.2-beta0001\lib\net461\ESFA.DC.Data.LARS.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.Data.Postcodes.Model, Version=0.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.Data.Postcodes.Model.0.1.3-beta0001\lib\net461\ESFA.DC.Data.Postcodes.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.ILR.Model, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.ILR.1819.Model.0.1.4-beta0001\lib\netstandard2.0\ESFA.DC.ILR.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.ILR.Model.Interface, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.ILR.1819.Model.Interface.0.1.4-beta0001\lib\netstandard2.0\ESFA.DC.ILR.Model.Interface.dll</HintPath>
+    </Reference>
     <Reference Include="ESFA.DC.OPA.Model, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ESFA.DC.OPA.Model.0.1.0-beta0001\lib\netstandard2.0\ESFA.DC.OPA.Model.dll</HintPath>
     </Reference>
@@ -58,6 +69,24 @@
     </Reference>
     <Reference Include="ESFA.DC.OPA.Service.Interface, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ESFA.DC.OPA.Service.Interface.0.1.2-beta0001\lib\netstandard2.0\ESFA.DC.OPA.Service.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.OPA.XSRC.Model, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.XSRC.Model.0.1.0-beta0001\lib\netstandard2.0\ESFA.DC.OPA.XSRC.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.OPA.XSRC.Model.Interface, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.XSRC.Model.Interface.0.1.0-beta0001\lib\netstandard2.0\ESFA.DC.OPA.XSRC.Model.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.OPA.XSRC.Service, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.XSRC.Service.0.1.0-beta0001\lib\netstandard2.0\ESFA.DC.OPA.XSRC.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.OPA.XSRC.Service.Interface, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.OPA.XSRC.Service.Interface.0.1.0-beta0001\lib\netstandard2.0\ESFA.DC.OPA.XSRC.Service.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.Serialization.Interfaces, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.Serialization.Interfaces.0.1.4-beta0001\lib\netstandard2.0\ESFA.DC.Serialization.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ESFA.DC.Serialization.Xml, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ESFA.DC.Serialization.Xml.0.1.4-beta0001\lib\netstandard2.0\ESFA.DC.Serialization.Xml.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=5.3.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.5.3.0\lib\net45\FluentAssertions.dll</HintPath>
@@ -103,7 +132,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\AttributeBuilderTests.cs" />
+    <Compile Include="Builders\DataEntityBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rulebase\RulebaseInterfaceTests.cs" />
+    <Compile Include="Rulebase\RulebaseProviderFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.ExternalData\ESFA.DC.ILR.FundingService.FM35.ExternalData.csproj">
@@ -118,17 +151,46 @@
       <Project>{60ad973d-ef59-476e-b598-15686495720d}</Project>
       <Name>ESFA.DC.ILR.FundingService.FM35.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.ILR.FundingService.FM35.Stubs\ESFA.DC.ILR.FundingService.FM35.Stubs.csproj">
+      <Project>{3a05ee91-3a8b-4ea2-9f26-ac766cf465fc}</Project>
+      <Name>ESFA.DC.ILR.FundingService.FM35.Stubs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.TestHelpers.Mock\ESFA.DC.TestHelpers.Mock.csproj">
+      <Project>{2cf23289-3b39-4364-a9e3-0c39a9b99e05}</Project>
+      <Name>ESFA.DC.TestHelpers.Mock</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\ESFA.DC.ILR.FundingService.FM35.Service\Rulebase\FM35 Funding Calc 18_19.zip">
+      <Link>Rulebase\FM35 Funding Calc 18_19.zip</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="..\ESFA.DC.ILR.FundingService.FM35.Service\Rulebase\FM35Inputs.xsrc">
+      <Link>Rulebase\FM35Inputs.xsrc</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
     <None Include="ESFA.DC.ILR.FundingService.FM35.Service.Tests.ruleset" />
     <None Include="packages.config" />
+    <Content Include="Files\ILR-10006341-1718-20180607-102124-03.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RulebaseMasterFiles\FM35 Funding Calc 18_19.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RulebaseMasterFiles\FM35Inputs.xsrc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="RulebaseMasterFiles\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
