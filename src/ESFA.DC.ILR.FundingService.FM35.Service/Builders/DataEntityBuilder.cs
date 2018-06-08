@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Model;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.OPA.Model;
@@ -14,7 +16,10 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
         #region Constants
 
         private const string Entityglobal = "global";
+        private const string EntityOrgFunding = "OrgFunding";
         private const string EntityLearner = "Learner";
+        private const string EntityLearnerEmploymentStatus = "LearnerEmploymentStatus";
+        private const string EntityLargeEmployerReferenceData = "LargeEmployerReferenceData";
         private const string EntityLearningDelivery = "LearningDelivery";
         private const string EntityLearningDeliveryFAM = "LearningDeliveryFAM";
         private const string EntityLearningDeliverySFA_PostcodeAreaCost = "SFA_PostcodeAreaCost";
@@ -36,7 +41,14 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
         public IEnumerable<IDataEntity> EntityBuilder(int ukprn, IEnumerable<ILearner> learners)
         {
             return new List<IDataEntity>();
-        }
+            //var globalEntities = learners.Select(learner =>
+            //{
+                //// Global Entity
+                //IDataEntity globalEntity = GlobalEntity(ukprn);
+
+                //// Learner Entity
+                //IDataEntity learnerEntity = LearnerEntity(learner);
+            }
 
         #region Entity Builders
 
@@ -48,7 +60,80 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                     _attributeBuilder.BuildGlobalAttributes(ukprn, _referenceDataCache.LARSCurrentVersion, _referenceDataCache.OrgVersion, _referenceDataCache.PostcodeCurrentVersion),
             };
 
+            var orgFunding = _referenceDataCache.OrgFunding.Where(k => k.Key == ukprn).Select(v => v.Value).Single();
+
+            foreach (var o in orgFunding)
+            {
+                globalDataEntity.AddChild(OrgFundingEntity(o));
+            }
+
             return globalDataEntity;
+        }
+
+        protected internal IDataEntity OrgFundingEntity(OrgFunding orgFunding)
+        {
+            IDataEntity orgFundingDataEnity = new DataEntity(EntityOrgFunding)
+            {
+                Attributes =
+                    _attributeBuilder.BuildOrgFundingAttributes(
+                        orgFunding.OrgFundEffectiveFrom,
+                        orgFunding.OrgFundEffectiveTo,
+                        orgFunding.OrgFundFactor,
+                        orgFunding.OrgFundFactType,
+                        orgFunding.OrgFundFactValue),
+            };
+
+            return orgFundingDataEnity;
+        }
+
+        protected internal IDataEntity LearnerEntity(ILearner learner)
+        {
+            IDataEntity learnerDataEntity = new DataEntity(EntityLearner)
+            {
+                Attributes =
+                    _attributeBuilder.BuildLearnerAttributes(learner.LearnRefNumber, learner.DateOfBirthNullable),
+            };
+
+            foreach (var employmentStatus in learner.LearnerEmploymentStatuses)
+            {
+                IDataEntity learnerEmploymentStatusDataEntity = LearnerEmploymentStatusEntity(employmentStatus);
+
+                var largeEmployers = _referenceDataCache.LargeEmployers
+                    .Where(k => k.Key == employmentStatus.EmpIdNullable).Select(v => v.Value).Single();
+
+                foreach (var lemp in largeEmployers)
+                {
+                    IDataEntity largeEmployersDataEntity = LargeEmployersEntity(lemp);
+
+                    learnerEmploymentStatusDataEntity.AddChild(largeEmployersDataEntity);
+                }
+
+                learnerDataEntity.AddChild(learnerEmploymentStatusDataEntity);
+            }
+
+            return learnerDataEntity;
+        }
+
+        protected internal IDataEntity LearnerEmploymentStatusEntity(ILearnerEmploymentStatus employmentStatus)
+        {
+            IDataEntity learnerEmploymentStatusDataEntity = new DataEntity(EntityLearnerEmploymentStatus)
+            {
+                Attributes =
+                   _attributeBuilder.BuildLearnerEmploymentStatusAttributes(employmentStatus.EmpIdNullable, employmentStatus.DateEmpStatApp),
+            };
+
+            return learnerEmploymentStatusDataEntity;
+        }
+
+        protected internal IDataEntity LargeEmployersEntity(LargeEmployers largeEmployer)
+        {
+            IDataEntity largeEmployersDataEntity = new DataEntity(EntityLargeEmployerReferenceData)
+            {
+                Attributes =
+                        _attributeBuilder.BuildLLargeEmployerReferenceDataAttributes(largeEmployer.EffectiveFrom, largeEmployer.EffectiveFrom),
+            };
+
+            return largeEmployersDataEntity;
         }
 
         #endregion
