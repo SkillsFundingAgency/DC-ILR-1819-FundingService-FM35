@@ -417,6 +417,270 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
 
         #endregion
 
+        #region Learner Employment Status Entity
+
+        /// <summary>
+        /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearnerEmploymentStatus - Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearnerEmploymentStatus_Exists()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var learnerEmpStatusEntity = SetupLearnerEmploymentStatusEntity();
+
+            //ASSERT
+            learnerEmpStatusEntity.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearnerEmploymentStatus - Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearnerEmploymentStatus_EntityNameCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var learnerEmpStatusEntity = SetupLearnerEmploymentStatusEntity();
+
+            //ASSERT
+            learnerEmpStatusEntity.EntityName.Should().Be("LearnerEmploymentStatus");
+        }
+
+        /// <summary>
+        /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearnerEmploymentStatus - IsGlobal Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearnerEmploymentStatus_IsGlobal()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var learnerEmpStatusEntity = SetupLearnerEmploymentStatusEntity();
+
+            //ASSERT
+            learnerEmpStatusEntity.IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearnerEmploymentStatus - Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearnerEmploymentStatus_ChildrenCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var learnerEmpStatusEntity = SetupLearnerEmploymentStatusEntity();
+
+            //ASSERT
+            learnerEmpStatusEntity.Children.Count.Should().Be(1);
+        }
+
+        /// <summary>
+        /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearnerEmploymentStatus - Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearnerEmploymentStatus_ParentCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var learnerEmpStatusEntity = SetupLearnerEmploymentStatusEntity();
+
+            //ASSERT
+            learnerEmpStatusEntity.Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearnerEmploymentStatus - Attributes Exist"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearnerEmploymentStatus_AttributesExist()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var learnerEntity = SetupLearnerEntity();
+
+            //ASSERT
+            learnerEntity.Attributes.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearnerEmploymentStatus - Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearnerEmploymentStatus_AttributesCountCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var learnerEmpStatusEntity = SetupLearnerEmploymentStatusEntity();
+
+            //ASSERT
+            learnerEmpStatusEntity.Attributes.Count.Should().Be(2);
+        }
+
+        /// <summary>
+        /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearnerLearnerEmploymentStatus - Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearnerEmploymentStatus_AttributesCorrect()
+        {
+            //ARRANGE
+            var expectedAttributes = ExpectedLearnerEmpStatusAttributes();
+
+            //ACT
+            var learnerEmpStatusEntity = SetupLearnerEmploymentStatusEntity();
+
+            //ASSERT
+            learnerEmpStatusEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
+        }
+
+        #endregion
+
+        #region Large Employer Entity
+
+        /// <summary>
+        /// Return LargeEmployer Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LargeEmployer - Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LargeEmployer_Exists()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var largeEmployersEntity = SetupLargeEmployersEntity();
+
+            //ASSERT
+            largeEmployersEntity.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return LargeEmployer Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LargeEmployer - Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LargeEmployer_EntityNameCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var largeEmployersEntity = SetupLargeEmployersEntity();
+
+            //ASSERT
+            largeEmployersEntity.EntityName.Should().Be("LargeEmployerReferenceData");
+        }
+
+        /// <summary>
+        /// Return LargeEmployer Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LargeEmployer - IsGlobal Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LargeEmployer_IsGlobal()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var largeEmployersEntity = SetupLargeEmployersEntity();
+
+            //ASSERT
+            largeEmployersEntity.IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return LargeEmployer Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LargeEmployer - Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LargeEmployer_ChildrenCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var largeEmployersEntity = SetupLargeEmployersEntity();
+
+            //ASSERT
+            largeEmployersEntity.Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return LargeEmployer Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LargeEmployer - Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LargeEmployer_ParentCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var largeEmployersEntity = SetupLargeEmployersEntity();
+
+            //ASSERT
+            largeEmployersEntity.Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return LargeEmployer Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LargeEmployer - Attributes Exist"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LargeEmployer_AttributesExist()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var largeEmployersEntity = SetupLargeEmployersEntity();
+
+            //ASSERT
+            largeEmployersEntity.Attributes.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// Return LargeEmployer Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LargeEmployer - Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LargeEmployer_AttributesCountCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var largeEmployersEntity = SetupLargeEmployersEntity();
+
+            //ASSERT
+            largeEmployersEntity.Attributes.Count.Should().Be(2);
+        }
+
+        /// <summary>
+        /// Return LargeEmployer Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LargeEmployer - Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LargeEmployer_AttributesCorrect()
+        {
+            //ARRANGE
+            var expectedAttributes = ExpectedLargeEmployerAttributes();
+
+            //ACT
+            var largeEmployersEntity = SetupLargeEmployersEntity();
+
+            //ASSERT
+            largeEmployersEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
+        }
+
+        #endregion
+
         #region Test Helpers
 
         private IDataEntity SetupGlobalEntity()
@@ -446,6 +710,28 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
 
             return learnerBuilder.LearnerEntity(TestLearner);
+        }
+
+        private IDataEntity SetupLearnerEmploymentStatusEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            return learnerBuilder.LearnerEmploymentStatusEntity(TestLearner.LearnerEmploymentStatuses.FirstOrDefault());
+        }
+
+        private IDataEntity SetupLargeEmployersEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            var lEmp = referenceDataCacheMock.LargeEmployers
+                   .Where(k => k.Key == TestLearner.LearnerEmploymentStatuses.FirstOrDefault().EmpIdNullable)
+                   .Select(v => v.Value).Single();
+
+            return learnerBuilder.LargeEmployersEntity(lEmp.Single());
         }
 
         private IReferenceDataCache SetupReferenceDataMock()
@@ -574,6 +860,24 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             {
                 { "LearnRefNumber", new AttributeData("LearnRefNumber", "Learner1") },
                 { "DateOfBirth", new AttributeData("DateOfBirth", new DateTime(2000, 01, 01)) },
+            };
+        }
+
+        private IDictionary<string, IAttributeData> ExpectedLearnerEmpStatusAttributes()
+        {
+            return new Dictionary<string, IAttributeData>
+            {
+                { "EmpId", new AttributeData("EmpId", 99999) },
+                { "DateEmpStatApp", new AttributeData("DateEmpStatApp", new DateTime(2018, 08, 01)) },
+            };
+        }
+
+        private IDictionary<string, IAttributeData> ExpectedLargeEmployerAttributes()
+        {
+            return new Dictionary<string, IAttributeData>
+            {
+                { "LargeEmpEffectiveFrom", new AttributeData("LargeEmpEffectiveFrom", new DateTime(2018, 05, 01)) },
+                { "LargeEmpEffectiveTo", new AttributeData("LargeEmpEffectiveTo", null) },
             };
         }
 

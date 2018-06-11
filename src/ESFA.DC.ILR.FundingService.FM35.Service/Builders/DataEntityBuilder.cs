@@ -98,16 +98,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
             {
                 IDataEntity learnerEmploymentStatusDataEntity = LearnerEmploymentStatusEntity(employmentStatus);
 
-                var largeEmployers = _referenceDataCache.LargeEmployers
-                    .Where(k => k.Key == employmentStatus.EmpIdNullable).Select(v => v.Value).Single();
-
-                foreach (var lemp in largeEmployers)
-                {
-                    IDataEntity largeEmployersDataEntity = LargeEmployersEntity(lemp);
-
-                    learnerEmploymentStatusDataEntity.AddChild(largeEmployersDataEntity);
-                }
-
                 learnerDataEntity.AddChild(learnerEmploymentStatusDataEntity);
             }
 
@@ -122,6 +112,16 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                    _attributeBuilder.BuildLearnerEmploymentStatusAttributes(employmentStatus.EmpIdNullable, employmentStatus.DateEmpStatApp),
             };
 
+            var largeEmployers = _referenceDataCache.LargeEmployers
+                   .Where(k => k.Key == employmentStatus.EmpIdNullable).Select(v => v.Value).Single();
+
+            foreach (var lemp in largeEmployers)
+            {
+                IDataEntity largeEmployersDataEntity = LargeEmployersEntity(lemp);
+
+                learnerEmploymentStatusDataEntity.AddChild(largeEmployersDataEntity);
+            }
+
             return learnerEmploymentStatusDataEntity;
         }
 
@@ -130,7 +130,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
             IDataEntity largeEmployersDataEntity = new DataEntity(EntityLargeEmployerReferenceData)
             {
                 Attributes =
-                        _attributeBuilder.BuildLLargeEmployerReferenceDataAttributes(largeEmployer.EffectiveFrom, largeEmployer.EffectiveFrom),
+                        _attributeBuilder.BuildLLargeEmployerReferenceDataAttributes(largeEmployer.EffectiveFrom, largeEmployer.EffectiveTo),
             };
 
             return largeEmployersDataEntity;
