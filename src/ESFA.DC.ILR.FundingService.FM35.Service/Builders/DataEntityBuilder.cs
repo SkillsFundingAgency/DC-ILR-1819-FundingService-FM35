@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Model;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Model;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
+using ESFA.DC.ILR.FundingService.FM35.Service.Models;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.OPA.Model;
 using ESFA.DC.OPA.Model.Interface;
@@ -156,6 +158,87 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
             return sfaPostcodeDisadvantgeEntity;
         }
 
+        protected internal IDataEntity LearningDeliveryEntity(ILearningDelivery learningDelivery, LARSLearningDelivery larsLearningDelivery, LARSFrameworkAims larsFrameworkAims)
+        {
+            var learningDeliveryFAMS = PivotLearningDeliveryFAMS(learningDelivery);
+
+            IDataEntity learningDeliveryDataEntity = new DataEntity(EntityLearningDelivery)
+            {
+                Attributes =
+                    _attributeBuilder.BuildLearningDeliveryAttributes(
+                        learningDelivery.AchDateNullable,
+                        learningDelivery.AddHoursNullable,
+                        learningDelivery.AimSeqNumber,
+                        learningDelivery.AimType,
+                        learningDelivery.CompStatus,
+                        learningDelivery.EmpOutcomeNullable,
+                        larsLearningDelivery.EnglandFEHEStatus,
+                        larsLearningDelivery.EnglPrscID,
+                        learningDelivery.FworkCodeNullable,
+                        larsLearningDelivery.FrameworkCommonComponent,
+                        larsFrameworkAims.FrameworkComponentType,
+                        learningDelivery.LearnActEndDateNullable,
+                        learningDelivery.LearnPlanEndDate,
+                        learningDelivery.LearnStartDate,
+                        learningDeliveryFAMS.EEF,
+                        learningDeliveryFAMS.LDM1,
+                        learningDeliveryFAMS.LDM2,
+                        learningDeliveryFAMS.LDM3,
+                        learningDeliveryFAMS.LDM4,
+                        learningDeliveryFAMS.FFI,
+                        learningDeliveryFAMS.RES,
+                        learningDelivery.OrigLearnStartDateNullable,
+                        learningDelivery.OtherFundAdjNullable,
+                        learningDelivery.OutcomeNullable,
+                        learningDelivery.PriorLearnFundAdjNullable,
+                        learningDelivery.ProgTypeNullable,
+                        learningDelivery.PwayCodeNullable)
+            };
+
+            return learningDeliveryDataEntity;
+        }
+
         #endregion
+
+        protected internal LearningDeliveryFAMPivot PivotLearningDeliveryFAMS(ILearningDelivery learningDelivery)
+        {
+            var ldmKey = 1;
+            var famDictionary = learningDelivery.LearningDeliveryFAMs?.Where(w => w.LearnDelFAMType.Contains("LDM"))
+                    .ToDictionary(k => "LDM" + ldmKey++, ldf => ToNullableInt(ldf.LearnDelFAMCode));
+
+            famDictionary.Add(
+                "EEF",
+                ToNullableInt(learningDelivery.LearningDeliveryFAMs?.Where(w => w.LearnDelFAMType.Contains("EEF")).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()));
+            famDictionary.Add(
+                "FFI",
+                ToNullableInt(learningDelivery.LearningDeliveryFAMs?.Where(w => w.LearnDelFAMType.Contains("FFI")).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()));
+            famDictionary.Add(
+                "RES",
+                ToNullableInt(learningDelivery.LearningDeliveryFAMs?.Where(w => w.LearnDelFAMType.Contains("RES")).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()));
+
+            var pivot = new LearningDeliveryFAMPivot
+            {
+                EEF = famDictionary.Where(k => k.Key == "EEF").Select(v => v.Value).FirstOrDefault(),
+                FFI = famDictionary.Where(k => k.Key == "FFI").Select(v => v.Value).FirstOrDefault(),
+                RES = famDictionary.Where(k => k.Key == "RES").Select(v => v.Value).FirstOrDefault(),
+                LDM1 = famDictionary.Where(k => k.Key == "LDM1").Select(v => v.Value).FirstOrDefault(),
+                LDM2 = famDictionary.Where(k => k.Key == "LDM2").Select(v => v.Value).FirstOrDefault(),
+                LDM3 = famDictionary.Where(k => k.Key == "LDM3").Select(v => v.Value).FirstOrDefault(),
+                LDM4 = famDictionary.Where(k => k.Key == "LDM4").Select(v => v.Value).FirstOrDefault(),
+            };
+
+            return pivot;
+        }
+
+        private static int? ToNullableInt(string stringValue)
+        {
+            int i;
+            if (int.TryParse(stringValue, out i))
+            {
+                return i;
+            }
+
+            return null;
+        }
     }
 }
