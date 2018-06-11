@@ -348,7 +348,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             var learnerEntity = SetupLearnerEntity();
 
             //ASSERT
-            learnerEntity.Children.Count.Should().Be(1);
+            learnerEntity.Children.Count.Should().Be(2);
         }
 
         /// <summary>
@@ -681,6 +681,138 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
 
         #endregion
 
+        #region SFA PostcodeDisadvantage Entity
+
+        /// <summary>
+        /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "SFAPostcodeDisadvantage - Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_SFAPostcodeDisadvantage_Exists()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var sfaPostcodeDisadvantageEntity = SetupSFAPostcodeDisadvantageEntity();
+
+            //ASSERT
+            sfaPostcodeDisadvantageEntity.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "SFAPostcodeDisadvantage - Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_SFAPostcodeDisadvantage_EntityNameCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var sfaPostcodeDisadvantageEntity = SetupSFAPostcodeDisadvantageEntity();
+
+            //ASSERT
+            sfaPostcodeDisadvantageEntity.EntityName.Should().Be("SFA_PostcodeDisadvantage");
+        }
+
+        /// <summary>
+        /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "SFAPostcodeDisadvantage - IsGlobal Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_SFAPostcodeDisadvantage_IsGlobal()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var sfaPostcodeDisadvantageEntity = SetupSFAPostcodeDisadvantageEntity();
+
+            //ASSERT
+            sfaPostcodeDisadvantageEntity.IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "SFAPostcodeDisadvantage - Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_SFAPostcodeDisadvantage_ChildrenCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var sfaPostcodeDisadvantageEntity = SetupSFAPostcodeDisadvantageEntity();
+
+            //ASSERT
+            sfaPostcodeDisadvantageEntity.Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "SFAPostcodeDisadvantage - Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_SFAPostcodeDisadvantage_ParentCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var sfaPostcodeDisadvantageEntity = SetupSFAPostcodeDisadvantageEntity();
+
+            //ASSERT
+            sfaPostcodeDisadvantageEntity.Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "SFAPostcodeDisadvantage - Attributes Exist"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_SFAPostcodeDisadvantage_AttributesExist()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var sfaPostcodeDisadvantageEntity = SetupSFAPostcodeDisadvantageEntity();
+
+            //ASSERT
+            sfaPostcodeDisadvantageEntity.Attributes.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "SFAPostcodeDisadvantage - Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_SFAPostcodeDisadvantage_AttributesCountCorrect()
+        {
+            //ARRANGE
+            // Use Test Helpers
+
+            //ACT
+            var sfaPostcodeDisadvantageEntity = SetupSFAPostcodeDisadvantageEntity();
+
+            //ASSERT
+            sfaPostcodeDisadvantageEntity.Attributes.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "SFAPostcodeDisadvantage - Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_SFAPostcodeDisadvantage_AttributesCorrect()
+        {
+            //ARRANGE
+            var expectedAttributes = ExpectedSFAPostcodeDisadvantageAttributes();
+
+            //ACT
+            var sfaPostcodeDisadvantageEntity = SetupSFAPostcodeDisadvantageEntity();
+
+            //ASSERT
+            sfaPostcodeDisadvantageEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
+        }
+
+        #endregion
+
         #region Test Helpers
 
         private IDataEntity SetupGlobalEntity()
@@ -734,11 +866,39 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             return learnerBuilder.LargeEmployersEntity(lEmp.Single());
         }
 
+        private IDataEntity SetupSFAPostcodeDisadvantageEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            var sfaPostcode = referenceDataCacheMock.SfaDisadvantage
+                   .Where(k => k.Key == TestLearner.PostcodePrior)
+                   .Select(v => v.Value).Single();
+
+            return learnerBuilder.SFAPostcodeDisadvantageEntity(sfaPostcode.Single());
+        }
+
         private IReferenceDataCache SetupReferenceDataMock()
         {
             return Mock.Of<IReferenceDataCache>(l =>
                 l.LARSCurrentVersion == "Version_005"
                 && l.PostcodeCurrentVersion == "Version_003"
+                && l.SfaDisadvantage == new Dictionary<string, IEnumerable<SfaDisadvantage>>
+                {
+                    {
+                        "CV1 2WT", new List<SfaDisadvantage>
+                        {
+                            new SfaDisadvantage
+                            {
+                                Postcode = "CV1 2WT",
+                                Uplift = 1.54m,
+                                EffectiveFrom = new DateTime(2000, 01, 01),
+                                EffectiveTo = null,
+                            }
+                        }
+                    }
+                }
                 && l.OrgVersion == "Version_002"
                 && l.OrgFunding == new Dictionary<int, IEnumerable<OrgFunding>>
                 {
@@ -818,6 +978,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             LearnRefNumber = "Learner1",
             DateOfBirthSpecified = true,
             DateOfBirth = new DateTime(2000, 01, 01),
+            PostcodePrior = "CV1 2WT",
             LearnerEmploymentStatus = new MessageLearnerLearnerEmploymentStatus[]
             {
                 new MessageLearnerLearnerEmploymentStatus
@@ -878,6 +1039,16 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             {
                 { "LargeEmpEffectiveFrom", new AttributeData("LargeEmpEffectiveFrom", new DateTime(2018, 05, 01)) },
                 { "LargeEmpEffectiveTo", new AttributeData("LargeEmpEffectiveTo", null) },
+            };
+        }
+
+        private IDictionary<string, IAttributeData> ExpectedSFAPostcodeDisadvantageAttributes()
+        {
+            return new Dictionary<string, IAttributeData>
+            {
+                { "DisUplift", new AttributeData("DisUplift",  1.54m) },
+                { "DisUpEffectiveFrom", new AttributeData("DisUpEffectiveFrom", new DateTime(2000, 01, 01)) },
+                { "DisUpEffectiveTo", new AttributeData("DisUpEffectiveTo", null) },
             };
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Model;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Model;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.OPA.Model;
@@ -20,6 +21,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
         private const string EntityLearner = "Learner";
         private const string EntityLearnerEmploymentStatus = "LearnerEmploymentStatus";
         private const string EntityLargeEmployerReferenceData = "LargeEmployerReferenceData";
+        private const string EntitySFAPostcodeDisadvantageEntity = "SFA_PostcodeDisadvantage";
         private const string EntityLearningDelivery = "LearningDelivery";
         private const string EntityLearningDeliveryFAM = "LearningDeliveryFAM";
         private const string EntityLearningDeliverySFA_PostcodeAreaCost = "SFA_PostcodeAreaCost";
@@ -101,6 +103,13 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                 learnerDataEntity.AddChild(learnerEmploymentStatusDataEntity);
             }
 
+            var sfaPostcodeDisadvantageData = _referenceDataCache.SfaDisadvantage.Where(k => k.Key == learner.PostcodePrior).Select(v => v.Value).Single();
+
+            foreach (var postcode in sfaPostcodeDisadvantageData)
+            {
+                learnerDataEntity.AddChild(SFAPostcodeDisadvantageEntity(postcode));
+            }
+
             return learnerDataEntity;
         }
 
@@ -134,6 +143,17 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
             };
 
             return largeEmployersDataEntity;
+        }
+
+        protected internal IDataEntity SFAPostcodeDisadvantageEntity(SfaDisadvantage postcodeData)
+        {
+            IDataEntity sfaPostcodeDisadvantgeEntity = new DataEntity(EntitySFAPostcodeDisadvantageEntity)
+            {
+                Attributes =
+                        _attributeBuilder.BuildSFAPostcodeDisadvantageAttributes(postcodeData.Uplift, postcodeData.EffectiveFrom, postcodeData.EffectiveTo),
+            };
+
+            return sfaPostcodeDisadvantgeEntity;
         }
 
         #endregion
