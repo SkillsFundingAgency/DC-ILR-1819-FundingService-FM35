@@ -27,11 +27,10 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
         {
             var learners = _fundingContext.ValidLearners;
             IList<ILearner> learnerList = new List<ILearner>();
-            HashSet<string> postcodesList = new HashSet<string>();
+            HashSet<string> postcodesTempList = new HashSet<string>();
             HashSet<string> learnAimRefsList = new HashSet<string>();
             HashSet<int> OrgUKPRNList = new HashSet<int>();
             HashSet<int?> lEmpIdTempList = new HashSet<int?>();
-            bool empIDAdded = false;
             bool learningDeliveryAdded = false;
 
             OrgUKPRNList.Add(_fundingContext.UKPRN);
@@ -42,6 +41,8 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
                 {
                     lEmpIdTempList.Add(empStatus.EmpIdNullable);
                 }
+
+                postcodesTempList.Add(learner.PostcodePrior);
 
                 foreach (var learningDelivery in learner.LearningDeliveries.Where(ld => ld.FundModel == 35).ToList())
                 {
@@ -57,7 +58,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
 
                     if (learningDeliveryAdded)
                     {
-                        postcodesList.Add(learningDelivery.DelLocPostCode);
+                        postcodesTempList.Add(learningDelivery.DelLocPostCode);
                         learnAimRefsList.Add(learningDelivery.LearnAimRef);
                     }
                 }
@@ -65,9 +66,10 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
                 learningDeliveryAdded = false;
             }
 
-            var empIdList = lEmpIdTempList.Where(x => x != null).Select(v => (int)v.Value).ToList();
+            var empIdList = lEmpIdTempList.Where(x => x != null).Select(v => (int)v.Value).Distinct().ToList();
+            var postcodesList = postcodesTempList.Select(p => p).Distinct().ToList();
 
-            _referenceDataCachePopulationService.Populate(learnAimRefsList.ToList(), postcodesList.ToList(), OrgUKPRNList.ToList(), empIdList);
+            _referenceDataCachePopulationService.Populate(learnAimRefsList.ToList(), postcodesList, OrgUKPRNList.ToList(), empIdList);
 
             var internalDataCache = (InternalDataCache)_internalDataCache;
             internalDataCache.UKPRN = _fundingContext.UKPRN;
