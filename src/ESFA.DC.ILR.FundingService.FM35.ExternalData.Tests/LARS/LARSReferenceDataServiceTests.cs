@@ -258,7 +258,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
            {
                LearnAimRef = "123456",
                CategoryRef = 300,
-               EffectiveFromFrom = DateTime.Parse("2000-01-01"),
+               EffectiveFrom = DateTime.Parse("2000-01-01"),
                EffectiveTo = null,
            };
 

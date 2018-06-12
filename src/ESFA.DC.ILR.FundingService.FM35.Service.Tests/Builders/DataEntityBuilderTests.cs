@@ -22,6 +22,1776 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
 {
     public class DataEntityBuilderTests
     {
+        #region Entity Builder
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Global Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Global_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+
+            // ASSERT
+            Entity(dataEntity).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Global Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Global_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+
+            // ASSERT
+            Entity(dataEntity).EntityName.Should().BeEquivalentTo("global");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Global IsGlobal True"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Global_IsGlobalTrue()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+
+            // ASSERT
+            Entity(dataEntity).IsGlobal.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Global Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Global_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+
+            // ASSERT
+            Entity(dataEntity).Children.Count.Should().Be(2);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Global Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Global_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+
+            // ASSERT
+            Entity(dataEntity).Children.Select(c => c.EntityName).Should().BeEquivalentTo("Learner", "OrgFunding");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Global Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Global_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+
+            // ASSERT
+            Entity(dataEntity).Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Global Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Global_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+
+            // ASSERT
+            Entity(dataEntity).Attributes.Count.Should().Be(4);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Global Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Global_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+
+            // ASSERT
+            Entity(dataEntity).Attributes.Should().BeEquivalentTo(ExpectedGlobalAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - OrgFunding Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_OrgFunding_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var orgFundingEntity = dataEntity.Children.Where(e => e.EntityName == "OrgFunding").Single();
+
+            // ASSERT
+            Entity(orgFundingEntity).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - OrgFunding Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_OrgFunding_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var orgFundingEntity = dataEntity.Children.Where(e => e.EntityName == "OrgFunding").Single();
+
+            // ASSERT
+            Entity(orgFundingEntity).EntityName.Should().BeEquivalentTo("OrgFunding");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - OrgFunding IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_OrgFunding_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var orgFundingEntity = dataEntity.Children.Where(e => e.EntityName == "OrgFunding").Single();
+
+            // ASSERT
+            Entity(orgFundingEntity).IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - OrgFunding Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_OrgFunding_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var orgFundingEntity = dataEntity.Children.Where(e => e.EntityName == "OrgFunding").Single();
+
+            // ASSERT
+            Entity(orgFundingEntity).Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - OrgFunding Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_OrgFunding_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var orgFundingEntity = dataEntity.Children.Where(e => e.EntityName == "OrgFunding").Single();
+
+            // ASSERT
+            Entity(orgFundingEntity).Children.Select(c => c.EntityName).Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - OrgFunding Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_OrgFunding_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var orgFundingEntity = dataEntity.Children.Where(e => e.EntityName == "OrgFunding").Single();
+
+            // ASSERT
+            Entity(orgFundingEntity).Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - OrgFunding Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_OrgFunding_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var orgFundingEntity = dataEntity.Children.Where(e => e.EntityName == "OrgFunding").Single();
+
+            // ASSERT
+            Entity(orgFundingEntity).Attributes.Count.Should().Be(5);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - OrgFunding Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_OrgFunding_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var orgFundingEntity = dataEntity.Children.Where(e => e.EntityName == "OrgFunding").Single();
+
+            // ASSERT
+            Entity(orgFundingEntity).Attributes.Should().BeEquivalentTo(ExpectedOrgFundingAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Learner Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Learner_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+
+            // ASSERT
+            Entity(learnerEntity).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Learner Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Learner_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+
+            // ASSERT
+            Entity(learnerEntity).EntityName.Should().BeEquivalentTo("Learner");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Learner IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Learner_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+
+            // ASSERT
+            Entity(learnerEntity).IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Learner Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Learner_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+
+            // ASSERT
+            Entity(learnerEntity).Children.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Learner Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Learner_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+
+            // ASSERT
+            Entity(learnerEntity).Children.Select(c => c.EntityName).Should().BeEquivalentTo("LearningDelivery", "LearnerEmploymentStatus", "SFA_PostcodeDisadvantage");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Learner Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Learner_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+
+            // ASSERT
+            Entity(learnerEntity).Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Learner Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Learner_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+
+            // ASSERT
+            Entity(learnerEntity).Attributes.Count.Should().Be(2);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - Learner Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_Learner_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+
+            // ASSERT
+            Entity(learnerEntity).Attributes.Should().BeEquivalentTo(ExpectedLearnerAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFAPostcodeDisadvantage Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFAPostcodeDisadvantage_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var sfaPostcodeDisadvantageEntity = learnerEntity.Children.Where(e => e.EntityName == "SFA_PostcodeDisadvantage").Single();
+
+            // ASSERT
+            Entity(sfaPostcodeDisadvantageEntity).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFAPostcodeDisadvantage Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFAPostcodeDisadvantage_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var sfaPostcodeDisadvantageEntity = learnerEntity.Children.Where(e => e.EntityName == "SFA_PostcodeDisadvantage").Single();
+
+            // ASSERT
+            Entity(sfaPostcodeDisadvantageEntity).EntityName.Should().BeEquivalentTo("SFA_PostcodeDisadvantage");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFAPostcodeDisadvantage IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFAPostcodeDisadvantage_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var sfaPostcodeDisadvantageEntity = learnerEntity.Children.Where(e => e.EntityName == "SFA_PostcodeDisadvantage").Single();
+
+            // ASSERT
+            Entity(sfaPostcodeDisadvantageEntity).IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFAPostcodeDisadvantage Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFAPostcodeDisadvantage_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var sfaPostcodeDisadvantageEntity = learnerEntity.Children.Where(e => e.EntityName == "SFA_PostcodeDisadvantage").Single();
+
+            // ASSERT
+            Entity(sfaPostcodeDisadvantageEntity).Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFAPostcodeDisadvantage Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFAPostcodeDisadvantage_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var sfaPostcodeDisadvantageEntity = learnerEntity.Children.Where(e => e.EntityName == "SFA_PostcodeDisadvantage").Single();
+
+            // ASSERT
+            Entity(sfaPostcodeDisadvantageEntity).Children.Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFAPostcodeDisadvantage Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFAPostcodeDisadvantage_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var sfaPostcodeDisadvantageEntity = learnerEntity.Children.Where(e => e.EntityName == "SFA_PostcodeDisadvantage").Single();
+
+            // ASSERT
+            Entity(sfaPostcodeDisadvantageEntity).Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFAPostcodeDisadvantage Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFAPostcodeDisadvantage_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var sfaPostcodeDisadvantageEntity = learnerEntity.Children.Where(e => e.EntityName == "SFA_PostcodeDisadvantage").Single();
+
+            // ASSERT
+            Entity(sfaPostcodeDisadvantageEntity).Attributes.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFAPostcodeDisadvantage Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFAPostcodeDisadvantage_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var sfaPostcodeDisadvantageEntity = learnerEntity.Children.Where(e => e.EntityName == "SFA_PostcodeDisadvantage").Single();
+
+            // ASSERT
+            Entity(sfaPostcodeDisadvantageEntity).Attributes.Should().BeEquivalentTo(ExpectedSFAPostcodeDisadvantageAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearnerEmploymentStatus Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearnerEmploymentStatus_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+
+            // ASSERT
+            Entity(learnerEmploymentStatusEntity).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearnerEmploymentStatus Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearnerEmploymentStatus_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+
+            // ASSERT
+            Entity(learnerEmploymentStatusEntity).EntityName.Should().BeEquivalentTo("LearnerEmploymentStatus");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearnerEmploymentStatus IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearnerEmploymentStatus_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+
+            // ASSERT
+            Entity(learnerEmploymentStatusEntity).IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearnerEmploymentStatus Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearnerEmploymentStatus_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+
+            // ASSERT
+            Entity(learnerEmploymentStatusEntity).Children.Count.Should().Be(1);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearnerEmploymentStatus Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearnerEmploymentStatus_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+
+            // ASSERT
+            var expectedEntityNames = new List<string>
+            {
+                "LargeEmployerReferenceData",
+            };
+
+            var actualEntityNames = Entity(learnerEmploymentStatusEntity).Children.Select(c => c.EntityName).ToList();
+
+            expectedEntityNames.Should().BeEquivalentTo(actualEntityNames);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearnerEmploymentStatus Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearnerEmploymentStatus_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+
+            // ASSERT
+            Entity(learnerEmploymentStatusEntity).Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearnerEmploymentStatus Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearnerEmploymentStatus_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+
+            // ASSERT
+            Entity(learnerEmploymentStatusEntity).Attributes.Count.Should().Be(2);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearnerEmploymentStatus Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearnerEmploymentStatus_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+
+            // ASSERT
+            Entity(learnerEmploymentStatusEntity).Attributes.Should().BeEquivalentTo(ExpectedLearnerEmpStatusAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LargeEmployerReferenceData Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LargeEmployerReferenceData_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+            var largeEmployerEntity = learnerEmploymentStatusEntity.Children.Single();
+
+            // ASSERT
+            Entity(largeEmployerEntity).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LargeEmployerReferenceData Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LargeEmployerReferenceData_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+            var largeEmployerEntity = learnerEmploymentStatusEntity.Children.Single();
+
+            // ASSERT
+            Entity(largeEmployerEntity).EntityName.Should().BeEquivalentTo("LargeEmployerReferenceData");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LargeEmployerReferenceData IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LargeEmployerReferenceData_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+            var largeEmployerEntity = learnerEmploymentStatusEntity.Children.Single();
+
+            // ASSERT
+            Entity(largeEmployerEntity).IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LargeEmployerReferenceData Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LargeEmployerReferenceData_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+            var largeEmployerEntity = learnerEmploymentStatusEntity.Children.Single();
+
+            // ASSERT
+            Entity(largeEmployerEntity).Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LargeEmployerReferenceData Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LargeEmployerReferenceData_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+            var largeEmployerEntity = learnerEmploymentStatusEntity.Children.Single();
+
+            // ASSERT
+            Entity(largeEmployerEntity).Children.Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LargeEmployerReferenceData Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LargeEmployerReferenceData_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+            var largeEmployerEntity = learnerEmploymentStatusEntity.Children.Single();
+
+            // ASSERT
+            Entity(largeEmployerEntity).Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LargeEmployerReferenceData Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LargeEmployerReferenceData_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+            var largeEmployerEntity = learnerEmploymentStatusEntity.Children.Single();
+
+            // ASSERT
+            Entity(largeEmployerEntity).Attributes.Count.Should().Be(2);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LargeEmployerReferenceData Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LargeEmployerReferenceData_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learnerEmploymentStatusEntity = learnerEntity.Children.Where(e => e.EntityName == "LearnerEmploymentStatus").Single();
+            var largeEmployerEntity = learnerEmploymentStatusEntity.Children.Single();
+
+            // ASSERT
+            Entity(largeEmployerEntity).Attributes.Should().BeEquivalentTo(ExpectedLargeEmployerAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDelivery Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDelivery_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+
+            // ASSERT
+            Entity(learningDeliveryEntity).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDelivery Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDelivery_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+
+            // ASSERT
+            Entity(learningDeliveryEntity).EntityName.Should().BeEquivalentTo("LearningDelivery");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDelivery IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDelivery_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+
+            // ASSERT
+            Entity(learningDeliveryEntity).IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDelivery Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDelivery_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+
+            // ASSERT
+            Entity(learningDeliveryEntity).Children.Count.Should().Be(9);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDelivery Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDelivery_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+
+            // ASSERT
+            var expectedEntityNames = new List<string>
+            {
+                "LearningDeliveryFAM",
+                "LearningDeliveryFAM",
+                "LearningDeliveryFAM",
+                "LearningDeliveryFAM",
+                "LearningDeliveryFAM",
+                "SFA_PostcodeAreaCost",
+                "LearningDeliveryLARS_Funding",
+                "LearningDeliveryLARSCategory",
+                "LearningDeliveryAnnualValue",
+            };
+
+            var actualEntityNames = Entity(learningDeliveryEntity).Children.Select(c => c.EntityName).ToList();
+
+            expectedEntityNames.Should().BeEquivalentTo(actualEntityNames);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDelivery Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDelivery_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+
+            // ASSERT
+            Entity(learningDeliveryEntity).Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDelivery Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDelivery_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+
+            // ASSERT
+            Entity(learningDeliveryEntity).Attributes.Count.Should().Be(27);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDelivery Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDelivery_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+
+            // ASSERT
+            Entity(learningDeliveryEntity).Attributes.Should().BeEquivalentTo(ExpectedLearningDeliveryAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryFAM Entities Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryFAM_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryFAM = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryFAM");
+
+            // ASSERT
+            Entities(learningDeliveryFAM).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryFAM Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryFAM_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryFAM = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryFAM");
+
+            // ASSERT
+            Entities(learningDeliveryFAM).First().EntityName.Should().BeEquivalentTo("LearningDeliveryFAM");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryFAM IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryFAM_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryFAM = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryFAM");
+
+            // ASSERT
+            Entities(learningDeliveryFAM).First().IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryFAM Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryFAM_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryFAM = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryFAM");
+
+            // ASSERT
+            Entities(learningDeliveryFAM).First().Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryFAM Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryFAM_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryFAM = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryFAM");
+
+            // ASSERT
+            Entities(learningDeliveryFAM).First().Children.Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryFAM Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryFAM_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryFAM = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryFAM");
+
+            // ASSERT
+            Entities(learningDeliveryFAM).First().Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryFAM Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryFAM_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryFAM = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryFAM");
+
+            // ASSERT
+            Entities(learningDeliveryFAM).First().Attributes.Count.Should().Be(4);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryFAM Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryFAM_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryFAM = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryFAM");
+
+            // ASSERT
+            Entities(learningDeliveryFAM).First().Attributes.Should().BeEquivalentTo(ExpectedLearningDeliveryFAMAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFA_PostcodeAreaCost Entities Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFA_PostcodeAreaCost_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var sfaPostcodeAreaCost = learningDeliveryEntity.Children.Where(c => c.EntityName == "SFA_PostcodeAreaCost");
+
+            // ASSERT
+            Entities(sfaPostcodeAreaCost).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFA_PostcodeAreaCost Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFA_PostcodeAreaCost_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var sfaPostcodeAreaCost = learningDeliveryEntity.Children.Where(c => c.EntityName == "SFA_PostcodeAreaCost");
+
+            // ASSERT
+            Entities(sfaPostcodeAreaCost).First().EntityName.Should().BeEquivalentTo("SFA_PostcodeAreaCost");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFA_PostcodeAreaCost IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFA_PostcodeAreaCost_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var sfaPostcodeAreaCost = learningDeliveryEntity.Children.Where(c => c.EntityName == "SFA_PostcodeAreaCost");
+
+            // ASSERT
+            Entities(sfaPostcodeAreaCost).First().IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFA_PostcodeAreaCost Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFA_PostcodeAreaCost_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var sfaPostcodeAreaCost = learningDeliveryEntity.Children.Where(c => c.EntityName == "SFA_PostcodeAreaCost");
+
+            // ASSERT
+            Entities(sfaPostcodeAreaCost).First().Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFA_PostcodeAreaCost Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFA_PostcodeAreaCost_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var sfaPostcodeAreaCost = learningDeliveryEntity.Children.Where(c => c.EntityName == "SFA_PostcodeAreaCost");
+
+            // ASSERT
+            Entities(sfaPostcodeAreaCost).First().Children.Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFA_PostcodeAreaCost Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFA_PostcodeAreaCost_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var sfaPostcodeAreaCost = learningDeliveryEntity.Children.Where(c => c.EntityName == "SFA_PostcodeAreaCost");
+
+            // ASSERT
+            Entities(sfaPostcodeAreaCost).First().Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFA_PostcodeAreaCost Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFA_PostcodeAreaCost_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var sfaPostcodeAreaCost = learningDeliveryEntity.Children.Where(c => c.EntityName == "SFA_PostcodeAreaCost");
+
+            // ASSERT
+            Entities(sfaPostcodeAreaCost).First().Attributes.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - SFA_PostcodeAreaCost Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_SFA_PostcodeAreaCost_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var sfaPostcodeAreaCost = learningDeliveryEntity.Children.Where(c => c.EntityName == "SFA_PostcodeAreaCost");
+
+            // ASSERT
+            Entities(sfaPostcodeAreaCost).First().Attributes.Should().BeEquivalentTo(ExpectedLearningDeliverySFAPostcodeAreaCostAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARS_Funding Entities Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARS_Funding_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSFunding = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARS_Funding");
+
+            // ASSERT
+            Entities(learningDeliveryLARSFunding).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARS_Funding Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARS_Funding_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSFunding = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARS_Funding");
+
+            // ASSERT
+            Entities(learningDeliveryLARSFunding).First().EntityName.Should().BeEquivalentTo("LearningDeliveryLARS_Funding");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARS_Funding IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARS_Funding_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSFunding = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARS_Funding");
+
+            // ASSERT
+            Entities(learningDeliveryLARSFunding).First().IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARS_Funding Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARS_Funding_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSFunding = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARS_Funding");
+
+            // ASSERT
+            Entities(learningDeliveryLARSFunding).First().Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARS_Funding Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARS_Funding_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSFunding = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARS_Funding");
+
+            // ASSERT
+            Entities(learningDeliveryLARSFunding).First().Children.Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARS_Funding Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARS_Funding_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSFunding = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARS_Funding");
+
+            // ASSERT
+            Entities(learningDeliveryLARSFunding).First().Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARS_Funding Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARS_Funding_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSFunding = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARS_Funding");
+
+            // ASSERT
+            Entities(learningDeliveryLARSFunding).First().Attributes.Count.Should().Be(6);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARS_Funding Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARS_Funding_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSFunding = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARS_Funding");
+
+            // ASSERT
+            Entities(learningDeliveryLARSFunding).First().Attributes.Should().BeEquivalentTo(ExpectedLearningDeliveryLARSFundingAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryAnnualValue Entities Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryAnnualValue_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSAnnualValue = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryAnnualValue");
+
+            // ASSERT
+            Entities(learningDeliveryLARSAnnualValue).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryAnnualValue Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryAnnualValue_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSAnnualValue = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryAnnualValue");
+
+            // ASSERT
+            Entities(learningDeliveryLARSAnnualValue).First().EntityName.Should().BeEquivalentTo("LearningDeliveryAnnualValue");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryAnnualValue IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryAnnualValue_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSAnnualValue = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryAnnualValue");
+
+            // ASSERT
+            Entities(learningDeliveryLARSAnnualValue).First().IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryAnnualValue Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryAnnualValue_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSAnnualValue = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryAnnualValue");
+
+            // ASSERT
+            Entities(learningDeliveryLARSAnnualValue).First().Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryAnnualValue Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryAnnualValue_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSAnnualValue = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryAnnualValue");
+
+            // ASSERT
+            Entities(learningDeliveryLARSAnnualValue).First().Children.Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryAnnualValue Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryAnnualValue_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSAnnualValue = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryAnnualValue");
+
+            // ASSERT
+            Entities(learningDeliveryLARSAnnualValue).First().Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryAnnualValue Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryAnnualValue_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSAnnualValue = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryAnnualValue");
+
+            // ASSERT
+            Entities(learningDeliveryLARSAnnualValue).First().Attributes.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryAnnualValue Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryAnnualValue_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSAnnualValue = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryAnnualValue");
+
+            // ASSERT
+            Entities(learningDeliveryLARSAnnualValue).First().Attributes.Should().BeEquivalentTo(ExpectedLearningDeliveryLARSAnnualValueAttributes());
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARSCategory Entities Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARSCategory_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSCategory = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARSCategory");
+
+            // ASSERT
+            Entities(learningDeliveryLARSCategory).Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARSCategory Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARSCategory_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSCategory = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARSCategory");
+
+            // ASSERT
+            Entities(learningDeliveryLARSCategory).First().EntityName.Should().BeEquivalentTo("LearningDeliveryLARSCategory");
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARSCategory IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARSCategory_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSCategory = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARSCategory");
+
+            // ASSERT
+            Entities(learningDeliveryLARSCategory).First().IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARSCategory Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARSCategory_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSCategory = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARSCategory");
+
+            // ASSERT
+            Entities(learningDeliveryLARSCategory).First().Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARSCategory Children Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARSCategory_ChildrenCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSCategory = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARSCategory");
+
+            // ASSERT
+            Entities(learningDeliveryLARSCategory).First().Children.Should().BeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARSCategory Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARSCategory_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSCategory = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARSCategory");
+
+            // ASSERT
+            Entities(learningDeliveryLARSCategory).First().Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARSCategory Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARSCategory_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSCategory = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARSCategory");
+
+            // ASSERT
+            Entities(learningDeliveryLARSCategory).First().Attributes.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return Entity from EntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "EntityBuilder - LearningDeliveryLARSCategory Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void EntityBuilder_LearningDeliveryLARSCategory_AttributesCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var dataEntity = SetupDataEntity().First();
+            var learnerEntity = dataEntity.Children.Where(e => e.EntityName == "Learner").Single();
+            var learningDeliveryEntity = learnerEntity.Children.Where(e => e.EntityName == "LearningDelivery").Single();
+            var learningDeliveryLARSCategory = learningDeliveryEntity.Children.Where(c => c.EntityName == "LearningDeliveryLARSCategory");
+
+            // ASSERT
+            Entities(learningDeliveryLARSCategory).First().Attributes.Should().BeEquivalentTo(ExpectedLearningDeliveryLARSCategoryAttributes());
+        }
+
+        #endregion
+
         #region Global Entity
 
         /// <summary>
@@ -922,7 +2692,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             var learningDeliveryEntity = SetupLearningDeliveryEntity();
 
             // ASSERT
-            learningDeliveryEntity.Children.Count.Should().Be(0);
+            learningDeliveryEntity.Children.Count.Should().Be(9);
         }
 
         /// <summary>
@@ -991,7 +2761,682 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
 
         #endregion
 
+        #region LearningDeliveryFAM Entity
+
+        /// <summary>
+        /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryFAM - Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryFAM_Exists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryFAMEntity = SetupLearningDeliveryFAMEntity();
+
+            // ASSERT
+            learningDeliveryFAMEntity.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryFAM - Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryFAM_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryFAMEntity = SetupLearningDeliveryFAMEntity();
+
+            // ASSERT
+            learningDeliveryFAMEntity.EntityName.Should().Be("LearningDeliveryFAM");
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryFAM - IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryFAM_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryFAMEntity = SetupLearningDeliveryFAMEntity();
+
+            // ASSERT
+            learningDeliveryFAMEntity.IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryFAM - Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryFAM_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryFAMEntity = SetupLearningDeliveryFAMEntity();
+
+            // ASSERT
+            learningDeliveryFAMEntity.Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryFAM - Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryFAM_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryFAMEntity = SetupLearningDeliveryFAMEntity();
+
+            // ASSERT
+            learningDeliveryFAMEntity.Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryFAM - Attributes Exist"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryFAM_AttributesExist()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryFAMEntity = SetupLearningDeliveryFAMEntity();
+
+            // ASSERT
+            learningDeliveryFAMEntity.Attributes.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryFAM - Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryFAM_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryFAMEntity = SetupLearningDeliveryFAMEntity();
+
+            // ASSERT
+            learningDeliveryFAMEntity.Attributes.Count.Should().Be(4);
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryFAM - Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryFAM_AttributesCorrect()
+        {
+            // ARRANGE
+            var expectedLearningDeliveryFAM = ExpectedLearningDeliveryFAMAttributes();
+
+            // ACT
+            var learningDeliveryFAMEntity = SetupLearningDeliveryFAMEntity();
+
+            // ASSERT
+            learningDeliveryFAMEntity.Attributes.Should().BeEquivalentTo(expectedLearningDeliveryFAM);
+        }
+
+        #endregion
+
+        #region LearningDeliverySFAPostcodeAreaCost Entity
+
+        /// <summary>
+        /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliverySFAPostcodeAreaCost - Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliverySFAPostcodeAreaCost_EntityExists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliverySFAPostcodeAreaCostEntity = SetupLearningDeliverySFAPostcodeAreaCostEntity();
+
+            // ASSERT
+            learningDeliverySFAPostcodeAreaCostEntity.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliverySFAPostcodeAreaCost - Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliverySFAPostcodeAreaCost_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliverySFAPostcodeAreaCostEntity = SetupLearningDeliverySFAPostcodeAreaCostEntity();
+
+            // ASSERT
+            learningDeliverySFAPostcodeAreaCostEntity.EntityName.Should().Be("SFA_PostcodeAreaCost");
+        }
+
+        /// <summary>
+        /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliverySFAPostcodeAreaCost - IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliverySFAPostcodeAreaCost_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliverySFAPostcodeAreaCostEntity = SetupLearningDeliverySFAPostcodeAreaCostEntity();
+
+            // ASSERT
+            learningDeliverySFAPostcodeAreaCostEntity.IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliverySFAPostcodeAreaCost - Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliverySFAPostcodeAreaCost_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliverySFAPostcodeAreaCostEntity = SetupLearningDeliverySFAPostcodeAreaCostEntity();
+
+            // ASSERT
+            learningDeliverySFAPostcodeAreaCostEntity.Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliverySFAPostcodeAreaCost - Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliverySFAPostcodeAreaCost_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliverySFAPostcodeAreaCostEntity = SetupLearningDeliverySFAPostcodeAreaCostEntity();
+
+            // ASSERT
+            learningDeliverySFAPostcodeAreaCostEntity.Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliverySFAPostcodeAreaCost - Attributes Exist"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliverySFAPostcodeAreaCost_AttributesExist()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliverySFAPostcodeAreaCostEntity = SetupLearningDeliverySFAPostcodeAreaCostEntity();
+
+            // ASSERT
+            learningDeliverySFAPostcodeAreaCostEntity.Attributes.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliverySFAPostcodeAreaCost - Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliverySFAPostcodeAreaCost_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliverySFAPostcodeAreaCostEntity = SetupLearningDeliverySFAPostcodeAreaCostEntity();
+
+            // ASSERT
+            learningDeliverySFAPostcodeAreaCostEntity.Attributes.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliverySFAPostcodeAreaCost - Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliverySFAPostcodeAreaCost_AttributesCorrect()
+        {
+            // ARRANGE
+            var expectedLearningDeliverySFAPostcodeAreaCost = ExpectedLearningDeliverySFAPostcodeAreaCostAttributes();
+
+            // ACT
+            var learningDeliverySFAPostcodeAreaCostEntity = SetupLearningDeliverySFAPostcodeAreaCostEntity();
+
+            // ASSERT
+            learningDeliverySFAPostcodeAreaCostEntity.Attributes.Should().BeEquivalentTo(expectedLearningDeliverySFAPostcodeAreaCost);
+        }
+
+        #endregion
+
+        #region LearningDeliveryLARSFunding Entity
+
+        /// <summary>
+        /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSFunding - Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSFunding_EntityExists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSFundingEntity = SetupLearningDeliveryLARSFundingEntity();
+
+            // ASSERT
+            learningDeliveryLARSFundingEntity.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSFunding - Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSFunding_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSFundingEntity = SetupLearningDeliveryLARSFundingEntity();
+
+            // ASSERT
+            learningDeliveryLARSFundingEntity.EntityName.Should().Be("LearningDeliveryLARS_Funding");
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSFunding - IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSFunding_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSFundingEntity = SetupLearningDeliveryLARSFundingEntity();
+
+            // ASSERT
+            learningDeliveryLARSFundingEntity.IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSFunding - Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSFunding_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSFundingEntity = SetupLearningDeliveryLARSFundingEntity();
+
+            // ASSERT
+            learningDeliveryLARSFundingEntity.Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSFunding - Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSFunding_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSFundingEntity = SetupLearningDeliveryLARSFundingEntity();
+
+            // ASSERT
+            learningDeliveryLARSFundingEntity.Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSFunding - Attributes Exist"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSFunding_AttributesExist()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSFundingEntity = SetupLearningDeliveryLARSFundingEntity();
+
+            // ASSERT
+            learningDeliveryLARSFundingEntity.Attributes.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSFunding - Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSFunding_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSFundingEntity = SetupLearningDeliveryLARSFundingEntity();
+
+            // ASSERT
+            learningDeliveryLARSFundingEntity.Attributes.Count.Should().Be(6);
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSFunding - Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSFunding_AttributesCorrect()
+        {
+            // ARRANGE
+            var expectedLearningDeliveryLARSFunding = ExpectedLearningDeliveryLARSFundingAttributes();
+
+            // ACT
+            var learningDeliveryLARSFundingEntity = SetupLearningDeliveryLARSFundingEntity();
+
+            // ASSERT
+            learningDeliveryLARSFundingEntity.Attributes.Should().BeEquivalentTo(expectedLearningDeliveryLARSFunding);
+        }
+
+        #endregion
+
+        #region LearningDeliveryLARSAnnualValue Entity
+
+        /// <summary>
+        /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSAnnualValue - Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSAnnualValue_EntityExists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSAnnualValueEntity = SetupLearningDeliveryLARSAnnualValueEntity();
+
+            // ASSERT
+            learningDeliveryLARSAnnualValueEntity.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSAnnualValue - Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSAnnualValue_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSAnnualValueEntity = SetupLearningDeliveryLARSAnnualValueEntity();
+
+            // ASSERT
+            learningDeliveryLARSAnnualValueEntity.EntityName.Should().Be("LearningDeliveryAnnualValue");
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSAnnualValue - IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSAnnualValue_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSAnnualValueEntity = SetupLearningDeliveryLARSAnnualValueEntity();
+
+            // ASSERT
+            learningDeliveryLARSAnnualValueEntity.IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSAnnualValue - Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSAnnualValue_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSAnnualValueEntity = SetupLearningDeliveryLARSAnnualValueEntity();
+
+            // ASSERT
+            learningDeliveryLARSAnnualValueEntity.Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSAnnualValue - Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSAnnualValue_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSAnnualValueEntity = SetupLearningDeliveryLARSAnnualValueEntity();
+
+            // ASSERT
+            learningDeliveryLARSAnnualValueEntity.Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSAnnualValue - Attributes Exist"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSAnnualValue_AttributesExist()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSAnnualValueEntity = SetupLearningDeliveryLARSAnnualValueEntity();
+
+            // ASSERT
+            learningDeliveryLARSAnnualValueEntity.Attributes.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSAnnualValue - Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSAnnualValue_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSAnnualValueEntity = SetupLearningDeliveryLARSAnnualValueEntity();
+
+            // ASSERT
+            learningDeliveryLARSAnnualValueEntity.Attributes.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSAnnualValue - Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSAnnualValue_AttributesCorrect()
+        {
+            // ARRANGE
+            var expectedAttributes = ExpectedLearningDeliveryLARSAnnualValueAttributes();
+
+            // ACT
+            var learningDeliveryLARSAnnualValueEntity = SetupLearningDeliveryLARSAnnualValueEntity();
+
+            // ASSERT
+            learningDeliveryLARSAnnualValueEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
+        }
+
+        #endregion
+
+        #region LearningDeliveryLARSCategory Entity
+
+        /// <summary>
+        /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSCategory - Entity Exists"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSCategory_EntityExists()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSCategoryEntity = SetupLearningDeliveryLARSCategoryEntity();
+
+            // ASSERT
+            learningDeliveryLARSCategoryEntity.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
+        /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSCategory - Entity Name Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSCategory_EntityNameCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSCategoryEntity = SetupLearningDeliveryLARSCategoryEntity();
+
+            // ASSERT
+            learningDeliveryLARSCategoryEntity.EntityName.Should().Be("LearningDeliveryLARSCategory");
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSCategory - IsGlobal False"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSCategory_IsGlobalFalse()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSCategoryEntity = SetupLearningDeliveryLARSCategoryEntity();
+
+            // ASSERT
+            learningDeliveryLARSCategoryEntity.IsGlobal.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
+        /// </summaryLearningDeliveryLARSCategory
+        [Fact(DisplayName = "LearningDeliveryFAM - Children Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSCategory_ChildrenCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSCategoryEntity = SetupLearningDeliveryLARSCategoryEntity();
+
+            // ASSERT
+            learningDeliveryLARSCategoryEntity.Children.Count.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSCategory - Parent Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSCategory_ParentCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSCategoryEntity = SetupLearningDeliveryLARSCategoryEntity();
+
+            // ASSERT
+            learningDeliveryLARSCategoryEntity.Parent.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSCategory - Attributes Exist"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSCategory_AttributesExist()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSCategoryEntity = SetupLearningDeliveryLARSCategoryEntity();
+
+            // ASSERT
+            learningDeliveryLARSCategoryEntity.Attributes.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSCategory - Attributes Count Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSCategory_AttributesCountCorrect()
+        {
+            // ARRANGE
+            // Use Test Helpers
+
+            // ACT
+            var learningDeliveryLARSCategoryEntity = SetupLearningDeliveryLARSCategoryEntity();
+
+            // ASSERT
+            learningDeliveryLARSCategoryEntity.Attributes.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
+        /// /// </summary>
+        [Fact(DisplayName = "LearningDeliveryLARSCategory - Attributes Correct"), Trait("Funding Service DataEntity Builders", "Unit")]
+        public void DataEntityBuilder_LearningDeliveryLARSCategory_AttributesCorrect()
+        {
+            // ARRANGE
+            var expectedAttributes = ExpectedLearningDeliveryLARSCategoryAttributes();
+
+            // ACT
+            var learningDeliveryLARSCategoryEntity = SetupLearningDeliveryLARSCategoryEntity();
+
+            // ASSERT
+            learningDeliveryLARSCategoryEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
+        }
+
+        #endregion
+
         #region Test Helpers
+
+        private IEnumerable<IDataEntity> SetupDataEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var dataEntityBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            var testLearners = new List<ILearner>
+            {
+                TestLearner,
+                TestLearner,
+            };
+
+            return dataEntityBuilder.EntityBuilder(12345678, testLearners);
+        }
 
         private IDataEntity SetupGlobalEntity()
         {
@@ -1073,9 +3518,62 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
 
             var larsLearningDelivery = referenceDataCacheMock.LARSLearningDelivery.Select(v => v.Value).FirstOrDefault();
-            var larsFrameworkAims = referenceDataCacheMock.LARSFrameworkAims.Select(v => v.Value).FirstOrDefault();
+            var larsFrameworkAims = referenceDataCacheMock.LARSFrameworkAims.Select(v => v.Value);
 
             return learnerBuilder.LearningDeliveryEntity(TestLearner.LearningDeliveries.FirstOrDefault(), larsLearningDelivery, larsFrameworkAims.Single());
+        }
+
+        private IDataEntity SetupLearningDeliveryFAMEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var learningDeilveryFAMBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            return learningDeilveryFAMBuilder.LearningDeliveryFAMEntity(TestLearningDelivery.LearningDeliveryFAM.FirstOrDefault());
+        }
+
+        private IDataEntity SetupLearningDeliverySFAPostcodeAreaCostEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var learningDeilverySFAAreaCostBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            IEnumerable<SfaAreaCost> SFAAreaCost = referenceDataCacheMock.SfaAreaCost.Select(s => s.Value).Single();
+
+            return learningDeilverySFAAreaCostBuilder.SFAAreaCostEntity(SFAAreaCost.FirstOrDefault());
+        }
+
+        private IDataEntity SetupLearningDeliveryLARSFundingEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var learningDeilveryLARSFundingBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            IEnumerable<LARSFunding> LARSFunding = referenceDataCacheMock.LARSFunding.Select(l => l.Value).Single();
+
+            return learningDeilveryLARSFundingBuilder.LARSFundingEntity(LARSFunding.Single());
+        }
+
+        private IDataEntity SetupLearningDeliveryLARSAnnualValueEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var learningDeilveryLARSAnnualValueBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            IEnumerable<LARSAnnualValue> LARSAnnualValue = referenceDataCacheMock.LARSAnnualValue.Select(l => l.Value).Single();
+
+            return learningDeilveryLARSAnnualValueBuilder.LARSAnnualValueEntity(LARSAnnualValue.Single());
+        }
+
+        private IDataEntity SetupLearningDeliveryLARSCategoryEntity()
+        {
+            var referenceDataCacheMock = SetupReferenceDataMock();
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var learningDeilveryLARSCategoryBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+
+            IEnumerable<LARSLearningDeliveryCategory> LARSLearningDeliveryCategory = referenceDataCacheMock.LARSLearningDeliveryCatgeory.Select(l => l.Value).Single();
+
+            return learningDeilveryLARSCategoryBuilder.LARSLearningDeliveryCategoryEntity(LARSLearningDeliveryCategory.Single());
         }
 
         private IReferenceDataCache SetupReferenceDataMock()
@@ -1147,7 +3645,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
                             new SfaAreaCost
                             {
                                 Postcode = "CV1 2WT",
-                                EffectiveFrom = DateTime.Parse("2000-08-30"),
+                                EffectiveFrom = new DateTime(2000, 08, 30),
                                 AreaCostFactor = 1.2m,
                             }
                         }
@@ -1161,7 +3659,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
                             new LARSFunding
                             {
                                 LearnAimRef = "123456",
-                                EffectiveFrom = DateTime.Parse("2010-08-30"),
+                                EffectiveFrom = new DateTime(2018, 08, 30),
                                 WeightingFactor = "B",
                                 RateUnWeighted = 0.5m,
                                 RateWeighted = 12345m,
@@ -1178,12 +3676,52 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
                             new LARSFrameworkAims
                             {
                                 LearnAimRef = "123456",
-                                EffectiveFrom = DateTime.Parse("2010-08-30"),
+                                EffectiveFrom = new DateTime(2018, 08, 30),
                                 EffectiveTo = null,
                                 FrameworkComponentType = 0,
-                                FworkCode = 1,
+                                FworkCode = 20,
                                 ProgType = 2,
                                 PwayCode = 3,
+                            },
+                            new LARSFrameworkAims
+                            {
+                                LearnAimRef = "123456",
+                                EffectiveFrom = new DateTime(2018, 08, 30),
+                                EffectiveTo = null,
+                                FrameworkComponentType = 0,
+                                FworkCode = 20,
+                                ProgType = 4,
+                                PwayCode = 5,
+                            }
+                        }
+                    }
+                }
+                 && l.LARSAnnualValue == new Dictionary<string, IEnumerable<LARSAnnualValue>>
+                {
+                    {
+                        "123456", new List<LARSAnnualValue>
+                        {
+                            new LARSAnnualValue
+                            {
+                                LearnAimRef = "123456",
+                                EffectiveFrom = new DateTime(2018, 08, 30),
+                                EffectiveTo = null,
+                                BasicSkillsType = 1,
+                            }
+                        }
+                    }
+                }
+                  && l.LARSLearningDeliveryCatgeory == new Dictionary<string, IEnumerable<LARSLearningDeliveryCategory>>
+                {
+                    {
+                        "123456", new List<LARSLearningDeliveryCategory>
+                        {
+                            new LARSLearningDeliveryCategory
+                            {
+                                LearnAimRef = "123456",
+                                EffectiveFrom = new DateTime(2018, 08, 30),
+                                EffectiveTo = null,
+                                CategoryRef = 10,
                             }
                         }
                     }
@@ -1381,6 +3919,70 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
                 { "ProgType", new AttributeData("ProgType", 2) },
                 { "PwayCode", new AttributeData("PwayCode", 3) },
             };
+        }
+
+        private IDictionary<string, IAttributeData> ExpectedLearningDeliveryFAMAttributes()
+        {
+            return new Dictionary<string, IAttributeData>
+            {
+                { "LearnDelFAMCode", new AttributeData("LearnDelFAMCode", "100") },
+                { "LearnDelFAMDateFrom", new AttributeData("LearnDelFAMDateFrom", new DateTime(2017, 08, 30)) },
+                { "LearnDelFAMDateTo", new AttributeData("LearnDelFAMDateTo", new DateTime(2017, 10, 30)) },
+                { "LearnDelFAMType", new AttributeData("LearnDelFAMType", "LDM") }
+            };
+        }
+
+        private IDictionary<string, IAttributeData> ExpectedLearningDeliverySFAPostcodeAreaCostAttributes()
+        {
+            return new Dictionary<string, IAttributeData>
+            {
+                { "AreaCosEffectiveFrom", new AttributeData("AreaCosEffectiveFrom", new DateTime(2000, 08, 30)) },
+                { "AreaCosEffectiveTo", new AttributeData("AreaCosEffectiveTo", null) },
+                { "AreaCosFactor", new AttributeData("AreaCosFactor", 1.2m) }
+            };
+        }
+
+        private IDictionary<string, IAttributeData> ExpectedLearningDeliveryLARSFundingAttributes()
+        {
+            return new Dictionary<string, IAttributeData>
+            {
+                { "LARSFundCategory", new AttributeData("LARSFundCategory", "Matrix") },
+                { "LARSFundEffectiveFrom", new AttributeData("LARSFundEffectiveFrom",  new DateTime(2018, 08, 30)) },
+                { "LARSFundEffectiveTo", new AttributeData("LARSFundEffectiveTo", null) },
+                { "LARSFundUnweightedRate", new AttributeData("LARSFundUnweightedRate", 0.5m) },
+                { "LARSFundWeightedRate", new AttributeData("LARSFundWeightedRate", 12345m) },
+                { "LARSFundWeightingFactor", new AttributeData("LARSFundWeightingFactor", "B") }
+            };
+        }
+
+        private IDictionary<string, IAttributeData> ExpectedLearningDeliveryLARSAnnualValueAttributes()
+        {
+            return new Dictionary<string, IAttributeData>
+            {
+                { "LearnDelAnnValBasicSkillsTypeCode", new AttributeData("LearnDelAnnValBasicSkillsTypeCode", 1) },
+                { "LearnDelAnnValDateFrom", new AttributeData("LearnDelAnnValDateFrom",  new DateTime(2018, 08, 30)) },
+                { "LearnDelAnnValDateTo", new AttributeData("LearnDelAnnValDateTo", null) },
+            };
+        }
+
+        private IDictionary<string, IAttributeData> ExpectedLearningDeliveryLARSCategoryAttributes()
+        {
+            return new Dictionary<string, IAttributeData>
+            {
+                { "LearnDelCatRef", new AttributeData("LearnDelCatRef", 10) },
+                { "LearnDelCatDateFrom", new AttributeData("LearnDelCatDateFrom",  new DateTime(2018, 08, 30)) },
+                { "LearnDelCatDateTo", new AttributeData("LearnDelCatDateTo", null) },
+            };
+        }
+
+        private IDataEntity Entity(IDataEntity entity)
+        {
+            return entity;
+        }
+
+        private IEnumerable<IDataEntity> Entities(IEnumerable<IDataEntity> entities)
+        {
+            return entities;
         }
 
         #endregion

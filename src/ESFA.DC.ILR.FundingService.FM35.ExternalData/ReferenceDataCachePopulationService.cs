@@ -94,7 +94,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
                 {
                     LearnAimRef = ld.LearnAimRef,
                     CategoryRef = ld.CategoryRef,
-                    EffectiveFromFrom = ld.EffectiveFrom,
+                    EffectiveFrom = ld.EffectiveFrom,
                     EffectiveTo = ld.EffectiveTo,
                 }).ToList() as IEnumerable<LARSLearningDeliveryCategory>);
         }

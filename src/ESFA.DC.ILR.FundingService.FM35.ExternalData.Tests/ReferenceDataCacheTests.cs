@@ -455,7 +455,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
         private static readonly LARSFunding LARSFundingTestValue =
            new LARSFunding()
            {
-               EffectiveFrom = DateTime.Parse("2000-01-01"),
+               EffectiveFrom = new DateTime(2000, 01, 01),
                EffectiveTo = null,
                FundingCategory = "Matrix",
                LearnAimRef = "123456",
@@ -477,7 +477,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
            new LARSAnnualValue()
            {
                LearnAimRef = "123456",
-               EffectiveFrom = DateTime.Parse("2000-01-01"),
+               EffectiveFrom = new DateTime(2000, 01, 01),
                EffectiveTo = null,
                BasicSkillsType = 200,
            };
@@ -490,7 +490,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
                ProgType = 2,
                FworkCode = 3,
                PwayCode = 4,
-               EffectiveFrom = DateTime.Parse("2000-01-01"),
+               EffectiveFrom = new DateTime(2000, 01, 01),
            };
 
         private static readonly LARSLearningDeliveryCategory LARSLearningDeliveryCategoryTestValue =
@@ -498,7 +498,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
            {
                LearnAimRef = "123456",
                CategoryRef = 300,
-               EffectiveFromFrom = DateTime.Parse("2000-01-01"),
+               EffectiveFrom = new DateTime(2000, 01, 01),
                EffectiveTo = null,
            };
 
