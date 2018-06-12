@@ -42,7 +42,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts.Tests
             // Use Test Helpers
 
             // ACT
-            var ukprn = TestFundingContextManager.MapUKPRN();
+            var ukprn = testFundingContextManager.MapUKPRN();
 
             // ASSERT
             ukprn.Should().NotBe(null);
@@ -58,7 +58,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts.Tests
             // Use Test Helpers
 
             // ACT
-            var ukprn = TestFundingContextManager.MapUKPRN();
+            var ukprn = testFundingContextManager.MapUKPRN();
 
             // ASSERT
             ukprn.Should().Be(10006341);
@@ -74,7 +74,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts.Tests
             // Use Test Helpers
 
             // ACT
-            var ukprn = TestFundingContextManager.MapUKPRN();
+            var ukprn = testFundingContextManager.MapUKPRN();
 
             // ASSERT
             ukprn.Should().NotBeOfType(typeof(string));
@@ -90,7 +90,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts.Tests
             // Use Test Helpers
 
             // ACT
-            var learners = TestFundingContextManager.MapValidLearners();
+            var learners = testFundingContextManager.MapValidLearners();
 
             // ASSERT
             learners.Should().NotBeNullOrEmpty();
@@ -106,7 +106,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts.Tests
             // Use Test Helpers
 
             // ACT
-            var learners = TestFundingContextManager.MapValidLearners();
+            var learners = testFundingContextManager.MapValidLearners();
 
             // ASSERT
             learners.Should().BeEquivalentTo(TestLearners());
@@ -122,7 +122,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts.Tests
             // Use Test Helpers
 
             // ACT
-            var learners = TestFundingContextManager.MapValidLearners();
+            var learners = testFundingContextManager.MapValidLearners();
 
             // ASSERT
             learners.Count.Should().Be(2);
@@ -230,7 +230,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts.Tests
 
         #region Test Helpers
 
-        private IFundingContextManager TestFundingContextManager = new FundingContextManager(JobContextMessage, KeyValuePersistenceService, SerializationService);
+        private IFundingContextManager testFundingContextManager = new FundingContextManager(JobContextMessage, KeyValuePersistenceService, SerializationService);
 
         private static IJobContextMessage JobContextMessage => new JobContextMessage
         {

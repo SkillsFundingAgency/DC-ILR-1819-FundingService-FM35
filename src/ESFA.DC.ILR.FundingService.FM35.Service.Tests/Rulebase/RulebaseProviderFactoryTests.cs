@@ -16,12 +16,12 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Rulebase
         [Fact(DisplayName = "RulebaseProviderFactory - Instance Exists"), Trait("Funding Service", "Unit")]
         public void RulebaseProviderFactory_InstanceExists()
         {
-            //ARRANGE
+            // ARRANGE
             // Use Test Helpers
 
-            //ACT
+            // ACT
 
-            //ASSERT
+            // ASSERT
             BuildRulebaseProviderFactory().Should().NotBeNull();
         }
 
@@ -31,12 +31,12 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Rulebase
         [Fact(DisplayName = "RulebaseProviderFactory - Return Types Correct"), Trait("Funding Service", "Unit")]
         public void RulebaseProviderFactory_ReturnTypesCorrect()
         {
-            //ARRANGE
+            // ARRANGE
             // Use Test Helpers
 
-            //ACT
+            // ACT
 
-            //ASSERT
+            // ASSERT
             BuildRulebaseProviderFactory().Should().BeOfType<RulebaseProvider>();
         }
 
@@ -46,13 +46,13 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Rulebase
         [Fact(DisplayName = "RulebaseProviderFactory - RulebaseProvider Stream Exists"), Trait("Funding Service", "Unit")]
         public void RulebaseProviderFactory_InstanceNotCorrect()
         {
-            //ARRANGE
+            // ARRANGE
             var factory = BuildTestRulebaseProviderFactory("ESFA.DC.ILR.FundingService.FM35.Service.Tests.Rulebase.FM35 Funding Calc 18_19.zip");
 
-            //ACT
+            // ACT
             var stream = factory.GetStream(Assembly.GetExecutingAssembly());
 
-            //ASSERT
+            // ASSERT
             stream.Should().NotBeNull();
         }
 

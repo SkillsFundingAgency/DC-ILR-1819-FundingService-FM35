@@ -12,6 +12,10 @@ using ESFA.DC.ILR.FundingService.FM35.ExternalData;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
 using ESFA.DC.ILR.FundingService.FM35.Service.Builders;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
+using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.LargeEmployersEF.Interface;
+using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.LargeEmployersEF.Model;
+using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.OrganisationEF.Interface;
+using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.OrganisationEF.Model;
 using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.OPA.Model.Interface;
@@ -44,13 +48,13 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "RulebaseVersion - AcademicYear Exists"), Trait("Rulebase Interface", "Unit")]
         public void RulebaseVersion_AcademicYear_Exists()
         {
-            //ARRANGE
+            // ARRANGE
             var rulebaseVersion = GetVersion(rulebaseFolder);
 
-            //ACT
+            // ACT
             var year = rulebaseVersion.Substring(0, 4);
 
-            //ASSERT
+            // ASSERT
             year.Should().NotBeNull();
         }
 
@@ -60,13 +64,13 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "RulebaseVersion - AcademicYear Correct"), Trait("Rulebase Interface", "Unit")]
         public void RulebaseVersion_AcademicYear_Correct()
         {
-            //ARRANGE
+            // ARRANGE
             var rulebaseVersion = GetVersion(rulebaseFolder);
 
-            //ACT
+            // ACT
             var year = rulebaseVersion.Substring(0, 4);
 
-            //ASSERT
+            // ASSERT
             year.Should().Be(academicYear);
         }
 
@@ -76,15 +80,15 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "RulebaseVersion - AcademicYear Matches Previous"), Trait("Rulebase Interface", "Unit")]
         public void RulebaseVersion_AcademicYear_Match()
         {
-            //ARRANGE
+            // ARRANGE
             var rulebaseVersion = GetVersion(rulebaseFolder);
             var masterRulebaseVersion = GetVersion(rulebaseMasterFolder);
 
-            //ACT
+            // ACT
             var acaedmicYear = rulebaseVersion.Substring(0, 4);
             var masterAcaedmicYear = rulebaseVersion.Substring(0, 4);
 
-            //ASSERT
+            // ASSERT
             masterAcaedmicYear.Should().Be(acaedmicYear);
         }
 
@@ -94,13 +98,13 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "RulebaseVersion - MajorVersion Exists"), Trait("Rulebase Interface", "Unit")]
         public void RulebaseVersion_InterfaceVersion_Exists()
         {
-            //ARRANGE
+            // ARRANGE
             var rulebaseVersion = GetVersion(rulebaseFolder);
 
-            //ACT
+            // ACT
             var interfaceVersion = rulebaseVersion.Substring(5, 2);
 
-            //ASSERT
+            // ASSERT
             interfaceVersion.Should().NotBeNull();
         }
 
@@ -110,15 +114,15 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "RulebaseVersion - MajorVersion Matches Previous"), Trait("Rulebase Interface", "Unit")]
         public void RulebaseVersion_InterfaceVersion_Match()
         {
-            //ARRANGE
+            // ARRANGE
             var rulebaseVersion = GetVersion(rulebaseFolder);
             var masterRulebaseVersion = GetVersion(rulebaseMasterFolder);
 
-            //ACT
+            // ACT
             var interfaceVersion = rulebaseVersion.Substring(5, 2);
             var masterInterfaceVersion = rulebaseVersion.Substring(5, 2);
 
-            //ASSERT
+            // ASSERT
             masterInterfaceVersion.Should().Be(interfaceVersion);
         }
 
@@ -128,13 +132,13 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRC - XML File Not Empty"), Trait("Rulebase Interface", "Unit")]
         public void XSRC_File_NotNull()
         {
-            //ARRANGE
+            // ARRANGE
             var xsrcFile = GetXSRC(rulebaseFolder);
 
-            //ACT
+            // ACT
             var xml = xsrcFile.OuterXml.ToString();
 
-            //ASSERT
+            // ASSERT
             xml.Should().NotBeNull();
         }
 
@@ -144,15 +148,15 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRC - XML Files Match"), Trait("Rulebase Interface", "Unit")]
         public void XSRC_File_FilesMatch()
         {
-            //ARRANGE
+            // ARRANGE
             var xsrcFile = GetXSRC(rulebaseFolder);
             var masterXsrcFile = GetXSRC(rulebaseMasterFolder);
 
-            //ACT
+            // ACT
             var xml = xsrcFile.OuterXml.ToString();
             var masterXml = masterXsrcFile.OuterXml.ToString();
 
-            //ASSERT
+            // ASSERT
             masterXml.Should().BeEquivalentTo(xml);
         }
 
@@ -162,13 +166,13 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRC - XML File Check Entities Expected"), Trait("Rulebase Interface", "Unit")]
         public void XSRC_File_CheckEntitiesExpected()
         {
-            //ARRANGE
+            // ARRANGE
             var xsrcFile = GetXSRC(rulebaseFolder);
 
-            //ACT
+            // ACT
             var entities = GetXRSCEntities(xsrcFile);
 
-            //ASSERT
+            // ASSERT
             expectedEntities.Should().BeEquivalentTo(entities);
         }
 
@@ -178,15 +182,15 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRC - XML File Check Entities Match"), Trait("Rulebase Interface", "Unit")]
         public void XSRC_File_CheckEntitiesMatch()
         {
-            //ARRANGE
+            // ARRANGE
             var xsrcFile = GetXSRC(rulebaseFolder);
             var masterXsrcFile = GetXSRC(rulebaseMasterFolder);
 
-            //ACT
+            // ACT
             var entities = GetXRSCEntities(xsrcFile);
             var masterEntities = GetXRSCEntities(masterXsrcFile);
 
-            //ASSERT
+            // ASSERT
             masterEntities.Should().BeEquivalentTo(entities);
         }
 
@@ -196,13 +200,13 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRC - XML File Check Attributes Expected"), Trait("Rulebase Interface", "Unit")]
         public void XSRC_File_CheckAttributesExpected()
         {
-            //ARRANGE
+            // ARRANGE
             var xsrcFile = GetXSRC(rulebaseFolder);
 
-            //ACT
+            // ACT
             var attributes = GetXRSCAttributes(xsrcFile).OrderBy(attribute => attribute);
 
-            //ASSERT
+            // ASSERT
             expectedAttributes.OrderBy(attribute => attribute).Should().BeEquivalentTo(attributes);
         }
 
@@ -212,15 +216,15 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRC - XML File Check Attributes Match"), Trait("Rulebase Interface", "Unit")]
         public void XSRC_File_CheckAttributesMatch()
         {
-            //ARRANGE
+            // ARRANGE
             var xsrcFile = GetXSRC(rulebaseFolder);
             var masterXsrcFile = GetXSRC(rulebaseMasterFolder);
 
-            //ACT
+            // ACT
             var attributes = GetXRSCAttributes(xsrcFile);
             var masterattributes = GetXRSCAttributes(masterXsrcFile);
 
-            //ASSERT
+            // ASSERT
             masterattributes.Should().BeEquivalentTo(attributes);
         }
 
@@ -230,12 +234,12 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRC - Deserialize file - Object Exists"), Trait("Rulebase Interface", "Unit")]
         public void XSRC_Object_NotNull()
         {
-            //ARRANGE
+            // ARRANGE
             var xsrc = DeserializedXSRC(rulebaseFolder);
 
-            //ACT
+            // ACT
 
-            //ASSERT
+            // ASSERT
             xsrc.Should().NotBeNull();
         }
 
@@ -245,14 +249,14 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRC - Deserialize file - Object Matches"), Trait("Rulebase Interface", "Unit")]
         public void XSRC_Object_Matches()
         {
-            //ARRANGE
+            // ARRANGE
             var xsrc = DeserializedXSRC(rulebaseFolder);
-            var MasterXsrc = DeserializedXSRC(rulebaseMasterFolder);
+            var masterXSRC = DeserializedXSRC(rulebaseMasterFolder);
 
-            //ACT
+            // ACT
 
-            //ASSERT
-            MasterXsrc.Should().BeEquivalentTo(xsrc);
+            // ASSERT
+            masterXSRC.Should().BeEquivalentTo(xsrc);
         }
 
         /// <summary>
@@ -261,12 +265,12 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRCEntity - Object Exists"), Trait("Rulebase Interface", "Unit")]
         public void XSRCEntity_Object_NotNull()
         {
-            //ARRANGE
+            // ARRANGE
 
-            //ACT
+            // ACT
             var entity = XSRCBuilder(rulebaseFolder);
 
-            //ASSERT
+            // ASSERT
             entity.Should().NotBeNull();
         }
 
@@ -276,99 +280,99 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         [Fact(DisplayName = "XSRCEntity - Object Matches"), Trait("Rulebase Interface", "Unit")]
         public void XSRCEntity_Object_Matches()
         {
-            //ARRANGE
+            // ARRANGE
 
-            //ACT
+            // ACT
             var entity = XSRCBuilder(rulebaseFolder);
             var masterEntity = XSRCBuilder(rulebaseMasterFolder);
 
-            //ASSERT
+            // ASSERT
             masterEntity.Should().BeEquivalentTo(entity);
         }
 
-        ///// <summary>
-        ///// Return Rulebase XSRC and check files are as expected.
-        ///// </summary>
-        //[Fact(DisplayName = "XSRCEntity - XSRC Entities Matches Linq Query"), Trait("Rulebase Interface", "Unit")]
-        //public void XSRCEntity_Entties_MatchesLinq()
-        //{
-        //    //ARRANGE
-        //    var entityXSRC = XSRCBuilder(rulebaseFolder);
-        //    var entityLinq = LinqEntityBuilder();
+        /// <summary>
+        /// Return Rulebase XSRC and check files are as expected.
+        /// </summary>
+        [Fact(DisplayName = "XSRCEntity - XSRC Entities Matches Linq Query"), Trait("Rulebase Interface", "Unit")]
+        public void XSRCEntity_Entties_MatchesLinq()
+        {
+            // ARRANGE
+            var entityXSRC = XSRCBuilder(rulebaseFolder);
+            var entityLinq = LinqEntityBuilder();
 
-        //    //ACT
-        //    var xsrcList = GetXSRCEntityList(entityXSRC.GlobalEntity);
-        //    var linqList = GetLinqEntityList(entityLinq.First());
+            // ACT
+            var xsrcList = GetXSRCEntityList(entityXSRC.GlobalEntity);
+            var linqList = GetLinqEntityList(entityLinq.First());
 
-        //    //ASSERT
-        //    var xsrc = xsrcList.Select(v => v).Distinct();
-        //    var linq = linqList.Select(v => v).Distinct();
+            // ASSERT
+            var xsrc = xsrcList.Select(v => v).Distinct();
+            var linq = linqList.Select(v => v).Distinct();
 
-        //    xsrc.Should().BeEquivalentTo(linq);
-        //}
+            xsrc.Should().BeEquivalentTo(linq);
+        }
 
-        ///// <summary>
-        ///// Return Rulebase XSRC and check files are as expected.
-        ///// </summary>
-        //[Fact(DisplayName = "XSRCEntity - Base XSRC Entities Matches Linq Query"), Trait("Rulebase Interface", "Unit")]
-        //public void XSRCEntity_BaseEntties_MatchesLinq()
-        //{
-        //    //ARRANGE
-        //    var entityXSRC = XSRCBuilder(rulebaseMasterFolder);
-        //    var entityLinq = LinqEntityBuilder();
+        /// <summary>
+        /// Return Rulebase XSRC and check files are as expected.
+        /// </summary>
+        [Fact(DisplayName = "XSRCEntity - Base XSRC Entities Matches Linq Query"), Trait("Rulebase Interface", "Unit")]
+        public void XSRCEntity_BaseEntties_MatchesLinq()
+        {
+            // ARRANGE
+            var entityXSRC = XSRCBuilder(rulebaseMasterFolder);
+            var entityLinq = LinqEntityBuilder();
 
-        //    //ACT
-        //    var xsrcList = GetXSRCEntityList(entityXSRC.GlobalEntity);
-        //    var linqList = GetLinqEntityList(entityLinq.First());
+            // ACT
+            var xsrcList = GetXSRCEntityList(entityXSRC.GlobalEntity);
+            var linqList = GetLinqEntityList(entityLinq.First());
 
-        //    //ASSERT
-        //    var xsrc = xsrcList.Select(v => v).Distinct();
-        //    var linq = linqList.Select(v => v).Distinct();
+            // ASSERT
+            var xsrc = xsrcList.Select(v => v).Distinct();
+            var linq = linqList.Select(v => v).Distinct();
 
-        //    xsrc.Should().BeEquivalentTo(linq);
-        //}
+            xsrc.Should().BeEquivalentTo(linq);
+        }
 
-        ///// <summary>
-        ///// Return Rulebase XSRC and check files are as expected.
-        ///// </summary>
-        //[Fact(DisplayName = "XSRCEntity - XSRC Attributes Matches Linq Query"), Trait("Rulebase Interface", "Unit")]
-        //public void XSRCEntity_Attributes_MatchesLinq()
-        //{
-        //    //ARRANGE
-        //    var entityXSRC = XSRCBuilder(rulebaseFolder);
-        //    var entityLinq = LinqEntityBuilder();
+        /// <summary>
+        /// Return Rulebase XSRC and check files are as expected.
+        /// </summary>
+        [Fact(DisplayName = "XSRCEntity - XSRC Attributes Matches Linq Query"), Trait("Rulebase Interface", "Unit")]
+        public void XSRCEntity_Attributes_MatchesLinq()
+        {
+            // ARRANGE
+            var entityXSRC = XSRCBuilder(rulebaseFolder);
+            var entityLinq = LinqEntityBuilder();
 
-        //    //ACT
-        //    var xsrcList = GetXSRCAttributeList(entityXSRC.GlobalEntity);
-        //    var linqList = GetLinqAttributeList(entityLinq.First());
+            // ACT
+            var xsrcList = GetXSRCAttributeList(entityXSRC.GlobalEntity);
+            var linqList = GetLinqAttributeList(entityLinq.First());
 
-        //    //ASSERT
-        //    var xsrc = xsrcList.Select(v => v).Distinct();
-        //    var linq = linqList.Select(v => v).Distinct();
+            // ASSERT
+            var xsrc = xsrcList.Select(v => v).Distinct();
+            var linq = linqList.Select(v => v).Distinct();
 
-        //    xsrc.Should().BeEquivalentTo(linq);
-        //}
+            xsrc.Should().BeEquivalentTo(linq);
+        }
 
-        ///// <summary>
-        ///// Return Rulebase XSRC and check files are as expected.
-        ///// </summary>
-        //[Fact(DisplayName = "XSRCEntity - Base XSRC Attributes Matches Linq Query"), Trait("Rulebase Interface", "Unit")]
-        //public void XSRCEntity_BaseAttributes_MatchesLinq()
-        //{
-        //    //ARRANGE
-        //    var entityXSRC = XSRCBuilder(rulebaseMasterFolder);
-        //    var entityLinq = LinqEntityBuilder();
+        /// <summary>
+        /// Return Rulebase XSRC and check files are as expected.
+        /// </summary>
+        [Fact(DisplayName = "XSRCEntity - Base XSRC Attributes Matches Linq Query"), Trait("Rulebase Interface", "Unit")]
+        public void XSRCEntity_BaseAttributes_MatchesLinq()
+        {
+            // ARRANGE
+            var entityXSRC = XSRCBuilder(rulebaseMasterFolder);
+            var entityLinq = LinqEntityBuilder();
 
-        //    //ACT
-        //    var xsrcList = GetXSRCAttributeList(entityXSRC.GlobalEntity);
-        //    var linqList = GetLinqAttributeList(entityLinq.First());
+            // ACT
+            var xsrcList = GetXSRCAttributeList(entityXSRC.GlobalEntity);
+            var linqList = GetLinqAttributeList(entityLinq.First());
 
-        //    //ASSERT
-        //    var xsrc = xsrcList.Select(v => v).Distinct();
-        //    var linq = linqList.Select(v => v).Distinct();
+            // ASSERT
+            var xsrc = xsrcList.Select(v => v).Distinct();
+            var linq = linqList.Select(v => v).Distinct();
 
-        //    xsrc.Should().BeEquivalentTo(linq);
-        //}
+            xsrc.Should().BeEquivalentTo(linq);
+        }
 
         #region Test Helpers
 
@@ -479,7 +483,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             "AreaCosFactor",
         };
 
-        IList<string> linqEntityList = new List<string>();
+        private IList<string> linqEntityList = new List<string>();
 
         private IList<string> GetLinqEntityList(IDataEntity entity)
         {
@@ -493,7 +497,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             return linqEntityList;
         }
 
-        IList<string> xsrcEntityList = new List<string>();
+        private IList<string> xsrcEntityList = new List<string>();
 
         private IList<string> GetXSRCEntityList(IXsrcEntity entity)
         {
@@ -507,7 +511,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             return xsrcEntityList;
         }
 
-        IList<string> linqAttributeList = new List<string>();
+        private IList<string> linqAttributeList = new List<string>();
 
         private IList<string> GetLinqAttributeList(IDataEntity entity)
         {
@@ -524,7 +528,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             return linqAttributeList;
         }
 
-        IList<string> xsrcAttributeList = new List<string>();
+        private IList<string> xsrcAttributeList = new List<string>();
 
         private IList<string> GetXSRCAttributeList(IXsrcEntity entity)
         {
@@ -640,30 +644,38 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             return doc;
         }
 
-        //private IEnumerable<IDataEntity> LinqEntityBuilder()
-        //{
-        //    IReferenceDataCache referenceDataCache = new ReferenceDataCache();
-        //    IReferenceDataCachePopulationService referenceDataCachePopulationService = new ReferenceDataCachePopulationService(referenceDataCache, LARSMock().Object, PostcodesMock().Object);
+        private IEnumerable<IDataEntity> LinqEntityBuilder()
+        {
+            IReferenceDataCache referenceDataCache = new ReferenceDataCache();
+            IReferenceDataCachePopulationService referenceDataCachePopulationService = new ReferenceDataCachePopulationService(referenceDataCache, LARSMock().Object, PostcodesMock().Object, OrganisationMock().Object, LargeEmployersMock().Object);
 
-        //    referenceDataCachePopulationService.Populate(new List<string> { "50094488", "60005415" }, new List<string> { "CV1 2WT" });
-        //    IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-        //    var dataEntityBuilder = new DataEntityBuilder(referenceDataCache, attributeBuilder);
+            referenceDataCachePopulationService.Populate(new List<string> { "123456" }, new List<string> { "CV1 2WT" }, new List<int> { 12345678 }, new List<int> { 99999 });
+            IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
+            var dataEntityBuilder = new DataEntityBuilder(referenceDataCache, attributeBuilder);
 
-        //    return dataEntityBuilder.EntityBuilder(12345678, TestMessage.Learners);
-        //}
+            return dataEntityBuilder.EntityBuilder(12345678, testMessage.Learners);
+        }
 
         private static readonly Mock<ILARS> larsContextMock = new Mock<ILARS>();
         private static readonly Mock<IPostcodes> postcodesContextMock = new Mock<IPostcodes>();
+        private static readonly Mock<IOrganisation> organisationContextMock = new Mock<IOrganisation>();
+        private static readonly Mock<ILargeEmployers> largeEmployersContextMock = new Mock<ILargeEmployers>();
 
         private Mock<ILARS> LARSMock()
         {
             var larsVersionMock = MockDBSetHelper.GetQueryableMockDbSet(MockLARSVersionArray());
             var larsLearningDeliveryMock = MockDBSetHelper.GetQueryableMockDbSet(MockLARSLearningDeliveryArray());
             var larsFundingMock = MockDBSetHelper.GetQueryableMockDbSet(MockLARSFundingArray());
+            var larsAnnualValueMock = MockDBSetHelper.GetQueryableMockDbSet(MockLARSAnnualValueArray());
+            var larsCategoryMock = MockDBSetHelper.GetQueryableMockDbSet(MockLARSCategoryArray());
+            var larsFrameworkAimsMock = MockDBSetHelper.GetQueryableMockDbSet(MockLARSFrameworkAimsArray());
 
             larsContextMock.Setup(x => x.LARS_Version).Returns(larsVersionMock);
             larsContextMock.Setup(x => x.LARS_LearningDelivery).Returns(larsLearningDeliveryMock);
             larsContextMock.Setup(x => x.LARS_Funding).Returns(larsFundingMock);
+            larsContextMock.Setup(x => x.LARS_AnnualValue).Returns(larsAnnualValueMock);
+            larsContextMock.Setup(x => x.LARS_LearningDeliveryCategory).Returns(larsCategoryMock);
+            larsContextMock.Setup(x => x.LARS_FrameworkAims).Returns(larsFrameworkAimsMock);
 
             return larsContextMock;
         }
@@ -672,22 +684,44 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         {
             var postcodesVersionMock = MockDBSetHelper.GetQueryableMockDbSet(MockPostcodesVersionArray());
             var sfaAreaCostMock = MockDBSetHelper.GetQueryableMockDbSet(MockSFAAreaCostArray());
+            var sfaDisadvantageMock = MockDBSetHelper.GetQueryableMockDbSet(MockSFADisadvantageArray());
 
             postcodesContextMock.Setup(x => x.SFA_PostcodeAreaCost).Returns(sfaAreaCostMock);
             postcodesContextMock.Setup(x => x.VersionInfos).Returns(postcodesVersionMock);
+            postcodesContextMock.Setup(x => x.SFA_PostcodeDisadvantage).Returns(sfaDisadvantageMock);
 
             return postcodesContextMock;
+        }
+
+        private Mock<IOrganisation> OrganisationMock()
+        {
+            var orgVersionMock = MockOrgVersionArray();
+            var orgFundingMock = MockOrgFundingArray();
+
+            organisationContextMock.Setup(x => x.Org_Version).Returns(orgVersionMock);
+            organisationContextMock.Setup(x => x.Org_Funding).Returns(orgFundingMock);
+
+            return organisationContextMock;
+        }
+
+        private Mock<ILargeEmployers> LargeEmployersMock()
+        {
+            var largeEmployerMock = MockLargeEmployerArray();
+
+            largeEmployersContextMock.Setup(x => x.Large_Employers).Returns(largeEmployerMock);
+
+            return largeEmployersContextMock;
         }
 
         private static LARS_Version[] MockLARSVersionArray()
         {
             return new LARS_Version[]
             {
-                larsVersionTestValue,
+                LarsVersionTestValue,
             };
         }
 
-        readonly static LARS_Version larsVersionTestValue =
+        private static readonly LARS_Version LarsVersionTestValue =
             new LARS_Version()
             {
                 MajorNumber = 5,
@@ -709,15 +743,14 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         {
             return new LARS_LearningDelivery[]
             {
-                larsLearningDeliveryTestValue1,
-                larsLearningDeliveryTestValue2
+                LarsLearningDeliveryTestValue,
             };
         }
 
-        readonly static LARS_LearningDelivery larsLearningDeliveryTestValue1 =
+        private static readonly LARS_LearningDelivery LarsLearningDeliveryTestValue =
             new LARS_LearningDelivery()
             {
-                LearnAimRef = "50094488",
+                LearnAimRef = "123456",
                 LearnAimRefTitle = "Test Learning Aim Title 50094488",
                 LearnAimRefType = "0006",
                 NotionalNVQLevel = "2",
@@ -734,39 +767,18 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                 Modified_By = "TestUser"
             };
 
-        readonly static LARS_LearningDelivery larsLearningDeliveryTestValue2 =
-           new LARS_LearningDelivery()
-           {
-               LearnAimRef = "60005415",
-               LearnAimRefTitle = "Test Learning Aim Title 60005415",
-               LearnAimRefType = "0006",
-               NotionalNVQLevel = "4",
-               NotionalNVQLevelv2 = "4",
-               CertificationEndDate = DateTime.Parse("2018-01-01"),
-               OperationalStartDate = DateTime.Parse("2018-01-01"),
-               OperationalEndDate = DateTime.Parse("2018-01-01"),
-               RegulatedCreditValue = 42,
-               EffectiveFrom = DateTime.Parse("2000-01-01"),
-               EffectiveTo = null,
-               Created_On = DateTime.Parse("2017-01-01"),
-               Created_By = "TestUser",
-               Modified_On = DateTime.Parse("2018-01-01"),
-               Modified_By = "TestUser"
-           };
-
         private static LARS_Funding[] MockLARSFundingArray()
         {
             return new LARS_Funding[]
             {
-                larsFundingTestValue1,
-                larsFundingTestValue2
+                LarsFundingTestValue,
             };
         }
 
-        readonly static LARS_Funding larsFundingTestValue1 =
+        private static readonly LARS_Funding LarsFundingTestValue =
             new LARS_Funding()
             {
-                LearnAimRef = "50094488",
+                LearnAimRef = "123456",
                 FundingCategory = "Matrix",
                 RateWeighted = 11356m,
                 RateUnWeighted = null,
@@ -779,21 +791,59 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                 Modified_By = "TestUser"
             };
 
-        readonly static LARS_Funding larsFundingTestValue2 =
-          new LARS_Funding()
-          {
-              LearnAimRef = "60005415",
-              FundingCategory = "Matrix",
-              RateWeighted = 2583m,
-              RateUnWeighted = null,
-              WeightingFactor = "C",
-              EffectiveFrom = DateTime.Parse("2000-01-01"),
-              EffectiveTo = null,
-              Created_On = DateTime.Parse("2017-01-01"),
-              Created_By = "TestUser",
-              Modified_On = DateTime.Parse("2018-01-01"),
-              Modified_By = "TestUser"
-          };
+        private static LARS_LearningDeliveryCategory[] MockLARSCategoryArray()
+        {
+            return new LARS_LearningDeliveryCategory[]
+            {
+                LarsCategoryTestValue,
+            };
+        }
+
+        private static readonly LARS_LearningDeliveryCategory LarsCategoryTestValue =
+            new LARS_LearningDeliveryCategory()
+            {
+                LearnAimRef = "123456",
+                CategoryRef = 1,
+                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveTo = null,
+            };
+
+        private static LARS_AnnualValue[] MockLARSAnnualValueArray()
+        {
+            return new LARS_AnnualValue[]
+            {
+                LarsAnnualValueTestValue,
+            };
+        }
+
+        private static readonly LARS_AnnualValue LarsAnnualValueTestValue =
+            new LARS_AnnualValue()
+            {
+                LearnAimRef = "123456",
+                BasicSkillsType = 5,
+                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveTo = null,
+            };
+
+        private static LARS_FrameworkAims[] MockLARSFrameworkAimsArray()
+        {
+            return new LARS_FrameworkAims[]
+            {
+                LarsFrameworkAimsTestValue,
+            };
+        }
+
+        private static readonly LARS_FrameworkAims LarsFrameworkAimsTestValue =
+            new LARS_FrameworkAims()
+            {
+                LearnAimRef = "123456",
+                FworkCode = 20,
+                ProgType = 1,
+                PwayCode = 2,
+                FrameworkComponentType = 1,
+                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveTo = null,
+            };
 
         private static VersionInfo[] MockPostcodesVersionArray()
         {
@@ -803,7 +853,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             };
         }
 
-        readonly static VersionInfo PostcodesVersionTestValue =
+        private static readonly VersionInfo PostcodesVersionTestValue =
             new VersionInfo
             {
                 VersionNumber = "Version_002",
@@ -821,7 +871,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             };
         }
 
-        readonly static SFA_PostcodeAreaCost SFAAreaCostTestValue1 =
+        private static readonly SFA_PostcodeAreaCost SFAAreaCostTestValue1 =
           new SFA_PostcodeAreaCost()
           {
               MasterPostcode = new MasterPostcode { Postcode = "CV1 2WT" },
@@ -831,7 +881,74 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
               EffectiveTo = null,
           };
 
-        private readonly IMessage TestMessage = new Message
+        private static SFA_PostcodeDisadvantage[] MockSFADisadvantageArray()
+        {
+            return new SFA_PostcodeDisadvantage[]
+            {
+                SFADisadvantageValue,
+            };
+        }
+
+        private static readonly SFA_PostcodeDisadvantage SFADisadvantageValue =
+          new SFA_PostcodeDisadvantage()
+          {
+              MasterPostcode = new MasterPostcode { Postcode = "CV1 2WT" },
+              Postcode = "CV1 2WT",
+              Uplift = 1.2m,
+              EffectiveFrom = DateTime.Parse("2000-01-01"),
+              EffectiveTo = null,
+          };
+
+        private static Org_Version[] MockOrgVersionArray()
+        {
+            return new Org_Version[]
+            {
+                OrgVersionTestValue,
+            };
+        }
+
+        private static readonly Org_Version OrgVersionTestValue =
+            new Org_Version()
+            {
+                MainDataSchemaName = "Version_003"
+            };
+
+        private static Org_Funding[] MockOrgFundingArray()
+        {
+            return new Org_Funding[]
+            {
+                OrgFundingTestValue,
+            };
+        }
+
+        private static readonly Org_Funding OrgFundingTestValue =
+           new Org_Funding
+           {
+               UKPRN = 12345678,
+               FundingFactor = "Factor",
+               FundingFactorType = "Adult Skills",
+               FundingFactorValue = "1,54",
+               EffectiveFrom = new DateTime(2018, 08, 01),
+               EffectiveTo = new DateTime(2019, 07, 31),
+           };
+
+        private static Large_Employers[] MockLargeEmployerArray()
+        {
+            return new Large_Employers[]
+            {
+                LargeEmployerTestValue,
+            };
+        }
+
+        private static readonly Large_Employers LargeEmployerTestValue =
+           new Large_Employers
+           {
+               ERN = 99999,
+               EffectiveFrom = new DateTime(2018, 08, 01),
+               EffectiveTo = new DateTime(2019, 07, 31),
+           };
+
+        private readonly IMessage testMessage = new Message
         {
             LearningProvider = new MessageLearningProvider
             {
@@ -842,14 +959,29 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                 new MessageLearner
                 {
                     LearnRefNumber = "Learner1",
+                    DateOfBirth = new DateTime(2000, 01, 01),
+                    PostcodePrior = "CV1 2WT",
+                    LearnerEmploymentStatus = new MessageLearnerLearnerEmploymentStatus[]
+                    {
+                        new MessageLearnerLearnerEmploymentStatus
+                        {
+                            EmpIdSpecified = true,
+                            EmpId = 99999,
+                            AgreeId = "AgreeID",
+                            EmpStat = 1,
+                            DateEmpStatApp = new DateTime(2018, 08, 01),
+                        }
+                    },
                     LearningDelivery = new[]
                     {
                         new MessageLearnerLearningDelivery
                         {
-                            LearnAimRef = "50094488",
+                            LearnAimRef = "123456",
                             AimSeqNumber = 1,
                             CompStatus = 1,
                             DelLocPostCode = "CV1 2WT",
+                            FworkCodeSpecified = true,
+                            FworkCode = 20,
                             LearnActEndDateSpecified = true,
                             LearnActEndDate = DateTime.Parse("2018-06-30"),
                             LearnStartDate = DateTime.Parse("2017-08-30"),
@@ -859,6 +991,10 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                             OtherFundAdjSpecified = false,
                             OutcomeSpecified = false,
                             PriorLearnFundAdjSpecified = false,
+                            ProgTypeSpecified = true,
+                            ProgType = 1,
+                            PwayCodeSpecified = true,
+                            PwayCode = 2,
                             LearningDeliveryFAM = new[]
                             {
                                 new MessageLearnerLearningDeliveryLearningDeliveryFAM
@@ -894,14 +1030,29 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                 new MessageLearner
                 {
                     LearnRefNumber = "Learner2",
+                    DateOfBirth = new DateTime(2000, 01, 01),
+                    PostcodePrior = "CV1 2WT",
+                    LearnerEmploymentStatus = new MessageLearnerLearnerEmploymentStatus[]
+                    {
+                        new MessageLearnerLearnerEmploymentStatus
+                        {
+                            EmpIdSpecified = true,
+                            EmpId = 99999,
+                            AgreeId = "AgreeID",
+                            EmpStat = 1,
+                            DateEmpStatApp = new DateTime(2018, 08, 01),
+                        }
+                    },
                     LearningDelivery = new[]
                     {
                         new MessageLearnerLearningDelivery
                         {
-                            LearnAimRef = "60005415",
+                            LearnAimRef = "123456",
                             AimSeqNumber = 1,
                             CompStatus = 1,
                             DelLocPostCode = "CV1 2WT",
+                            FworkCodeSpecified = true,
+                            FworkCode = 20,
                             LearnActEndDateSpecified = true,
                             LearnActEndDate = DateTime.Parse("2018-06-30"),
                             LearnStartDate = DateTime.Parse("2017-08-30"),
@@ -911,12 +1062,25 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                             OtherFundAdjSpecified = false,
                             OutcomeSpecified = false,
                             PriorLearnFundAdjSpecified = false,
+                            ProgTypeSpecified = true,
+                            ProgType = 1,
+                            PwayCodeSpecified = true,
+                            PwayCode = 2,
                             LearningDeliveryFAM = new[]
                             {
                                 new MessageLearnerLearningDeliveryLearningDeliveryFAM
                                 {
-                                    LearnDelFAMCode = "1",
-                                    LearnDelFAMType = "ADL",
+                                    LearnDelFAMCode = "100",
+                                    LearnDelFAMType = "LDM",
+                                    LearnDelFAMDateFromSpecified = true,
+                                    LearnDelFAMDateFrom = DateTime.Parse("2017-08-30"),
+                                    LearnDelFAMDateToSpecified = true,
+                                    LearnDelFAMDateTo = DateTime.Parse("2017-10-31"),
+                                },
+                                new MessageLearnerLearningDeliveryLearningDeliveryFAM
+                                {
+                                    LearnDelFAMCode = "200",
+                                    LearnDelFAMType = "LDM",
                                     LearnDelFAMDateFromSpecified = true,
                                     LearnDelFAMDateFrom = DateTime.Parse("2017-08-30"),
                                     LearnDelFAMDateToSpecified = true,

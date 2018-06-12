@@ -6,6 +6,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Interface
 {
     public interface IFundingService
     {
-        IEnumerable<IFM35FundingOutputs> ProcessFunding(int ukprn, IList<ILearner> learnerList);
+        IFM35FundingOutputs ProcessFunding(int ukprn, IList<ILearner> learnerList);
     }
 }
