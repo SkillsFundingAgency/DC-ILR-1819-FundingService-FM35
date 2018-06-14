@@ -435,7 +435,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
                         { "CV1 2WT", SFADisadvantageList(SfaDisadvantageTestValue) },
                     },
                 OrgVersion = OrgVersionTestValue,
-                OrgFunding = new Dictionary<int, IEnumerable<OrgFunding>>
+                OrgFunding = new Dictionary<long, IEnumerable<OrgFunding>>
                 {
                     { 12345678, OrgFundingList(OrgFundingTestValue) },
                 },

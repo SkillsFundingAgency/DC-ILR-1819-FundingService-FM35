@@ -28,7 +28,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface
 
         string OrgVersion { get; }
 
-        IDictionary<int, IEnumerable<OrgFunding>> OrgFunding { get; }
+        IDictionary<long, IEnumerable<OrgFunding>> OrgFunding { get; }
 
         IDictionary<int, IEnumerable<LargeEmployers>> LargeEmployers { get; }
     }

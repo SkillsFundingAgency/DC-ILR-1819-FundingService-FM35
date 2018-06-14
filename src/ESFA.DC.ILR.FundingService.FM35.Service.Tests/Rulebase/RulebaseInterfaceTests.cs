@@ -4,18 +4,18 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Xml;
+using ESFA.DC.Data.LargeEmployer.Model;
+using ESFA.DC.Data.LargeEmployer.Model.Interface;
 using ESFA.DC.Data.LARS.Model;
 using ESFA.DC.Data.LARS.Model.Interfaces;
+using ESFA.DC.Data.Organisatons.Model;
+using ESFA.DC.Data.Organisatons.Model.Interface;
 using ESFA.DC.Data.Postcodes.Model;
 using ESFA.DC.Data.Postcodes.Model.Interfaces;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
 using ESFA.DC.ILR.FundingService.FM35.Service.Builders;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
-using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.LargeEmployersEF.Interface;
-using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.LargeEmployersEF.Model;
-using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.OrganisationEF.Interface;
-using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.OrganisationEF.Model;
 using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.OPA.Model.Interface;
@@ -649,7 +649,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             IReferenceDataCache referenceDataCache = new ReferenceDataCache();
             IReferenceDataCachePopulationService referenceDataCachePopulationService = new ReferenceDataCachePopulationService(referenceDataCache, LARSMock().Object, PostcodesMock().Object, OrganisationMock().Object, LargeEmployersMock().Object);
 
-            referenceDataCachePopulationService.Populate(new List<string> { "123456" }, new List<string> { "CV1 2WT" }, new List<int> { 12345678 }, new List<int> { 99999 });
+            referenceDataCachePopulationService.Populate(new List<string> { "123456" }, new List<string> { "CV1 2WT" }, new List<long> { 12345678 }, new List<int> { 99999 });
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
             var dataEntityBuilder = new DataEntityBuilder(referenceDataCache, attributeBuilder);
 
@@ -658,7 +658,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
 
         private static readonly Mock<ILARS> larsContextMock = new Mock<ILARS>();
         private static readonly Mock<IPostcodes> postcodesContextMock = new Mock<IPostcodes>();
-        private static readonly Mock<IOrganisation> organisationContextMock = new Mock<IOrganisation>();
+        private static readonly Mock<IOrganisations> organisationContextMock = new Mock<IOrganisations>();
         private static readonly Mock<ILargeEmployers> largeEmployersContextMock = new Mock<ILargeEmployers>();
 
         private Mock<ILARS> LARSMock()
@@ -693,10 +693,10 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             return postcodesContextMock;
         }
 
-        private Mock<IOrganisation> OrganisationMock()
+        private Mock<IOrganisations> OrganisationMock()
         {
-            var orgVersionMock = MockOrgVersionArray();
-            var orgFundingMock = MockOrgFundingArray();
+            var orgVersionMock = MockDBSetHelper.GetQueryableMockDbSet(MockOrgVersionArray());
+            var orgFundingMock = MockDBSetHelper.GetQueryableMockDbSet(MockOrgFundingArray());
 
             organisationContextMock.Setup(x => x.Org_Version).Returns(orgVersionMock);
             organisationContextMock.Setup(x => x.Org_Funding).Returns(orgFundingMock);
@@ -706,9 +706,9 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
 
         private Mock<ILargeEmployers> LargeEmployersMock()
         {
-            var largeEmployerMock = MockLargeEmployerArray();
+            var largeEmployerMock = MockDBSetHelper.GetQueryableMockDbSet(MockLargeEmployerArray());
 
-            largeEmployersContextMock.Setup(x => x.Large_Employers).Returns(largeEmployerMock);
+            largeEmployersContextMock.Setup(x => x.LargeEmployers).Returns(largeEmployerMock);
 
             return largeEmployersContextMock;
         }
@@ -845,16 +845,16 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                 EffectiveTo = null,
             };
 
-        private static VersionInfo[] MockPostcodesVersionArray()
+        private static Data.Postcodes.Model.VersionInfo[] MockPostcodesVersionArray()
         {
-            return new VersionInfo[]
+            return new Data.Postcodes.Model.VersionInfo[]
             {
                 PostcodesVersionTestValue,
             };
         }
 
-        private static readonly VersionInfo PostcodesVersionTestValue =
-            new VersionInfo
+        private static readonly Data.Postcodes.Model.VersionInfo PostcodesVersionTestValue =
+            new Data.Postcodes.Model.VersionInfo
             {
                 VersionNumber = "Version_002",
                 DataSource = "Source",
@@ -932,16 +932,16 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                EffectiveTo = new DateTime(2019, 07, 31),
            };
 
-        private static Large_Employers[] MockLargeEmployerArray()
+        private static LargeEmployers[] MockLargeEmployerArray()
         {
-            return new Large_Employers[]
+            return new LargeEmployers[]
             {
                 LargeEmployerTestValue,
             };
         }
 
-        private static readonly Large_Employers LargeEmployerTestValue =
-           new Large_Employers
+        private static readonly LargeEmployers LargeEmployerTestValue =
+           new LargeEmployers
            {
                ERN = 99999,
                EffectiveFrom = new DateTime(2018, 08, 01),

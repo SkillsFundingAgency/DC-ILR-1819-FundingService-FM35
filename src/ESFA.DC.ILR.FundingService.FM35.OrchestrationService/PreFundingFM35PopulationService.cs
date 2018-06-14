@@ -29,9 +29,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
             IList<ILearner> learnerList = new List<ILearner>();
             HashSet<string> postcodesTempList = new HashSet<string>();
             HashSet<string> learnAimRefsList = new HashSet<string>();
-            HashSet<int> OrgUKPRNList = new HashSet<int>();
+            HashSet<long> OrgUKPRNList = new HashSet<long>();
             HashSet<int?> lEmpIdTempList = new HashSet<int?>();
-            bool learningDeliveryAdded = false;
+            bool added = false;
 
             OrgUKPRNList.Add(_fundingContext.UKPRN);
 
@@ -46,24 +46,20 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
 
                 foreach (var learningDelivery in learner.LearningDeliveries.Where(ld => ld.FundModel == 35).ToList())
                 {
-                    if (!learningDeliveryAdded)
+                    if (!added)
                     {
                         learnerList.Add(learner);
-                        learningDeliveryAdded = true;
-                    }
-                    else
-                    {
-                        break;
+                        added = true;
                     }
 
-                    if (learningDeliveryAdded)
+                    if (added)
                     {
                         postcodesTempList.Add(learningDelivery.DelLocPostCode);
                         learnAimRefsList.Add(learningDelivery.LearnAimRef);
                     }
                 }
 
-                learningDeliveryAdded = false;
+                added = false;
             }
 
             var empIdList = lEmpIdTempList.Where(x => x != null).Select(v => (int)v.Value).Distinct().ToList();

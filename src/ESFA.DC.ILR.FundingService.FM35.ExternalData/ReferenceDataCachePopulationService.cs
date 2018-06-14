@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ESFA.DC.Data.LargeEmployer.Model.Interface;
 using ESFA.DC.Data.LARS.Model.Interfaces;
+using ESFA.DC.Data.Organisatons.Model.Interface;
 using ESFA.DC.Data.Postcodes.Model.Interfaces;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Model;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Model;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Model;
-using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.LargeEmployersEF.Interface;
-using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData.OrganisationEF.Interface;
 
 namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
 {
@@ -17,10 +17,10 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
         private readonly IReferenceDataCache _referenceDataCache;
         private readonly ILARS _LARSContext;
         private readonly IPostcodes _postcodesContext;
-        private readonly IOrganisation _organisationContext;
+        private readonly IOrganisations _organisationContext;
         private readonly ILargeEmployers _largeEmployerContext;
 
-        public ReferenceDataCachePopulationService(IReferenceDataCache referenceDataCache, ILARS LARSContext, IPostcodes postcodesContext, IOrganisation organisationContext, ILargeEmployers largeEmployerContext)
+        public ReferenceDataCachePopulationService(IReferenceDataCache referenceDataCache, ILARS LARSContext, IPostcodes postcodesContext, IOrganisations organisationContext, ILargeEmployers largeEmployerContext)
         {
             _referenceDataCache = referenceDataCache;
             _LARSContext = LARSContext;
@@ -29,7 +29,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
             _largeEmployerContext = largeEmployerContext;
         }
 
-        public void Populate(IList<string> learnAimRefs, IList<string> postcodes, IList<int> orgUkprns, IList<int> lEmpIDs)
+        public void Populate(IList<string> learnAimRefs, IList<string> postcodes, IList<long> orgUkprns, IList<int> lEmpIDs)
         {
             var referenceDataCache = (ReferenceDataCache)_referenceDataCache;
 
@@ -179,7 +179,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
             return _organisationContext.Org_Version.Select(lv => lv.MainDataSchemaName).Max();
         }
 
-        private IDictionary<int, IEnumerable<OrgFunding>> OrgFunding(IList<int> orgUkprns)
+        private IDictionary<long, IEnumerable<OrgFunding>> OrgFunding(IList<long> orgUkprns)
         {
             return
                 _organisationContext.Org_Funding
@@ -202,7 +202,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
         private IDictionary<int, IEnumerable<LargeEmployers>> LargeEmployers(IList<int> lEmpIDs)
         {
             return
-                _largeEmployerContext.Large_Employers
+                _largeEmployerContext.LargeEmployers
                 .Where(l => lEmpIDs.Contains(l.ERN)).GroupBy(e => e.ERN)
                 .ToDictionary(a => a.Key, a => a.Select(le => new LargeEmployers
                 {

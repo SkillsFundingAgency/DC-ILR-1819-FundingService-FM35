@@ -9,7 +9,6 @@ using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Model;
 using ESFA.DC.ILR.FundingService.FM35.Service.Builders;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
 using ESFA.DC.ILR.FundingService.FM35.Service.Models;
-using ESFA.DC.ILR.FundingService.FM35.Stubs.ExternalData;
 using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.OPA.Model;
@@ -3597,7 +3596,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
                     }
                 }
                 && l.OrgVersion == "Version_002"
-                && l.OrgFunding == new Dictionary<int, IEnumerable<OrgFunding>>
+                && l.OrgFunding == new Dictionary<long, IEnumerable<OrgFunding>>
                 {
                     { 12345678, new List<OrgFunding>
                         {

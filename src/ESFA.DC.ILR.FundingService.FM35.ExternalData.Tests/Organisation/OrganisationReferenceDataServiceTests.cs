@@ -101,7 +101,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.Organisation
         private IOrganisationReferenceDataService OrgFundingTestRun()
         {
             var organisationMock = referenceDataCacheMock;
-            organisationMock.SetupGet(rdc => rdc.OrgFunding).Returns(new Dictionary<int, IEnumerable<OrgFunding>>
+            organisationMock.SetupGet(rdc => rdc.OrgFunding).Returns(new Dictionary<long, IEnumerable<OrgFunding>>
             {
                 { ukprn, OrgFundingList(OrgFundingTestValue) },
             });
