@@ -15,9 +15,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
             _fundingService = fundingService;
         }
 
-        public IFM35FundingOutputs Execute(int ukprn, IList<ILearner> albValidLearners)
+        public IFM35FundingOutputs Execute(int ukprn, IList<ILearner> fm35ValidLearners)
         {
-            return _fundingService.ProcessFunding(ukprn, albValidLearners);
+            return _fundingService.ProcessFunding(ukprn, fm35ValidLearners);
         }
     }
 }

@@ -8,7 +8,7 @@ using ESFA.DC.IO.Interfaces;
 using ESFA.DC.JobContext;
 using ESFA.DC.JobContext.Interface;
 using ESFA.DC.Serialization.Interfaces;
-using ESFA.DC.Serialization.Json;
+using ESFA.DC.Serialization.Xml;
 using FluentAssertions;
 using Xunit;
 
@@ -252,12 +252,12 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts.Tests
 
         private static IKeyValuePersistenceService KeyValuePersistenceService => BuildKeyValueDictionary();
 
-        private static ISerializationService SerializationService => new JsonSerializationService();
+        private static IXmlSerializationService SerializationService => new XmlSerializationService();
 
         private static DictionaryKeyValuePersistenceService BuildKeyValueDictionary()
         {
             var list = new DictionaryKeyValuePersistenceService();
-            var serializer = new JsonSerializationService();
+            var serializer = new XmlSerializationService();
 
             list.SaveAsync("ValidLearnRefNumbers", serializer.Serialize(TestLearners())).Wait();
 

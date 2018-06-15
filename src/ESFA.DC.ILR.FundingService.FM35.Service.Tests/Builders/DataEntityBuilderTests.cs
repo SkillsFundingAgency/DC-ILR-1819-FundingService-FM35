@@ -3517,7 +3517,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
 
             var larsLearningDelivery = referenceDataCacheMock.LARSLearningDelivery.Select(v => v.Value).FirstOrDefault();
-            var larsFrameworkAims = referenceDataCacheMock.LARSFrameworkAims.Select(v => v.Value);
+            var larsFrameworkAims = referenceDataCacheMock.LARSFrameworkAims.Select(v => v.Value.ToList());
 
             return learnerBuilder.LearningDeliveryEntity(TestLearner.LearningDeliveries.FirstOrDefault(), larsLearningDelivery, larsFrameworkAims.Single());
         }

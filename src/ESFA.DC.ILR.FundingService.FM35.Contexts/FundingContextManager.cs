@@ -18,9 +18,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.Contexts
 
         private readonly IJobContextMessage _jobContextMessage;
         private readonly IKeyValuePersistenceService _keyValuePersistenceService;
-        private readonly ISerializationService _serializationService;
+        private readonly IXmlSerializationService _serializationService;
 
-        public FundingContextManager(IJobContextMessage jobContextMessage, IKeyValuePersistenceService keyValuePersistenceService, ISerializationService serializationService)
+        public FundingContextManager(IJobContextMessage jobContextMessage, IKeyValuePersistenceService keyValuePersistenceService, IXmlSerializationService serializationService)
         {
             _jobContextMessage = jobContextMessage;
             _keyValuePersistenceService = keyValuePersistenceService;

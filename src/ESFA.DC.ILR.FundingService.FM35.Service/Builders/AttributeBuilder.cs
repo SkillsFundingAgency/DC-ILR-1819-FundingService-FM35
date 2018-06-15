@@ -8,8 +8,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
 {
     public class AttributeBuilder : IAttributeBuilder<IAttributeData>
     {
-        #region Constants
-
         // Global
         private const string LARSVersion = "LARSVersion";
         private const string OrgVersion = "OrgVersion";
@@ -97,8 +95,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
         private const string AreaCosEffectiveFrom = "AreaCosEffectiveFrom";
         private const string AreaCosEffectiveTo = "AreaCosEffectiveTo";
         private const string AreaCosFactor = "AreaCosFactor";
-
-        #endregion
 
         public IDictionary<string, IAttributeData> BuildGlobalAttributes(int ukprn, string larsVersion, string orgVersion, string postcodeDisadvantageVersion)
         {

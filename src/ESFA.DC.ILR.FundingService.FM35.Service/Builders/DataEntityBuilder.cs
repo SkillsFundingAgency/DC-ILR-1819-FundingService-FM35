@@ -63,7 +63,8 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                 {
                     _referenceDataCache.LARSLearningDelivery.TryGetValue(learningDelivery.LearnAimRef, out LARSLearningDelivery larsLearningDelivery);
                     _referenceDataCache.LARSFrameworkAims.TryGetValue(learningDelivery.LearnAimRef, out IEnumerable<LARSFrameworkAims> larsFrameworkAims);
-                    IDataEntity learningDeliveryEntity = LearningDeliveryEntity(learningDelivery, larsLearningDelivery, larsFrameworkAims);
+                    var larsFwkAims = larsFrameworkAims == null ? null : larsFrameworkAims.ToList();
+                    IDataEntity learningDeliveryEntity = LearningDeliveryEntity(learningDelivery, larsLearningDelivery, larsFwkAims);
 
                     learnerEntity.AddChild(learningDeliveryEntity);
                 }
@@ -180,16 +181,27 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
             return sfaPostcodeDisadvantgeEntity;
         }
 
-        protected internal IDataEntity LearningDeliveryEntity(ILearningDelivery learningDelivery, LARSLearningDelivery larsLearningDelivery, IEnumerable<LARSFrameworkAims> larsFrameworkAims)
+        protected internal IDataEntity LearningDeliveryEntity(ILearningDelivery learningDelivery, LARSLearningDelivery larsLearningDelivery, IList<LARSFrameworkAims> larsFrameworkAims)
         {
             var learningDeliveryFAMS = PivotLearningDeliveryFAMS(learningDelivery);
 
-            var frameworkComponentType = larsFrameworkAims
+            int? frameworkComponentType = null;
+
+            if (larsFrameworkAims != null
+                && larsFrameworkAims.Select(l => l.LearnAimRef).Contains(learningDelivery.LearnAimRef)
+                && learningDelivery.FworkCodeNullable != null
+                && learningDelivery.ProgTypeNullable != null
+                && learningDelivery.PwayCodeNullable != null)
+            {
+                frameworkComponentType = larsFrameworkAims
                 .Where(fwa =>
-                    learningDelivery.FworkCodeNullable == fwa.FworkCode
+                        learningDelivery.LearnAimRef == fwa.LearnAimRef
+                    && learningDelivery.FworkCodeNullable == fwa.FworkCode
                     && learningDelivery.ProgTypeNullable == fwa.ProgType
-                    && learningDelivery.PwayCodeNullable == fwa.PwayCode)
-                .Select(fwct => fwct.FrameworkComponentType).FirstOrDefault();
+                    && learningDelivery.PwayCodeNullable == fwa.PwayCode
+                    && fwa.EffectiveTo == null)
+                .Select(fwct => fwct.FrameworkComponentType).First();
+            }
 
             IDataEntity learningDeliveryEntity = new DataEntity(EntityLearningDelivery)
             {

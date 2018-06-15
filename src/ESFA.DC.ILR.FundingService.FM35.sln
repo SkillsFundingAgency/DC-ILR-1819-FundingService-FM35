@@ -41,11 +41,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.TestHelpers.Mock", "ESFA.DC.TestHelpers.Mock\ESFA.DC.TestHelpers.Mock.csproj", "{2CF23289-3B39-4364-A9E3-0C39A9B99E05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.OrchestrationService", "ESFA.DC.ILR.FundingService.FM35.OrchestrationService\ESFA.DC.ILR.FundingService.FM35.OrchestrationService.csproj", "{FA0CC3E6-353F-4BBB-8D28-9D23904D5E33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.ILR.FundingService.FM35.OrchestrationService", "ESFA.DC.ILR.FundingService.FM35.OrchestrationService\ESFA.DC.ILR.FundingService.FM35.OrchestrationService.csproj", "{FA0CC3E6-353F-4BBB-8D28-9D23904D5E33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Interface", "ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Interface\ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Interface.csproj", "{6A38694D-D362-4A64-84EF-4FF639819AA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Interface", "ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Interface\ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Interface.csproj", "{6A38694D-D362-4A64-84EF-4FF639819AA4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Tests", "ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Tests\ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Tests.csproj", "{A05AADCE-4083-4533-A376-A469272CE541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.Modules", "ESFA.DC.ILR.FundingService.FM35.Modules\ESFA.DC.ILR.FundingService.FM35.Modules.csproj", "{155DA4C7-2D6B-49B8-8FEC-CA24555B72A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.TaskProvider", "ESFA.DC.ILR.FundingService.FM35.TaskProvider\ESFA.DC.ILR.FundingService.FM35.TaskProvider.csproj", "{76370CB7-96CF-4546-B894-61F0000F12E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.FundingService.FM35.TaskProvider.Tests", "ESFA.DC.ILR.FundingService.FM35.TaskProvider.Tests\ESFA.DC.ILR.FundingService.FM35.TaskProvider.Tests.csproj", "{C857E016-1FBD-468C-B22E-DB0A498193FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,6 +147,18 @@ Global
 		{A05AADCE-4083-4533-A376-A469272CE541}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A05AADCE-4083-4533-A376-A469272CE541}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A05AADCE-4083-4533-A376-A469272CE541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{155DA4C7-2D6B-49B8-8FEC-CA24555B72A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{155DA4C7-2D6B-49B8-8FEC-CA24555B72A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{155DA4C7-2D6B-49B8-8FEC-CA24555B72A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{155DA4C7-2D6B-49B8-8FEC-CA24555B72A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76370CB7-96CF-4546-B894-61F0000F12E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76370CB7-96CF-4546-B894-61F0000F12E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76370CB7-96CF-4546-B894-61F0000F12E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76370CB7-96CF-4546-B894-61F0000F12E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C857E016-1FBD-468C-B22E-DB0A498193FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C857E016-1FBD-468C-B22E-DB0A498193FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C857E016-1FBD-468C-B22E-DB0A498193FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C857E016-1FBD-468C-B22E-DB0A498193FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

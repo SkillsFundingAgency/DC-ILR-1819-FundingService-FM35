@@ -18,9 +18,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
         private readonly ILARS _LARSContext;
         private readonly IPostcodes _postcodesContext;
         private readonly IOrganisations _organisationContext;
-        private readonly ILargeEmployers _largeEmployerContext;
+        private readonly ILargeEmployer _largeEmployerContext;
 
-        public ReferenceDataCachePopulationService(IReferenceDataCache referenceDataCache, ILARS LARSContext, IPostcodes postcodesContext, IOrganisations organisationContext, ILargeEmployers largeEmployerContext)
+        public ReferenceDataCachePopulationService(IReferenceDataCache referenceDataCache, ILARS LARSContext, IPostcodes postcodesContext, IOrganisations organisationContext, ILargeEmployer largeEmployerContext)
         {
             _referenceDataCache = referenceDataCache;
             _LARSContext = LARSContext;
@@ -49,8 +49,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
 
             referenceDataCache.LargeEmployers = LargeEmployers(lEmpIDs);
         }
-
-        #region LARS
 
         private string LARSCurrentVersion()
         {
@@ -133,10 +131,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
                 }).ToList() as IEnumerable<LARSFunding>);
         }
 
-        #endregion
-
-        #region Postcodes
-
         private string PostcodesVersion()
         {
             return _postcodesContext.VersionInfos.Select(p => p.VersionNumber).Max();
@@ -170,10 +164,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
                 }).ToList() as IEnumerable<SfaDisadvantage>);
         }
 
-        #endregion
-
-        #region Organisation
-
         private string OrgVersion()
         {
             return _organisationContext.Org_Version.Select(lv => lv.MainDataSchemaName).Max();
@@ -195,14 +185,10 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
                 }).ToList() as IEnumerable<OrgFunding>);
         }
 
-        #endregion
-
-        #region Large Employer
-
         private IDictionary<int, IEnumerable<LargeEmployers>> LargeEmployers(IList<int> lEmpIDs)
         {
             return
-                _largeEmployerContext.LargeEmployers
+                _largeEmployerContext.LEMP_Employers
                 .Where(l => lEmpIDs.Contains(l.ERN)).GroupBy(e => e.ERN)
                 .ToDictionary(a => a.Key, a => a.Select(le => new LargeEmployers
                 {
@@ -211,7 +197,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData
                     EffectiveTo = le.EffectiveTo,
                 }).ToList() as IEnumerable<LargeEmployers>);
         }
-
-        #endregion
     }
 }

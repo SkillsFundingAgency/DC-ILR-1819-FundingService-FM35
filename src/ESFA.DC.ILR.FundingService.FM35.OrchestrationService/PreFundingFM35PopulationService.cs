@@ -37,13 +37,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
 
             foreach (var learner in learners)
             {
-                foreach (var empStatus in learner.LearnerEmploymentStatuses)
-                {
-                    lEmpIdTempList.Add(empStatus.EmpIdNullable);
-                }
-
-                postcodesTempList.Add(learner.PostcodePrior);
-
                 foreach (var learningDelivery in learner.LearningDeliveries.Where(ld => ld.FundModel == 35).ToList())
                 {
                     if (!added)
@@ -57,6 +50,13 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
                         postcodesTempList.Add(learningDelivery.DelLocPostCode);
                         learnAimRefsList.Add(learningDelivery.LearnAimRef);
                     }
+
+                    foreach (var empStatus in learner.LearnerEmploymentStatuses)
+                    {
+                        lEmpIdTempList.Add(empStatus.EmpIdNullable);
+                    }
+
+                    postcodesTempList.Add(learner.PostcodePrior);
                 }
 
                 added = false;

@@ -659,7 +659,7 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         private static readonly Mock<ILARS> larsContextMock = new Mock<ILARS>();
         private static readonly Mock<IPostcodes> postcodesContextMock = new Mock<IPostcodes>();
         private static readonly Mock<IOrganisations> organisationContextMock = new Mock<IOrganisations>();
-        private static readonly Mock<ILargeEmployers> largeEmployersContextMock = new Mock<ILargeEmployers>();
+        private static readonly Mock<ILargeEmployer> largeEmployersContextMock = new Mock<ILargeEmployer>();
 
         private Mock<ILARS> LARSMock()
         {
@@ -704,11 +704,11 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
             return organisationContextMock;
         }
 
-        private Mock<ILargeEmployers> LargeEmployersMock()
+        private Mock<ILargeEmployer> LargeEmployersMock()
         {
             var largeEmployerMock = MockDBSetHelper.GetQueryableMockDbSet(MockLargeEmployerArray());
 
-            largeEmployersContextMock.Setup(x => x.LargeEmployers).Returns(largeEmployerMock);
+            largeEmployersContextMock.Setup(x => x.LEMP_Employers).Returns(largeEmployerMock);
 
             return largeEmployersContextMock;
         }
@@ -932,16 +932,16 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
                EffectiveTo = new DateTime(2019, 07, 31),
            };
 
-        private static LargeEmployers[] MockLargeEmployerArray()
+        private static LEMP_Employers[] MockLargeEmployerArray()
         {
-            return new LargeEmployers[]
+            return new LEMP_Employers[]
             {
                 LargeEmployerTestValue,
             };
         }
 
-        private static readonly LargeEmployers LargeEmployerTestValue =
-           new LargeEmployers
+        private static readonly LEMP_Employers LargeEmployerTestValue =
+           new LEMP_Employers
            {
                ERN = 99999,
                EffectiveFrom = new DateTime(2018, 08, 01),
