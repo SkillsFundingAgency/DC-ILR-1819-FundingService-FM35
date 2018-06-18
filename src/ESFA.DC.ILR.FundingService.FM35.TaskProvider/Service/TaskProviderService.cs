@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface;
 using ESFA.DC.ILR.FundingService.FM35.InternalData.Interface;
 using ESFA.DC.ILR.FundingService.FM35.OrchestrationService.Interface;
@@ -39,9 +42,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.TaskProvider.Service
             // process funding
             var fundingOutputs = ProcessFunding(learnersToProcess);
 
-            // transform shards in to new object
-            // var fundingOutputsToPersist = TransformFundingOutput(fundingOutputs);
-
             // persist
             DataPersister dataPersister = new DataPersister();
             dataPersister.PersistData(fundingOutputs);
@@ -60,29 +60,33 @@ namespace ESFA.DC.ILR.FundingService.FM35.TaskProvider.Service
         private IFM35FundingOutputs ProcessFunding(IEnumerable<IList<ILearner>> learnersList)
         {
             int ukprn = _internalDataCache.UKPRN;
-            IList<IFM35FundingOutputs> fundingOutputsList = new List<IFM35FundingOutputs>();
+            ConcurrentBag<IFM35FundingOutputs> fundingOutputsList = new ConcurrentBag<IFM35FundingOutputs>();
 
-            foreach (var list in learnersList)
+            Parallel.ForEach(learnersList, ll =>
             {
-                fundingOutputsList.Add(_fm35OrchestrationService.Execute(ukprn, list));
-            }
+                fundingOutputsList.Add(_fm35OrchestrationService.Execute(ukprn, ll));
+            });
 
-            //TODO: call in to funding outputs transformation and return object
+            //foreach (var list in learnersList)
+            //{
+            //    fundingOutputsList.Add(_fm35OrchestrationService.Execute(ukprn, list));
+            //}
 
-            return fundingOutputsList.Single();
+            return TransformFundingOutput(fundingOutputsList.ToList());
         }
 
-        //private IFM35FundingOutputs TransformFundingOutput(IFM35FundingOutputs fundingOutputsList)
-        //{
-        //    var global = fundingOutputsList.Global;
+        private IFM35FundingOutputs TransformFundingOutput(IList<IFM35FundingOutputs> fundingOutputs)
+        {
+            var global = fundingOutputs.Select(g => g.Global).FirstOrDefault();
 
-        //    var learnerAttributes = fundingOutputsList.SelectMany(f => f.SelectMany(l => l.Learners)).ToArray();
+            var learnerAttributes = fundingOutputs.SelectMany(l => l.Learners).ToArray();
+                // fundingOutputs.SelectMany(f => f.SelectMany(l => l.Learners)).ToArray();
 
-        //    return new FundingOutput.Model.FM35FundingOutputs
-        //    {
-        //        Global = global,
-        //        Learners = learnerAttributes,
-        //    };
-        //}
+            return new FM35FundingOutputs
+            {
+                Global = global,
+                Learners = learnerAttributes,
+            };
+        }
     }
 }

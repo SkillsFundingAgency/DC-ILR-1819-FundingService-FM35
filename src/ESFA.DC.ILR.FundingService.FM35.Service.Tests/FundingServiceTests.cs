@@ -12,6 +12,8 @@ using ESFA.DC.Data.Organisatons.Model;
 using ESFA.DC.Data.Organisatons.Model.Interface;
 using ESFA.DC.Data.Postcodes.Model;
 using ESFA.DC.Data.Postcodes.Model.Interfaces;
+using ESFA.DC.DateTime.Provider;
+using ESFA.DC.DateTime.Provider.Interface;
 using ESFA.DC.ILR.FundingService.FM35.Contexts;
 using ESFA.DC.ILR.FundingService.FM35.Contexts.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData;
@@ -68,7 +70,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
         #region Test Helpers
 
         private static readonly ISessionBuilder _sessionBuilder = new SessionBuilder();
-        private static readonly IOPADataEntityBuilder _dataEntityBuilder = new OPADataEntityBuilder(new DateTime(2018, 8, 1));
+        private static readonly IOPADataEntityBuilder _dataEntityBuilder = new OPADataEntityBuilder(new System.DateTime(2018, 8, 1));
 
         private readonly IOPAService opaService =
             new OPAService(_sessionBuilder, _dataEntityBuilder, MockRulebaseProviderFactory());
@@ -96,7 +98,8 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
             IReferenceDataCachePopulationService referenceDataCachePopulationService = new ReferenceDataCachePopulationService(referenceDataCache, LARSMock().Object, PostcodesMock().Object, OrganisationMock().Object, LargeEmployersMock().Object);
             IDataEntityBuilder dataEntityBuilder = new DataEntityBuilder(referenceDataCache, attributeBuilder);
-            IFundingOutputService fundingOutputService = new FundingOutputService();
+            IDateTimeProvider dateTimeProvider = new DateTimeProvider();
+            IFundingOutputService fundingOutputService = new FundingOutputService(dateTimeProvider);
             IInternalDataCache validALBLearnersCache = new InternalDataCache();
 
             var fundingService = new FundingService(dataEntityBuilder, opaService, fundingOutputService);
@@ -135,7 +138,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
         private static IJobContextMessage JobContextMessage => new JobContextMessage
         {
             JobId = 1,
-            SubmissionDateTimeUtc = new DateTime(2018, 08, 01).ToUniversalTime(),
+            SubmissionDateTimeUtc = new System.DateTime(2018, 08, 01).ToUniversalTime(),
             Topics = Topics,
             TopicPointer = 1,
             KeyValuePairs = KeyValuePairsDictionary,
@@ -237,13 +240,13 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                 MaintenanceNumber = 0,
                 MainDataSchemaName = "Version_005",
                 RefDataSchemaName = "REF_Version_005",
-                ActivationDate = DateTime.Parse("2017-07-01"),
+                ActivationDate = System.DateTime.Parse("2017-07-01"),
                 ExpiryDate = null,
                 Description = "Fifth Version of LARS",
                 Comment = null,
-                Created_On = DateTime.Parse("2017-07-01"),
+                Created_On = System.DateTime.Parse("2017-07-01"),
                 Created_By = "System",
-                Modified_On = DateTime.Parse("2018-07-01"),
+                Modified_On = System.DateTime.Parse("2018-07-01"),
                 Modified_By = "System"
             };
 
@@ -265,15 +268,15 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                 LearnAimRefType = "0006",
                 NotionalNVQLevel = "2",
                 NotionalNVQLevelv2 = "2",
-                CertificationEndDate = DateTime.Parse("2018-01-01"),
-                OperationalStartDate = DateTime.Parse("2018-01-01"),
-                OperationalEndDate = DateTime.Parse("2018-01-01"),
+                CertificationEndDate = System.DateTime.Parse("2018-01-01"),
+                OperationalStartDate = System.DateTime.Parse("2018-01-01"),
+                OperationalEndDate = System.DateTime.Parse("2018-01-01"),
                 RegulatedCreditValue = 180,
-                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                 EffectiveTo = null,
-                Created_On = DateTime.Parse("2017-01-01"),
+                Created_On = System.DateTime.Parse("2017-01-01"),
                 Created_By = "TestUser",
-                Modified_On = DateTime.Parse("2018-01-01"),
+                Modified_On = System.DateTime.Parse("2018-01-01"),
                 Modified_By = "TestUser"
             };
 
@@ -285,15 +288,15 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                 LearnAimRefType = "0006",
                 NotionalNVQLevel = "2",
                 NotionalNVQLevelv2 = "2",
-                CertificationEndDate = DateTime.Parse("2018-01-01"),
-                OperationalStartDate = DateTime.Parse("2018-01-01"),
-                OperationalEndDate = DateTime.Parse("2018-01-01"),
+                CertificationEndDate = System.DateTime.Parse("2018-01-01"),
+                OperationalStartDate = System.DateTime.Parse("2018-01-01"),
+                OperationalEndDate = System.DateTime.Parse("2018-01-01"),
                 RegulatedCreditValue = 180,
-                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                 EffectiveTo = null,
-                Created_On = DateTime.Parse("2017-01-01"),
+                Created_On = System.DateTime.Parse("2017-01-01"),
                 Created_By = "TestUser",
-                Modified_On = DateTime.Parse("2018-01-01"),
+                Modified_On = System.DateTime.Parse("2018-01-01"),
                 Modified_By = "TestUser"
             };
 
@@ -305,15 +308,15 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
             LearnAimRefType = "0006",
             NotionalNVQLevel = "2",
             NotionalNVQLevelv2 = "2",
-            CertificationEndDate = DateTime.Parse("2018-01-01"),
-            OperationalStartDate = DateTime.Parse("2018-01-01"),
-            OperationalEndDate = DateTime.Parse("2018-01-01"),
+            CertificationEndDate = System.DateTime.Parse("2018-01-01"),
+            OperationalStartDate = System.DateTime.Parse("2018-01-01"),
+            OperationalEndDate = System.DateTime.Parse("2018-01-01"),
             RegulatedCreditValue = 180,
-            EffectiveFrom = DateTime.Parse("2000-01-01"),
+            EffectiveFrom = System.DateTime.Parse("2000-01-01"),
             EffectiveTo = null,
-            Created_On = DateTime.Parse("2017-01-01"),
+            Created_On = System.DateTime.Parse("2017-01-01"),
             Created_By = "TestUser",
-            Modified_On = DateTime.Parse("2018-01-01"),
+            Modified_On = System.DateTime.Parse("2018-01-01"),
             Modified_By = "TestUser"
         };
 
@@ -335,11 +338,11 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                 RateWeighted = 11356m,
                 RateUnWeighted = null,
                 WeightingFactor = "G",
-                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                 EffectiveTo = null,
-                Created_On = DateTime.Parse("2017-01-01"),
+                Created_On = System.DateTime.Parse("2017-01-01"),
                 Created_By = "TestUser",
-                Modified_On = DateTime.Parse("2018-01-01"),
+                Modified_On = System.DateTime.Parse("2018-01-01"),
                 Modified_By = "TestUser"
             };
 
@@ -351,11 +354,11 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                 RateWeighted = 11356m,
                 RateUnWeighted = null,
                 WeightingFactor = "G",
-                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                 EffectiveTo = null,
-                Created_On = DateTime.Parse("2017-01-01"),
+                Created_On = System.DateTime.Parse("2017-01-01"),
                 Created_By = "TestUser",
-                Modified_On = DateTime.Parse("2018-01-01"),
+                Modified_On = System.DateTime.Parse("2018-01-01"),
                 Modified_By = "TestUser"
             };
 
@@ -367,11 +370,11 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                 RateWeighted = 11356m,
                 RateUnWeighted = null,
                 WeightingFactor = "G",
-                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                 EffectiveTo = null,
-                Created_On = DateTime.Parse("2017-01-01"),
+                Created_On = System.DateTime.Parse("2017-01-01"),
                 Created_By = "TestUser",
-                Modified_On = DateTime.Parse("2018-01-01"),
+                Modified_On = System.DateTime.Parse("2018-01-01"),
                 Modified_By = "TestUser"
             };
 
@@ -388,7 +391,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
             {
                 LearnAimRef = "60133533",
                 CategoryRef = 1,
-                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                 EffectiveTo = null,
             };
 
@@ -405,7 +408,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
             {
                 LearnAimRef = "60133533",
                 BasicSkillsType = 5,
-                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                 EffectiveTo = null,
             };
 
@@ -427,7 +430,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                 ProgType = 2,
                 PwayCode = 1,
                 FrameworkComponentType = 1,
-                EffectiveFrom = DateTime.Parse("2000-01-01"),
+                EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                 EffectiveTo = null,
             };
 
@@ -439,7 +442,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                ProgType = 2,
                PwayCode = 1,
                FrameworkComponentType = 1,
-               EffectiveFrom = DateTime.Parse("2000-01-01"),
+               EffectiveFrom = System.DateTime.Parse("2000-01-01"),
                EffectiveTo = null,
            };
 
@@ -451,7 +454,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
               ProgType = 2,
               PwayCode = 1,
               FrameworkComponentType = 1,
-              EffectiveFrom = DateTime.Parse("2000-01-01"),
+              EffectiveFrom = System.DateTime.Parse("2000-01-01"),
               EffectiveTo = null,
           };
 
@@ -469,7 +472,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                 VersionNumber = "Version_002",
                 DataSource = "Source",
                 Comments = "Comments",
-                ModifiedAt = DateTime.Parse("2018-01-01"),
+                ModifiedAt = System.DateTime.Parse("2018-01-01"),
                 ModifiedBy = "System"
             };
 
@@ -487,7 +490,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
               MasterPostcode = new MasterPostcode { Postcode = "ZZ99 9ZZ" },
               Postcode = "ZZ99 9ZZ",
               AreaCostFactor = 1.2m,
-              EffectiveFrom = DateTime.Parse("2000-01-01"),
+              EffectiveFrom = System.DateTime.Parse("2000-01-01"),
               EffectiveTo = null,
           };
 
@@ -506,7 +509,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
               MasterPostcode = new MasterPostcode { Postcode = "ZZ99 9ZZ" },
               Postcode = "ZZ99 9ZZ",
               Uplift = 1.2m,
-              EffectiveFrom = DateTime.Parse("2000-01-01"),
+              EffectiveFrom = System.DateTime.Parse("2000-01-01"),
               EffectiveTo = null,
           };
 
@@ -516,7 +519,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
               MasterPostcode = new MasterPostcode { Postcode = "B10 0BL" },
               Postcode = "B10 0BL",
               Uplift = 1.2m,
-              EffectiveFrom = DateTime.Parse("2000-01-01"),
+              EffectiveFrom = System.DateTime.Parse("2000-01-01"),
               EffectiveTo = null,
           };
 
@@ -549,8 +552,8 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                FundingFactor = "Factor",
                FundingFactorType = "Adult Skills",
                FundingFactorValue = "1,54",
-               EffectiveFrom = new DateTime(2018, 08, 01),
-               EffectiveTo = new DateTime(2019, 07, 31),
+               EffectiveFrom = new System.DateTime(2018, 08, 01),
+               EffectiveTo = new System.DateTime(2019, 07, 31),
            };
 
         private static LEMP_Employers[] MockLargeEmployerArray()
@@ -565,8 +568,8 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
            new LEMP_Employers
            {
                ERN = 154549452,
-               EffectiveFrom = new DateTime(2018, 08, 01),
-               EffectiveTo = new DateTime(2019, 07, 31),
+               EffectiveFrom = new System.DateTime(2018, 08, 01),
+               EffectiveTo = new System.DateTime(2019, 07, 31),
            };
 
         #endregion

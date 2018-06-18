@@ -72,7 +72,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                 globalEntity.AddChild(learnerEntity);
 
                 return globalEntity;
-            }).AsParallel();
+            });
 
             return globalEntities;
         }
@@ -87,7 +87,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                     _attributeBuilder.BuildGlobalAttributes(ukprn, _referenceDataCache.LARSCurrentVersion, _referenceDataCache.OrgVersion, _referenceDataCache.PostcodeCurrentVersion),
             };
 
-            var orgFunding = _referenceDataCache.OrgFunding.Where(k => k.Key == ukprn).Select(v => v.Value).Single();
+            var orgFunding = _referenceDataCache.OrgFunding[ukprn];
 
             foreach (var o in orgFunding)
             {
@@ -128,7 +128,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                 learnerDataEntity.AddChild(learnerEmploymentStatusDataEntity);
             }
 
-            var sfaPostcodeDisadvantageData = _referenceDataCache.SfaDisadvantage.Where(k => k.Key == learner.PostcodePrior).Select(v => v.Value).Single();
+            var sfaPostcodeDisadvantageData = _referenceDataCache.SfaDisadvantage[learner.PostcodePrior];
 
             foreach (var postcode in sfaPostcodeDisadvantageData)
             {
@@ -146,14 +146,17 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                    _attributeBuilder.BuildLearnerEmploymentStatusAttributes(employmentStatus.EmpIdNullable, employmentStatus.DateEmpStatApp),
             };
 
-            var largeEmployers = _referenceDataCache.LargeEmployers
-                   .Where(k => k.Key == employmentStatus.EmpIdNullable).Select(v => v.Value).Single();
+            var largeEmployers = employmentStatus.EmpIdNullable != null ?
+                _referenceDataCache.LargeEmployers[(int)employmentStatus.EmpIdNullable] : null;
 
-            foreach (var lemp in largeEmployers)
+            if (largeEmployers != null)
             {
-                IDataEntity largeEmployersDataEntity = LargeEmployersEntity(lemp);
+                foreach (var lemp in largeEmployers)
+                {
+                    IDataEntity largeEmployersDataEntity = LargeEmployersEntity(lemp);
 
-                learnerEmploymentStatusDataEntity.AddChild(largeEmployersDataEntity);
+                    learnerEmploymentStatusDataEntity.AddChild(largeEmployersDataEntity);
+                }
             }
 
             return learnerEmploymentStatusDataEntity;
@@ -198,9 +201,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                         learningDelivery.LearnAimRef == fwa.LearnAimRef
                     && learningDelivery.FworkCodeNullable == fwa.FworkCode
                     && learningDelivery.ProgTypeNullable == fwa.ProgType
-                    && learningDelivery.PwayCodeNullable == fwa.PwayCode
-                    && fwa.EffectiveTo == null)
-                .Select(fwct => fwct.FrameworkComponentType).First();
+                    && learningDelivery.PwayCodeNullable == fwa.PwayCode)
+                    //&& fwa.EffectiveTo == null)
+                .Select(fwct => fwct.FrameworkComponentType).FirstOrDefault();
             }
 
             IDataEntity learningDeliveryEntity = new DataEntity(EntityLearningDelivery)
@@ -236,11 +239,14 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                         learningDelivery.PwayCodeNullable)
             };
 
-            foreach (var learningDeliveryFAM in learningDelivery.LearningDeliveryFAMs)
+            if (learningDelivery.LearningDeliveryFAMs != null)
             {
-                IDataEntity learningDeliveryFAMEntity = LearningDeliveryFAMEntity(learningDeliveryFAM);
+                foreach (var learningDeliveryFAM in learningDelivery.LearningDeliveryFAMs)
+                {
+                    IDataEntity learningDeliveryFAMEntity = LearningDeliveryFAMEntity(learningDeliveryFAM);
 
-                learningDeliveryEntity.AddChild(learningDeliveryFAMEntity);
+                    learningDeliveryEntity.AddChild(learningDeliveryFAMEntity);
+                }
             }
 
             if (_referenceDataCache.LARSAnnualValue.ContainsKey(learningDelivery.LearnAimRef))
@@ -351,32 +357,36 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
 
         protected internal LearningDeliveryFAMPivot PivotLearningDeliveryFAMS(ILearningDelivery learningDelivery)
         {
-            var ldmKey = 1;
-            var famDictionary = learningDelivery.LearningDeliveryFAMs?.Where(w => w.LearnDelFAMType.Contains("LDM"))
-                    .ToDictionary(k => "LDM" + ldmKey++, ldf => ToNullableInt(ldf.LearnDelFAMCode));
-
-            famDictionary.Add(
-                LearningDeliveryFAMTypeEEF,
-                ToNullableInt(learningDelivery.LearningDeliveryFAMs?.Where(w => w.LearnDelFAMType.Contains(LearningDeliveryFAMTypeEEF)).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()));
-            famDictionary.Add(
-                LearningDeliveryFAMTypeFFI,
-                ToNullableInt(learningDelivery.LearningDeliveryFAMs?.Where(w => w.LearnDelFAMType.Contains(LearningDeliveryFAMTypeFFI)).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()));
-            famDictionary.Add(
-                LearningDeliveryFAMTypeRES,
-                ToNullableInt(learningDelivery.LearningDeliveryFAMs?.Where(w => w.LearnDelFAMType.Contains(LearningDeliveryFAMTypeRES)).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()));
-
-            var pivot = new LearningDeliveryFAMPivot
+            if (learningDelivery.LearningDeliveryFAMs != null)
             {
-                EEF = famDictionary.Where(k => k.Key == LearningDeliveryFAMTypeEEF).Select(v => v.Value).FirstOrDefault(),
-                FFI = famDictionary.Where(k => k.Key == LearningDeliveryFAMTypeFFI).Select(v => v.Value).FirstOrDefault(),
-                RES = famDictionary.Where(k => k.Key == LearningDeliveryFAMTypeRES).Select(v => v.Value).FirstOrDefault(),
-                LDM1 = famDictionary.Where(k => k.Key == LearningDeliveryFAMTypeLDM1).Select(v => v.Value).FirstOrDefault(),
-                LDM2 = famDictionary.Where(k => k.Key == LearningDeliveryFAMTypeLDM2).Select(v => v.Value).FirstOrDefault(),
-                LDM3 = famDictionary.Where(k => k.Key == LearningDeliveryFAMTypeLDM3).Select(v => v.Value).FirstOrDefault(),
-                LDM4 = famDictionary.Where(k => k.Key == LearningDeliveryFAMTypeLDM4).Select(v => v.Value).FirstOrDefault(),
-            };
+                var ldmArray = learningDelivery.LearningDeliveryFAMs?
+                    .Where(w => w.LearnDelFAMType.Contains("LDM"))
+                    .Select(ldf => ToNullableInt(ldf.LearnDelFAMCode)).ToArray();
 
-            return pivot;
+                Array.Resize(ref ldmArray, 4);
+
+                return new LearningDeliveryFAMPivot
+                {
+                    EEF = ToNullableInt(learningDelivery.LearningDeliveryFAMs.Where(w => w.LearnDelFAMType == LearningDeliveryFAMTypeEEF).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()),
+                    FFI = ToNullableInt(learningDelivery.LearningDeliveryFAMs.Where(w => w.LearnDelFAMType == LearningDeliveryFAMTypeFFI).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()),
+                    RES = ToNullableInt(learningDelivery.LearningDeliveryFAMs.Where(w => w.LearnDelFAMType == LearningDeliveryFAMTypeRES).Select(ldf => ldf.LearnDelFAMCode).SingleOrDefault()),
+                    LDM1 = ldmArray[0],
+                    LDM2 = ldmArray[1],
+                    LDM3 = ldmArray[2],
+                    LDM4 = ldmArray[3],
+                };
+            }
+
+            return new LearningDeliveryFAMPivot
+            {
+                EEF = null,
+                FFI = null,
+                RES = null,
+                LDM1 = null,
+                LDM2 = null,
+                LDM3 = null,
+                LDM4 = null,
+            };
         }
 
         private static int? ToNullableInt(string stringValue)

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface;
@@ -37,12 +39,19 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service
 
         protected internal IEnumerable<IDataEntity> BuildInputEntities(int ukprn, IList<ILearner> learnerList)
         {
-            return _dataEntityBuilder.EntityBuilder(ukprn, learnerList);
+            return _dataEntityBuilder.EntityBuilder(ukprn, learnerList).AsParallel().ToList();
         }
 
         protected internal ConcurrentBag<IDataEntity> ExecuteSessions(IEnumerable<IDataEntity> inputDataEntities)
         {
             var outputDataEntities = new ConcurrentBag<IDataEntity>();
+
+            //Parallel.ForEach(inputDataEntities, e =>
+            //{
+            //    IDataEntity sessionEntity = _opaService.ExecuteSession(e);
+
+            //    outputDataEntities.Add(sessionEntity);
+            //});
 
             foreach (var globalEntity in inputDataEntities)
             {
@@ -56,7 +65,8 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service
 
         protected internal IFM35FundingOutputs DataEntitytoFundingOutput(ConcurrentBag<IDataEntity> dataEntities)
         {
-            return _fundingOutputService.ProcessFundingOutputs(dataEntities);
+            var outputs = _fundingOutputService.ProcessFundingOutputs(dataEntities);
+            return outputs;
         }
     }
 }

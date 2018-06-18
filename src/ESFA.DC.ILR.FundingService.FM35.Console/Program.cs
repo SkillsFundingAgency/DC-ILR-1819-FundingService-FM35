@@ -16,9 +16,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.Console
 {
     public class Program
     {
-        // private static string fileName = "ILR-10006341-1819-20180118-023456-01.xml";
+         private static string FileName = "ILR-10006341-1819-20180118-023456-01.xml";
         // private const string FileName = "ILR-10006341-1819-20180118-023456-02.xml";
-        private const string FileName = "ILR-10006341-1819-20180613-144516-03.xml";
+        //private const string FileName = "ILR-10006341-1819-20180613-144516-03.xml";
         private static Stream stream;
 
         private static Message message;

@@ -9,11 +9,12 @@ using ESFA.DC.Data.Organisatons.Model;
 using ESFA.DC.Data.Organisatons.Model.Interface;
 using ESFA.DC.Data.Postcodes.Model;
 using ESFA.DC.Data.Postcodes.Model.Interfaces;
+using ESFA.DC.DateTime.Provider;
+using ESFA.DC.DateTime.Provider.Interface;
 using ESFA.DC.ILR.FundingService.FM35.Contexts;
 using ESFA.DC.ILR.FundingService.FM35.Contexts.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
-using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Model;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface;
 using ESFA.DC.ILR.FundingService.FM35.InternalData;
@@ -52,10 +53,11 @@ namespace ESFA.DC.ILR.FundingService.FM35.Modules
             builder.RegisterType<Organisations>().As<IOrganisations>().InstancePerLifetimeScope();
             builder.RegisterType<LargeEmployer>().As<ILargeEmployer>().InstancePerLifetimeScope();
             builder.RegisterType<SessionBuilder>().As<ISessionBuilder>().InstancePerLifetimeScope();
-            builder.RegisterType<OPADataEntityBuilder>().As<IOPADataEntityBuilder>().WithParameter("yearStartDate", new DateTime(2018, 8, 1)).InstancePerLifetimeScope();
+            builder.RegisterType<OPADataEntityBuilder>().As<IOPADataEntityBuilder>().WithParameter("yearStartDate", new System.DateTime(2018, 8, 1)).InstancePerLifetimeScope();
             builder.RegisterType<RulebaseProviderFactory>().As<IRulebaseProviderFactory>().InstancePerLifetimeScope();
             builder.RegisterType<OPAService>().As<IOPAService>().InstancePerLifetimeScope();
             builder.RegisterType<AttributeBuilder>().As<IAttributeBuilder<IAttributeData>>().InstancePerLifetimeScope();
+            builder.RegisterType<DateTimeProvider>().As<IDateTimeProvider>().InstancePerLifetimeScope();
             builder.RegisterType<DataEntityBuilder>().As<IDataEntityBuilder>().InstancePerLifetimeScope();
             builder.RegisterType<FundingOutputService>().As<IFundingOutputService>().InstancePerLifetimeScope();
             builder.RegisterType<Service.FundingService>().As<IFundingService>().InstancePerLifetimeScope();
@@ -79,7 +81,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Modules
             return new JobContextMessage
             {
                 JobId = 1,
-                SubmissionDateTimeUtc = DateTime.Parse("2018-08-01").ToUniversalTime(),
+                SubmissionDateTimeUtc = System.DateTime.Parse("2018-08-01").ToUniversalTime(),
                 Topics = TopicList(),
                 TopicPointer = 1,
                 KeyValuePairs = new Dictionary<JobContextMessageKey, object>
