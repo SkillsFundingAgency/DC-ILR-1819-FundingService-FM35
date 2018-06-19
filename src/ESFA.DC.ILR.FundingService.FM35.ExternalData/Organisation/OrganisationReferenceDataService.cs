@@ -18,14 +18,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation
 
         IEnumerable<OrgFunding> IOrganisationReferenceDataService.OrganisationFundingForUKPRN(int ukprn)
         {
-            try
-            {
-                return _referenceDataCache.OrgFunding[ukprn];
-            }
-            catch (Exception ex)
-            {
-                throw new KeyNotFoundException(string.Format("Cannot find UKPRN: " + ukprn + " in the Org Funding Dictionary. Exception details: " + ex));
-            }
+            _referenceDataCache.OrgFunding.TryGetValue(ukprn, out IEnumerable<OrgFunding> orgFunding);
+
+            return orgFunding;
         }
 
         string IOrganisationReferenceDataService.OrganisationVersion()

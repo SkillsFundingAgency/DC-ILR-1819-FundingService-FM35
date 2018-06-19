@@ -1,10 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Model;
 using ESFA.DC.ILR.FundingService.FM35.Service.Builders;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
@@ -3422,12 +3431,16 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
 
         #region Test Helpers
 
+        ILargeEmployersReferenceDataService largeEmployersReferenceDataService = new LargeEmployersReferenceDataService(SetupReferenceDataMock());
+        ILARSReferenceDataService larsReferenceDataService = new LARSReferenceDataService(SetupReferenceDataMock());
+        IOrganisationReferenceDataService organisationReferenceDataService = new OrganisationReferenceDataService(SetupReferenceDataMock());
+        IPostcodesReferenceDataService postcodesReferenceDataService = new PostcodesReferenceDataService(SetupReferenceDataMock());
+
         private IEnumerable<IDataEntity> SetupDataEntity()
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var dataEntityBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
-
+            var dataEntityBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
             var testLearners = new List<ILearner>
             {
                 TestLearner,
@@ -3441,7 +3454,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var globalBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var globalBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             return globalBuilder.GlobalEntity(12345678);
         }
@@ -3450,7 +3463,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var orgBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var orgBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             var orgFunding = referenceDataCacheMock.OrgFunding.Select(v => v.Value).First();
 
@@ -3461,7 +3474,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learnerBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             return learnerBuilder.LearnerEntity(TestLearner);
         }
@@ -3470,7 +3483,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learnerBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             return learnerBuilder.LearnerEmploymentStatusEntity(TestLearner.LearnerEmploymentStatuses.FirstOrDefault());
         }
@@ -3479,7 +3492,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learnerBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             var lEmp = referenceDataCacheMock.LargeEmployers
                    .Where(k => k.Key == TestLearner.LearnerEmploymentStatuses.FirstOrDefault().EmpIdNullable)
@@ -3492,7 +3505,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learnerBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             var sfaPostcode = referenceDataCacheMock.SfaDisadvantage
                    .Where(k => k.Key == TestLearner.PostcodePrior)
@@ -3505,7 +3518,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learnerBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             return learnerBuilder.PivotLearningDeliveryFAMS(TestLearner.LearningDeliveries.Single());
         }
@@ -3514,7 +3527,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learnerBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learnerBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             var larsLearningDelivery = referenceDataCacheMock.LARSLearningDelivery.Select(v => v.Value).FirstOrDefault();
             var larsFrameworkAims = referenceDataCacheMock.LARSFrameworkAims.Select(v => v.Value.ToList());
@@ -3526,7 +3539,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learningDeilveryFAMBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learningDeilveryFAMBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             return learningDeilveryFAMBuilder.LearningDeliveryFAMEntity(TestLearningDelivery.LearningDeliveryFAM.FirstOrDefault());
         }
@@ -3535,7 +3548,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learningDeilverySFAAreaCostBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learningDeilverySFAAreaCostBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             IEnumerable<SfaAreaCost> SFAAreaCost = referenceDataCacheMock.SfaAreaCost.Select(s => s.Value).Single();
 
@@ -3546,7 +3559,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learningDeilveryLARSFundingBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learningDeilveryLARSFundingBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             IEnumerable<LARSFunding> LARSFunding = referenceDataCacheMock.LARSFunding.Select(l => l.Value).Single();
 
@@ -3557,7 +3570,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learningDeilveryLARSAnnualValueBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learningDeilveryLARSAnnualValueBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             IEnumerable<LARSAnnualValue> LARSAnnualValue = referenceDataCacheMock.LARSAnnualValue.Select(l => l.Value).Single();
 
@@ -3568,14 +3581,14 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             var referenceDataCacheMock = SetupReferenceDataMock();
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var learningDeilveryLARSCategoryBuilder = new DataEntityBuilder(referenceDataCacheMock, attributeBuilder);
+            var learningDeilveryLARSCategoryBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             IEnumerable<LARSLearningDeliveryCategory> LARSLearningDeliveryCategory = referenceDataCacheMock.LARSLearningDeliveryCatgeory.Select(l => l.Value).Single();
 
             return learningDeilveryLARSCategoryBuilder.LARSLearningDeliveryCategoryEntity(LARSLearningDeliveryCategory.Single());
         }
 
-        private IReferenceDataCache SetupReferenceDataMock()
+        private static IReferenceDataCache SetupReferenceDataMock()
         {
             return Mock.Of<IReferenceDataCache>(l =>
                 l.LARSCurrentVersion == "Version_005"

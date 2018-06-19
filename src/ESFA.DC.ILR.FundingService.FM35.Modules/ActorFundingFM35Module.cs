@@ -4,6 +4,14 @@ using ESFA.DC.DateTime.Provider;
 using ESFA.DC.DateTime.Provider.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Interface;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface;
 using ESFA.DC.ILR.FundingService.FM35.OrchestrationService;
@@ -19,7 +27,7 @@ using ESFA.DC.OPA.Service.Interface;
 using ESFA.DC.OPA.Service.Interface.Builders;
 using ESFA.DC.OPA.Service.Interface.Rulebase;
 
-namespace ESFA.DC.ILR.FundingService.ALB.Modules
+namespace ESFA.DC.ILR.FundingService.FM35.Modules
 {
     public class ActorFundingFM35Module : Module
     {
@@ -31,6 +39,10 @@ namespace ESFA.DC.ILR.FundingService.ALB.Modules
             builder.RegisterType<OPAService>().As<IOPAService>().InstancePerLifetimeScope();
             builder.RegisterType<AttributeBuilder>().As<IAttributeBuilder<IAttributeData>>().InstancePerLifetimeScope();
             builder.RegisterType<DataEntityBuilder>().As<IDataEntityBuilder>().InstancePerLifetimeScope();
+            builder.RegisterType<LargeEmployersReferenceDataService>().As<ILargeEmployersReferenceDataService>().InstancePerLifetimeScope();
+            builder.RegisterType<LARSReferenceDataService>().As<ILARSReferenceDataService>().InstancePerLifetimeScope();
+            builder.RegisterType<OrganisationReferenceDataService>().As<IOrganisationReferenceDataService>().InstancePerLifetimeScope();
+            builder.RegisterType<PostcodesReferenceDataService>().As<IPostcodesReferenceDataService>().InstancePerLifetimeScope();
             builder.RegisterType<ReferenceDataCache>().As<IReferenceDataCache>().InstancePerLifetimeScope();
             builder.RegisterType<DateTimeProvider>().As<IDateTimeProvider>().InstancePerLifetimeScope();
             builder.RegisterType<FundingOutputService>().As<IFundingOutputService>().InstancePerLifetimeScope();

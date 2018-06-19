@@ -16,7 +16,7 @@ using ESFA.DC.ILR.FundingService.FM35.Service.Interface;
 using ESFA.DC.ILR.FundingService.FM35.Stubs;
 using ESFA.DC.ILR.Model.Interface;
 
-namespace ESFA.DC.ILR.FundingService.ALB.Modules
+namespace ESFA.DC.ILR.FundingService.FM35.Modules
 {
     public class PreFundingFM35Module : Module
     {

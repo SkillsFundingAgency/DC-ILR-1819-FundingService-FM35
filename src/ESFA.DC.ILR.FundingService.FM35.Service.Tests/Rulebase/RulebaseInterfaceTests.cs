@@ -14,6 +14,14 @@ using ESFA.DC.Data.Postcodes.Model;
 using ESFA.DC.Data.Postcodes.Model.Interfaces;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Interface;
 using ESFA.DC.ILR.FundingService.FM35.Service.Builders;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
 using ESFA.DC.ILR.Model;
@@ -32,7 +40,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
+namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Rulebase
 {
     public class RulebaseInterfaceTests
     {
@@ -648,10 +656,14 @@ namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Rulebase
         {
             IReferenceDataCache referenceDataCache = new ReferenceDataCache();
             IReferenceDataCachePopulationService referenceDataCachePopulationService = new ReferenceDataCachePopulationService(referenceDataCache, LARSMock().Object, PostcodesMock().Object, OrganisationMock().Object, LargeEmployersMock().Object);
+            ILargeEmployersReferenceDataService largeEmployersReferenceDataService = new LargeEmployersReferenceDataService(referenceDataCache);
+            ILARSReferenceDataService larsReferenceDataService = new LARSReferenceDataService(referenceDataCache);
+            IOrganisationReferenceDataService organisationReferenceDataService = new OrganisationReferenceDataService(referenceDataCache);
+            IPostcodesReferenceDataService postcodesReferenceDataService = new PostcodesReferenceDataService(referenceDataCache);
 
             referenceDataCachePopulationService.Populate(new List<string> { "123456" }, new List<string> { "CV1 2WT" }, new List<long> { 12345678 }, new List<int> { 99999 });
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
-            var dataEntityBuilder = new DataEntityBuilder(referenceDataCache, attributeBuilder);
+            var dataEntityBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
 
             return dataEntityBuilder.EntityBuilder(12345678, testMessage.Learners);
         }

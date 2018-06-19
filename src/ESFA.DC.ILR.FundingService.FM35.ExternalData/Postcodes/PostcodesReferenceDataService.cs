@@ -22,26 +22,16 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes
 
         public IEnumerable<SfaAreaCost> SFAAreaCostsForPostcode(string postcode)
         {
-            try
-            {
-                return _referenceDataCache.SfaAreaCost[postcode];
-            }
-            catch (Exception ex)
-            {
-                throw new KeyNotFoundException(string.Format("Cannot find Postcode: " + postcode + " in the SFA Area Cost Dictionary. Exception details: " + ex));
-            }
+            _referenceDataCache.SfaAreaCost.TryGetValue(postcode, out IEnumerable<SfaAreaCost> sfaAreaCost);
+
+            return sfaAreaCost;
         }
 
         public IEnumerable<SfaDisadvantage> SFADisadvantagesForPostcode(string postcode)
         {
-            try
-            {
-                return _referenceDataCache.SfaDisadvantage[postcode];
-            }
-            catch (Exception ex)
-            {
-                throw new KeyNotFoundException(string.Format("Cannot find Postcode: " + postcode + " in the SFA Postcode Disadvantage Dictionary. Exception details: " + ex));
-            }
+            _referenceDataCache.SfaDisadvantage.TryGetValue(postcode, out IEnumerable<SfaDisadvantage> sfaDisadvantage);
+
+            return sfaDisadvantage;
         }
     }
 }

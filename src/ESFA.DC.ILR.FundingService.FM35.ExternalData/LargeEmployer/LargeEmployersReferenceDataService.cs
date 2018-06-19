@@ -17,14 +17,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer
 
         public IEnumerable<LargeEmployers> LargeEmployersforEmpID(int lEmpID)
         {
-            try
-            {
-                return _referenceDataCache.LargeEmployers[lEmpID];
-            }
-            catch (Exception ex)
-            {
-                throw new KeyNotFoundException(string.Format("Cannot find Employer Reference: " + lEmpID + " in the Large Employers Dictionary. Exception details: " + ex));
-            }
+            _referenceDataCache.LargeEmployers.TryGetValue(lEmpID, out IEnumerable<LargeEmployers> largeEmployers);
+
+            return largeEmployers;
         }
     }
 }

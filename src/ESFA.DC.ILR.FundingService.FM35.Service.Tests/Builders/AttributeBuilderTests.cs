@@ -7,7 +7,7 @@ using ESFA.DC.OPA.Model.Interface;
 using FluentAssertions;
 using Xunit;
 
-namespace ESFA.DC.ILR.FundingService.ALB.Service.Tests.Builders
+namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
 {
     public class AttributeBuilderTests
     {

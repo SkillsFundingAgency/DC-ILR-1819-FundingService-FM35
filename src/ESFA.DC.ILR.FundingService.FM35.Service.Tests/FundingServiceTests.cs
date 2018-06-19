@@ -18,6 +18,14 @@ using ESFA.DC.ILR.FundingService.FM35.Contexts;
 using ESFA.DC.ILR.FundingService.FM35.Contexts.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Interface;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Model.Interface;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service;
 using ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service.Interface;
@@ -93,11 +101,15 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
         {
             IMessage message = ILRFile(@"Files\ILR-10006341-1819-20180607-102124-03.xml");
             IFundingContext fundingContext = SetupFundingContext(message);
-
             IReferenceDataCache referenceDataCache = new ReferenceDataCache();
+            ILargeEmployersReferenceDataService largeEmployersReferenceDataService = new LargeEmployersReferenceDataService(referenceDataCache);
+            ILARSReferenceDataService larsReferenceDataService = new LARSReferenceDataService(referenceDataCache);
+            IOrganisationReferenceDataService organisationReferenceDataService = new OrganisationReferenceDataService(referenceDataCache);
+            IPostcodesReferenceDataService postcodesReferenceDataService = new PostcodesReferenceDataService(referenceDataCache);
+
             IAttributeBuilder<IAttributeData> attributeBuilder = new AttributeBuilder();
             IReferenceDataCachePopulationService referenceDataCachePopulationService = new ReferenceDataCachePopulationService(referenceDataCache, LARSMock().Object, PostcodesMock().Object, OrganisationMock().Object, LargeEmployersMock().Object);
-            IDataEntityBuilder dataEntityBuilder = new DataEntityBuilder(referenceDataCache, attributeBuilder);
+            IDataEntityBuilder dataEntityBuilder = new DataEntityBuilder(largeEmployersReferenceDataService, larsReferenceDataService, organisationReferenceDataService, postcodesReferenceDataService, attributeBuilder);
             IDateTimeProvider dateTimeProvider = new DateTimeProvider();
             IFundingOutputService fundingOutputService = new FundingOutputService(dateTimeProvider);
             IInternalDataCache validALBLearnersCache = new InternalDataCache();
@@ -481,6 +493,8 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
             return new SFA_PostcodeAreaCost[]
             {
                 SFAAreaCostTestValue1,
+                SFAAreaCostTestValue2,
+                SFAAreaCostTestValue3,
             };
         }
 
@@ -493,6 +507,26 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
               EffectiveFrom = System.DateTime.Parse("2000-01-01"),
               EffectiveTo = null,
           };
+
+          private static readonly SFA_PostcodeAreaCost SFAAreaCostTestValue2 =
+          new SFA_PostcodeAreaCost()
+          {
+              MasterPostcode = new MasterPostcode { Postcode = "AL1 1AA" },
+              Postcode = "AL1 1AA",
+              AreaCostFactor = 1.2m,
+              EffectiveFrom = System.DateTime.Parse("2000-01-01"),
+              EffectiveTo = null,
+          };
+
+        private static readonly SFA_PostcodeAreaCost SFAAreaCostTestValue3 =
+         new SFA_PostcodeAreaCost()
+         {
+             MasterPostcode = new MasterPostcode { Postcode = "B10 0BL" },
+             Postcode = "B10 0BL",
+             AreaCostFactor = 1.2m,
+             EffectiveFrom = System.DateTime.Parse("2000-01-01"),
+             EffectiveTo = null,
+         };
 
         private static SFA_PostcodeDisadvantage[] MockSFADisadvantageArray()
         {

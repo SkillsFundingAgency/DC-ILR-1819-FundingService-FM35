@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LargeEmployer.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Organisation.Model;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.Postcodes.Model;
 using ESFA.DC.ILR.FundingService.FM35.Service.Interface.Builders;
 using ESFA.DC.ILR.FundingService.FM35.Service.Models;
@@ -40,12 +44,18 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
 
         #endregion
 
-        private readonly IReferenceDataCache _referenceDataCache;
+        private readonly ILargeEmployersReferenceDataService _largeEmployersReferenceDataService;
+        private readonly ILARSReferenceDataService _larsReferenceDataService;
+        private readonly IOrganisationReferenceDataService _organisationReferenceDataService;
+        private readonly IPostcodesReferenceDataService _postcodesReferenceDataService;
         private readonly IAttributeBuilder<IAttributeData> _attributeBuilder;
 
-        public DataEntityBuilder(IReferenceDataCache referenceDataCache, IAttributeBuilder<IAttributeData> attributeBuilder)
+        public DataEntityBuilder(ILargeEmployersReferenceDataService largeEmployersReferenceDataService, ILARSReferenceDataService larsReferenceDataService, IOrganisationReferenceDataService organisationReferenceDataService, IPostcodesReferenceDataService postcodesReferenceDataService, IAttributeBuilder<IAttributeData> attributeBuilder)
         {
-            _referenceDataCache = referenceDataCache;
+            _largeEmployersReferenceDataService = largeEmployersReferenceDataService;
+            _larsReferenceDataService = larsReferenceDataService;
+            _organisationReferenceDataService = organisationReferenceDataService;
+            _postcodesReferenceDataService = postcodesReferenceDataService;
             _attributeBuilder = attributeBuilder;
         }
 
@@ -61,8 +71,10 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
 
                 foreach (var learningDelivery in learner.LearningDeliveries)
                 {
-                    _referenceDataCache.LARSLearningDelivery.TryGetValue(learningDelivery.LearnAimRef, out LARSLearningDelivery larsLearningDelivery);
-                    _referenceDataCache.LARSFrameworkAims.TryGetValue(learningDelivery.LearnAimRef, out IEnumerable<LARSFrameworkAims> larsFrameworkAims);
+                    var larsLearningDelivery = _larsReferenceDataService.LARSLearningDeliveriesForLearnAimRef(learningDelivery.LearnAimRef);
+                    var larsFrameworkAims = _larsReferenceDataService.LARSFFrameworkAimsForLearnAimRef(learningDelivery.LearnAimRef);
+                    //_referenceDataCache.LARSLearningDelivery.TryGetValue(learningDelivery.LearnAimRef, out LARSLearningDelivery larsLearningDelivery);
+                    // _referenceDataCache.LARSFrameworkAims.TryGetValue(learningDelivery.LearnAimRef, out IEnumerable<LARSFrameworkAims> larsFrameworkAims);
                     var larsFwkAims = larsFrameworkAims == null ? null : larsFrameworkAims.ToList();
                     IDataEntity learningDeliveryEntity = LearningDeliveryEntity(learningDelivery, larsLearningDelivery, larsFwkAims);
 
@@ -84,10 +96,10 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
             IDataEntity globalDataEntity = new DataEntity(Entityglobal)
             {
                 Attributes =
-                    _attributeBuilder.BuildGlobalAttributes(ukprn, _referenceDataCache.LARSCurrentVersion, _referenceDataCache.OrgVersion, _referenceDataCache.PostcodeCurrentVersion),
+                    _attributeBuilder.BuildGlobalAttributes(ukprn, _larsReferenceDataService.LARSCurrentVersion(), _organisationReferenceDataService.OrganisationVersion(), _postcodesReferenceDataService.PostcodesCurrentVersion()),
             };
 
-            var orgFunding = _referenceDataCache.OrgFunding[ukprn];
+            var orgFunding = _organisationReferenceDataService.OrganisationFundingForUKPRN(ukprn);
 
             foreach (var o in orgFunding)
             {
@@ -128,7 +140,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                 learnerDataEntity.AddChild(learnerEmploymentStatusDataEntity);
             }
 
-            var sfaPostcodeDisadvantageData = _referenceDataCache.SfaDisadvantage[learner.PostcodePrior];
+            var sfaPostcodeDisadvantageData = _postcodesReferenceDataService.SFADisadvantagesForPostcode(learner.PostcodePrior);
 
             foreach (var postcode in sfaPostcodeDisadvantageData)
             {
@@ -147,7 +159,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
             };
 
             var largeEmployers = employmentStatus.EmpIdNullable != null ?
-                _referenceDataCache.LargeEmployers[(int)employmentStatus.EmpIdNullable] : null;
+                _largeEmployersReferenceDataService.LargeEmployersforEmpID((int)employmentStatus.EmpIdNullable) : null;
 
             if (largeEmployers != null)
             {
@@ -249,31 +261,31 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                 }
             }
 
-            if (_referenceDataCache.LARSAnnualValue.ContainsKey(learningDelivery.LearnAimRef))
+            if (_larsReferenceDataService.LARSAnnualValuesForLearnAimRef(learningDelivery.LearnAimRef) != null)
             {
                 learningDeliveryEntity.AddChildren(
-                    _referenceDataCache.LARSAnnualValue[learningDelivery.LearnAimRef]
+                    _larsReferenceDataService.LARSAnnualValuesForLearnAimRef(learningDelivery.LearnAimRef)
                         .Select(larsAnnualValue => LARSAnnualValueEntity(larsAnnualValue)));
             }
 
-            if (_referenceDataCache.LARSFunding.ContainsKey(learningDelivery.LearnAimRef))
+            if (_larsReferenceDataService.LARSFundingsForLearnAimRef(learningDelivery.LearnAimRef) != null)
             {
                 learningDeliveryEntity.AddChildren(
-                    _referenceDataCache.LARSFunding[learningDelivery.LearnAimRef]
+                    _larsReferenceDataService.LARSFundingsForLearnAimRef(learningDelivery.LearnAimRef)
                         .Select(larsFunding => LARSFundingEntity(larsFunding)));
             }
 
-            if (_referenceDataCache.LARSLearningDeliveryCatgeory.ContainsKey(learningDelivery.LearnAimRef))
+            if (_larsReferenceDataService.LARSLearningDeliveryCategoriesForLearnAimRef(learningDelivery.LearnAimRef) != null)
             {
                 learningDeliveryEntity.AddChildren(
-                    _referenceDataCache.LARSLearningDeliveryCatgeory[learningDelivery.LearnAimRef]
+                    _larsReferenceDataService.LARSLearningDeliveryCategoriesForLearnAimRef(learningDelivery.LearnAimRef)
                         .Select(larsCategory => LARSLearningDeliveryCategoryEntity(larsCategory)));
             }
 
-            if (_referenceDataCache.SfaAreaCost.ContainsKey(learningDelivery.DelLocPostCode))
+            if (_postcodesReferenceDataService.SFAAreaCostsForPostcode(learningDelivery.DelLocPostCode) != null)
             {
                 learningDeliveryEntity.AddChildren(
-                    _referenceDataCache.SfaAreaCost[learningDelivery.DelLocPostCode]
+                    _postcodesReferenceDataService.SFAAreaCostsForPostcode(learningDelivery.DelLocPostCode)
                         .Select(sfaAreaCost => SFAAreaCostEntity(sfaAreaCost)));
             }
 
