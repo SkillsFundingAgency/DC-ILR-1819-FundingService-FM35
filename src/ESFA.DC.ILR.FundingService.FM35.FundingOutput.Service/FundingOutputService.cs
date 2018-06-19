@@ -263,7 +263,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.FundingOutput.Service
 
         private string GetAttributeValue(IDictionary<string, IAttributeData> attributes, string attributeName)
         {
-            var attribute= attributes[attributeName].Value;
+            var attribute = attributes[attributeName].Value;
 
             if (attribute != null && attribute.ToString() != "uncertain")
             {

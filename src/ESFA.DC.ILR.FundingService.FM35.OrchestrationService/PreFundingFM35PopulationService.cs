@@ -29,11 +29,11 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
             IList<ILearner> learnerList = new List<ILearner>();
             HashSet<string> postcodesTempList = new HashSet<string>();
             HashSet<string> learnAimRefsList = new HashSet<string>();
-            HashSet<long> OrgUKPRNList = new HashSet<long>();
+            HashSet<long> orgUKPRNList = new HashSet<long>();
             HashSet<int?> lEmpIdTempList = new HashSet<int?>();
             bool added = false;
 
-            OrgUKPRNList.Add(_fundingContext.UKPRN);
+            orgUKPRNList.Add(_fundingContext.UKPRN);
 
             foreach (var learner in learners)
             {
@@ -65,7 +65,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.OrchestrationService
             var empIdList = lEmpIdTempList.Where(x => x != null).Select(v => (int)v.Value).Distinct().ToList();
             var postcodesList = postcodesTempList.Select(p => p).Distinct().ToList();
 
-            _referenceDataCachePopulationService.Populate(learnAimRefsList.ToList(), postcodesList, OrgUKPRNList.ToList(), empIdList);
+            _referenceDataCachePopulationService.Populate(learnAimRefsList.ToList(), postcodesList, orgUKPRNList.ToList(), empIdList);
 
             var internalDataCache = (InternalDataCache)_internalDataCache;
             internalDataCache.UKPRN = _fundingContext.UKPRN;
