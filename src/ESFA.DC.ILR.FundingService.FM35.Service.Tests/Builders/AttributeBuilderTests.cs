@@ -11,8 +11,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
 {
     public class AttributeBuilderTests
     {
-        #region Global Attributes
-
         /// <summary>
         /// Return Global Attributes from AttributeBuilder and check values
         /// /// </summary>
@@ -93,10 +91,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             AttributeValue(globalAttributes, "PostcodeDisadvantageVersion").Should().Be("Version_003");
         }
 
-        #endregion
-
-        #region OrgFunding Attributes
-
         /// <summary>
         /// Return OrgFunding Attributes from AttributeBuilder and check values
         /// /// </summary>
@@ -144,10 +138,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             AttributeValue(orgFundingAttributes, "OrgFundEffectiveFrom").Should().BeEquivalentTo(new System.DateTime(2018, 02, 01));
         }
-
-        #endregion
-
-        #region Learner Attributes
 
         /// <summary>
         /// Return Learner Attributes from AttributeBuilder and check values
@@ -213,10 +203,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             AttributeValue(learnerAttributes, "DateOfBirth").Should().BeEquivalentTo(new System.DateTime(2000, 01, 01));
         }
 
-        #endregion
-
-        #region LearnerEmploymentStatus Attributes
-
         /// <summary>
         /// Return LearnerEmploymentStatus Attributes from AttributeBuilder and check values
         /// /// </summary>
@@ -281,10 +267,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             AttributeValue(learnerEmploymentStatusAttributes, "DateEmpStatApp").Should().BeEquivalentTo(new System.DateTime(2018, 02, 01));
         }
 
-        #endregion
-
-        #region LargeEmployer Attributes
-
         /// <summary>
         /// Return LargeEmployer Attributes from AttributeBuilder and check values
         /// /// </summary>
@@ -348,10 +330,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             AttributeValue(largeEmployerAttributes, "LargeEmpEffectiveTo").Should().Be(null);
         }
-
-        #endregion
-
-        #region SFAPostcodeDisadvantage Attributes
 
         /// <summary>
         /// Return SFAPostcodeDisadvantage Attributes from AttributeBuilder and check values
@@ -432,10 +410,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             AttributeValue(sfaPostcodeDisadvantageAttributes, "DisUpEffectiveTo").Should().BeEquivalentTo(new System.DateTime(2020, 02, 01));
         }
-
-        #endregion
-
-        #region LearningDelivery Attributes
 
         /// <summary>
         /// Return LearningDelivery Attributes from AttributeBuilder and check values
@@ -998,13 +972,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             AttributeValue(learningDeliveryAttributes, "PwayCode").Should().Be(2);
         }
 
-            #endregion
-
-            #region LearningDeliveryFAM Attributes
-
-            /// <summary>
-            /// Return LearningDeliveryFAM Attributes from AttributeBuilder and check values
-            /// /// </summary>
+        /// <summary>
+        /// Return LearningDeliveryFAM Attributes from AttributeBuilder and check values
+        /// /// </summary>
         [Fact(DisplayName = "LearningDeliveryFAM - Attributes Exist"), Trait("Funding Service Attribute Builders", "Unit")]
         public void AttributeBuilder_LearningDeliveryFAM_Exists()
         {
@@ -1130,10 +1100,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             AttributeValue(learningDeliveryFAMAttributes, "LearnDelFAMType").Should().Be("ADL");
         }
 
-        #endregion
-
-        #region LearningDeliveryLARSAnnualValue Attributes
-
         /// <summary>
         /// Return LearningDeliveryLARSAnnualValue Attributes from AttributeBuilder and check values
         /// /// </summary>
@@ -1214,10 +1180,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             AttributeValue(learningDeliveryLARSAnnualValueAttributes, "LearnDelAnnValDateTo").Should().BeEquivalentTo(new System.DateTime(2019, 06, 30));
         }
 
-        #endregion
-
-        #region LearningDeliveryLARSCategory Attributes
-
         /// <summary>
         /// Return LearningDeliveryLARSCategory Attributes from AttributeBuilder and check values
         /// /// </summary>
@@ -1297,10 +1259,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             AttributeValue(learningDeliveryLARSCategoryAttributes, "LearnDelCatDateTo").Should().BeEquivalentTo(new System.DateTime(2018, 07, 31));
         }
-
-        #endregion
-
-        #region LearningDeliveryLarsFunding Attributes
 
         /// <summary>
         /// Return LearningDeliveryLarsFunding Attributes from AttributeBuilder and check values
@@ -1478,10 +1436,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             AttributeValue(learningDeliveryLarsFundingAttributes, "LARSFundWeightingFactor").Should().Be("A");
         }
 
-        #endregion
-
-        #region LearningDeliverySfaAreaCost Attributes
-
         /// <summary>
         /// Return LearningDeliverySfaAreaCost Attributes from AttributeBuilder and check values
         /// /// </summary>
@@ -1593,10 +1547,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             AttributeValue(learningDeliverySfaAreaCostAttributes, "AreaCosFactor").Should().Be(1.2m);
         }
-
-        #endregion
-
-        #region Test Helpers
 
         private static IDictionary<string, IAttributeData> SetupGlobalAttributes(int ukprn, string larsVersion, string orgVersion, string postcodeDisadvantageVersion)
         {
@@ -1743,7 +1693,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             return dictionary.Where(k => k.Key == attributeName).Select(v => v.Value.Value).Single();
         }
-
-        #endregion
     }
 }

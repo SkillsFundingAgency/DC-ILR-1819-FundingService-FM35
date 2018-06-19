@@ -45,8 +45,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LargeEmployer
             largeEmployersCorrect.First().Should().BeEquivalentTo(LargeEmployersTestValue);
         }
 
-        #region Test Helpers
-
         private readonly Mock<IReferenceDataCache> referenceDataCacheMock = new Mock<IReferenceDataCache>();
 
         private ILargeEmployersReferenceDataService MockTestObject(IReferenceDataCache @object)
@@ -88,7 +86,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LargeEmployer
                 EffectiveFrom = new DateTime(2017, 08, 01),
                 EffectiveTo = null,
             };
-
-        #endregion
     }
 }

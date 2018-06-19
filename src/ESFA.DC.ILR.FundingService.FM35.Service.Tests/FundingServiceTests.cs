@@ -75,8 +75,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
             fundingOutput.Should().NotBeNull();
         }
 
-        #region Test Helpers
-
         private static readonly ISessionBuilder _sessionBuilder = new SessionBuilder();
         private static readonly IOPADataEntityBuilder _dataEntityBuilder = new OPADataEntityBuilder(new System.DateTime(2018, 8, 1));
 
@@ -605,7 +603,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests
                EffectiveFrom = new System.DateTime(2018, 08, 01),
                EffectiveTo = new System.DateTime(2019, 07, 31),
            };
-
-        #endregion
     }
 }

@@ -77,8 +77,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.Organisation
             orgFunding.Should().BeEquivalentTo(OrgFundingTestValue);
         }
 
-        #region Test Helpers
-
         private readonly Mock<IReferenceDataCache> referenceDataCacheMock = new Mock<IReferenceDataCache>();
 
         private int ukprn = 12345678;
@@ -133,7 +131,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.Organisation
                OrgFundEffectiveFrom = new DateTime(2018, 08, 01),
                OrgFundEffectiveTo = new DateTime(2019, 07, 31),
            };
-
-        #endregion
     }
 }

@@ -398,8 +398,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
             referenceDataCache.LargeEmployers.Select(v => v.Value).First().Should().BeEquivalentTo(LargeEmployersTestValue);
         }
 
-        #region Test Helpers
-
         private IReferenceDataCache SetupReferenceDataCache()
         {
             IReferenceDataCache referenceDataCache = new ReferenceDataCache
@@ -447,8 +445,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
 
             return referenceDataCache;
         }
-
-        #region LARS Data
 
         private static readonly string LARSCurrentVersion = "Version_005";
 
@@ -534,10 +530,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
             };
         }
 
-        #endregion
-
-        #region Postcodes Data
-
         private string PostcodesCurrentVersion => "Version_002";
 
         private IList<SfaAreaCost> SFAAreaCostList(SfaAreaCost sfaAreaCost)
@@ -572,10 +564,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
             EffectiveTo = null,
         };
 
-        #endregion
-
-        #region Organisation
-
         private string OrgVersionTestValue => "Version_003";
 
         private IList<OrgFunding> OrgFundingList(OrgFunding orgFunding)
@@ -597,10 +585,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
                 OrgFundEffectiveTo = new DateTime(2019, 07, 31),
             };
 
-        #endregion
-
-        #region Large Employer
-
         private IList<LargeEmployers> LargeEmployersList(LargeEmployers largeEmployers)
         {
             return new List<LargeEmployers>
@@ -616,9 +600,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.ExternalCache
                 EffectiveFrom = new DateTime(2017, 08, 01),
                 EffectiveTo = null,
             };
-
-        #endregion
-
-        #endregion
     }
 }

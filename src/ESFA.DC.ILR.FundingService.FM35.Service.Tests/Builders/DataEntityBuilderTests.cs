@@ -30,8 +30,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
 {
     public class DataEntityBuilderTests
     {
-        #region Entity Builder
-
         /// <summary>
         /// Return Entity from EntityBuilder and check values
         /// </summary>
@@ -1798,10 +1796,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             Entities(learningDeliveryLARSCategory).First().Attributes.Should().BeEquivalentTo(ExpectedLearningDeliveryLARSCategoryAttributes());
         }
 
-        #endregion
-
-        #region Global Entity
-
         /// <summary>
         /// Return Global Entity from DataEntityBuilder and check values
         /// </summary>
@@ -1929,10 +1923,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             globalEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
-
-        #endregion
-
-        #region OrgFunding Entity
 
         /// <summary>
         /// Return OrgFunding Entity from DataEntityBuilder and check values
@@ -2062,10 +2052,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             orgEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
 
-        #endregion
-
-        #region Learner Entity
-
         /// <summary>
         /// Return Learner Entity from DataEntityBuilder and check values
         /// </summary>
@@ -2193,10 +2179,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             learnerEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
-
-        #endregion
-
-        #region Learner Employment Status Entity
 
         /// <summary>
         /// Return LearnerEmploymentStatus Entity from DataEntityBuilder and check values
@@ -2326,10 +2308,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             learnerEmpStatusEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
 
-        #endregion
-
-        #region Large Employer Entity
-
         /// <summary>
         /// Return LargeEmployer Entity from DataEntityBuilder and check values
         /// </summary>
@@ -2457,10 +2435,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             largeEmployersEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
-
-        #endregion
-
-        #region SFA PostcodeDisadvantage Entity
 
         /// <summary>
         /// Return SFAPostcodeDisadvantage Entity from DataEntityBuilder and check values
@@ -2590,10 +2564,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             sfaPostcodeDisadvantageEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
 
-        #endregion
-
-        #region Pivot LearningDeliveryFAM Tests
-
         /// <summary>
         /// Return PivotLearningDeliveryFAMS Entity from DataEntityBuilder and check values
         /// </summary>
@@ -2634,10 +2604,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             famPivot.Should().BeEquivalentTo(expectedPivot);
         }
-
-        #endregion
-
-        #region LearningDelivery Entity
 
         /// <summary>
         /// Return LearningDelivery Entity from DataEntityBuilder and check values
@@ -2767,10 +2733,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             learningDeliveryEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
 
-        #endregion
-
-        #region LearningDeliveryFAM Entity
-
         /// <summary>
         /// Return LearningDeliveryFAM Entity from DataEntityBuilder and check values
         /// </summary>
@@ -2898,10 +2860,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             learningDeliveryFAMEntity.Attributes.Should().BeEquivalentTo(expectedLearningDeliveryFAM);
         }
-
-        #endregion
-
-        #region LearningDeliverySFAPostcodeAreaCost Entity
 
         /// <summary>
         /// Return LearningDeliverySFAPostcodeAreaCost Entity from DataEntityBuilder and check values
@@ -3031,10 +2989,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             learningDeliverySFAPostcodeAreaCostEntity.Attributes.Should().BeEquivalentTo(expectedLearningDeliverySFAPostcodeAreaCost);
         }
 
-        #endregion
-
-        #region LearningDeliveryLARSFunding Entity
-
         /// <summary>
         /// Return LearningDeliveryLARSFunding Entity from DataEntityBuilder and check values
         /// </summary>
@@ -3162,10 +3116,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             learningDeliveryLARSFundingEntity.Attributes.Should().BeEquivalentTo(expectedLearningDeliveryLARSFunding);
         }
-
-        #endregion
-
-        #region LearningDeliveryLARSAnnualValue Entity
 
         /// <summary>
         /// Return LearningDeliveryLARSAnnualValue Entity from DataEntityBuilder and check values
@@ -3295,10 +3245,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             learningDeliveryLARSAnnualValueEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
 
-        #endregion
-
-        #region LearningDeliveryLARSCategory Entity
-
         /// <summary>
         /// Return LearningDeliveryLARSCategory Entity from DataEntityBuilder and check values
         /// </summary>
@@ -3426,10 +3372,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
             // ASSERT
             learningDeliveryLARSCategoryEntity.Attributes.Should().BeEquivalentTo(expectedAttributes);
         }
-
-        #endregion
-
-        #region Test Helpers
 
         ILargeEmployersReferenceDataService largeEmployersReferenceDataService = new LargeEmployersReferenceDataService(SetupReferenceDataMock());
         ILARSReferenceDataService larsReferenceDataService = new LARSReferenceDataService(SetupReferenceDataMock());
@@ -3996,7 +3938,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Tests.Builders
         {
             return entities;
         }
-
-        #endregion
     }
 }

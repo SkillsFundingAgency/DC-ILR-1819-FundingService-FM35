@@ -20,8 +20,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
 {
     public class DataEntityBuilder : IDataEntityBuilder
     {
-        #region Constants
-
         private const string Entityglobal = "global";
         private const string EntityOrgFunding = "OrgFunding";
         private const string EntityLearner = "Learner";
@@ -41,8 +39,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
         private const string LearningDeliveryFAMTypeLDM2 = "LDM2";
         private const string LearningDeliveryFAMTypeLDM3 = "LDM3";
         private const string LearningDeliveryFAMTypeLDM4 = "LDM4";
-
-        #endregion
 
         private readonly ILargeEmployersReferenceDataService _largeEmployersReferenceDataService;
         private readonly ILARSReferenceDataService _larsReferenceDataService;
@@ -73,8 +69,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
                 {
                     var larsLearningDelivery = _larsReferenceDataService.LARSLearningDeliveriesForLearnAimRef(learningDelivery.LearnAimRef);
                     var larsFrameworkAims = _larsReferenceDataService.LARSFFrameworkAimsForLearnAimRef(learningDelivery.LearnAimRef);
-                    //_referenceDataCache.LARSLearningDelivery.TryGetValue(learningDelivery.LearnAimRef, out LARSLearningDelivery larsLearningDelivery);
-                    // _referenceDataCache.LARSFrameworkAims.TryGetValue(learningDelivery.LearnAimRef, out IEnumerable<LARSFrameworkAims> larsFrameworkAims);
+
                     var larsFwkAims = larsFrameworkAims == null ? null : larsFrameworkAims.ToList();
                     IDataEntity learningDeliveryEntity = LearningDeliveryEntity(learningDelivery, larsLearningDelivery, larsFwkAims);
 
@@ -88,8 +83,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
 
             return globalEntities;
         }
-
-        #region Entity Builders
 
         protected internal IDataEntity GlobalEntity(int ukprn)
         {
@@ -363,10 +356,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
             return sfaAreaCostDataEntity;
         }
 
-        #endregion
-
-        #region Functions
-
         protected internal LearningDeliveryFAMPivot PivotLearningDeliveryFAMS(ILearningDelivery learningDelivery)
         {
             if (learningDelivery.LearningDeliveryFAMs != null)
@@ -410,7 +399,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.Service.Builders
 
             return null;
         }
-
-        #endregion
     }
 }

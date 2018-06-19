@@ -205,8 +205,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
             larsFrameworkAimsExists.Should().BeEquivalentTo(LARSFrameworkAimsTestValue);
         }
 
-        #region Test Helpers
-
         private readonly Mock<IReferenceDataCache> referenceDataCacheMock = new Mock<IReferenceDataCache>();
 
         private static readonly string LARSCurrentVersionTestValue = "Version_005";
@@ -363,8 +361,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
                 larsLearningDeliveryCategoryData,
             };
         }
-
-        #endregion
-
     }
 }

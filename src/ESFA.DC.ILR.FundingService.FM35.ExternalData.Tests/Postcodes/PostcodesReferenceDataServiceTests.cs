@@ -109,8 +109,6 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.Postcodes
             sfaDisadvantageCost.Should().BeEquivalentTo(SfaDisadvantageTestValue);
         }
 
-        #region Test Helpers
-
         private readonly Mock<IReferenceDataCache> referenceDataCacheMock = new Mock<IReferenceDataCache>();
 
         private readonly string postcode = "CV1 2WT";
@@ -191,7 +189,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.Postcodes
                EffectiveFrom = new DateTime(2000, 08, 01),
                EffectiveTo = null,
            };
-
-        #endregion
     }
 }
