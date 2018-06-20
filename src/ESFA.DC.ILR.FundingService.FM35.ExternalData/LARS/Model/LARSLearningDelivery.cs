@@ -6,8 +6,8 @@
 
         public string EnglandFEHEStatus { get; set; }
 
-        public int EnglPrscID { get; set; }
+        public int? EnglPrscID { get; set; }
 
-        public int FrameworkCommonComponent { get; set; }
+        public int? FrameworkCommonComponent { get; set; }
     }
 }

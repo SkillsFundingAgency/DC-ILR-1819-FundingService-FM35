@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ESFA.DC.ILR.FundingService.FM35.ExternalData.ExternalCache.Interface;
+using ESFA.DC.ILR.FundingService.FM35.ExternalData.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Interface;
 using ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model;
@@ -14,9 +14,9 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
     public class LARSReferenceDataServiceTests
     {
         /// <summary>
-        /// Return LARS Version.
+        /// Return LARS Data.
         /// </summary>
-        [Fact(DisplayName = "LARSVersion - Does exist"), Trait("LARS", "Unit")]
+        [Fact(DisplayName = "LARSVersion - Does exist"), Trait("LARSReferenceDataService", "Unit")]
         public void LARSCurrentVersion_Exists()
         {
             // ARRANGE
@@ -30,9 +30,25 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
         }
 
         /// <summary>
-        /// Return LARS Version.
+        /// Return LARS Data.
         /// </summary>
-        [Fact(DisplayName = "LARSLearningDelivery - Does exist"), Trait("LARS", "Unit")]
+        [Fact(DisplayName = "LARSVersion - Correct"), Trait("LARSReferenceDataService", "Unit")]
+        public void LARSCurrentVersion_Correct()
+        {
+            // ARRANGE
+            var larsServiceMock = LARSCurrentVersionTestRun(LARSCurrentVersionTestValue);
+
+            // ACT
+            var larsCurrentVersionExists = larsServiceMock.LARSCurrentVersion();
+
+            // ASSERT
+            larsCurrentVersionExists.Should().Be("Version_005");
+        }
+
+        /// <summary>
+        /// Return LARS Data.
+        /// </summary>
+        [Fact(DisplayName = "LARSLearningDelivery - Does exist"), Trait("LARSReferenceDataService", "Unit")]
         public void LARSLearningDelivery_Exists()
         {
             // ARRANGE
@@ -46,9 +62,25 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
         }
 
         /// <summary>
-        /// Return LARS Version.
+        /// Return LARS Data.
         /// </summary>
-        [Fact(DisplayName = "LARSAnnualValues - Does exist"), Trait("LARS", "Unit")]
+        [Fact(DisplayName = "LARSLearningDelivery - Correct"), Trait("LARSReferenceDataService", "Unit")]
+        public void LARSLearningDelivery_Correct()
+        {
+            // ARRANGE
+            var larsServiceMock = LARSLearningDeliveryTestRun(LARSLearningDeliveryTestValue);
+
+            // ACT
+            var larsLearningDeliveryExists = larsServiceMock.LARSLearningDeliveriesForLearnAimRef(LearnAimRefTestValue);
+
+            // ASSERT
+            larsLearningDeliveryExists.Should().BeEquivalentTo(LARSLearningDeliveryTestValue);
+        }
+
+        /// <summary>
+        /// Return LARS Data.
+        /// </summary>
+        [Fact(DisplayName = "LARSAnnualValues - Does exist"), Trait("LARSReferenceDataService", "Unit")]
         public void LARSAnnualValues_Exists()
         {
             // ARRANGE
@@ -62,9 +94,25 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
         }
 
         /// <summary>
-        /// Return LARS Version.
+        /// Return LARS Data.
         /// </summary>
-        [Fact(DisplayName = "LARSFunding - Does exist"), Trait("LARS", "Unit")]
+        [Fact(DisplayName = "LARSAnnualValues - Correct"), Trait("LARSReferenceDataService", "Unit")]
+        public void LARSAnnualValues_Correct()
+        {
+            // ARRANGE
+            var larsServiceMock = LARSAnnualValueTestRun(LARSAnnualValueList(LARSAnnualValueTestValue));
+
+            // ACT
+            var larsAnnualValueExists = larsServiceMock.LARSAnnualValuesForLearnAimRef(LearnAimRefTestValue);
+
+            // ASSERT
+            larsAnnualValueExists.Should().BeEquivalentTo(LARSAnnualValueTestValue);
+        }
+
+        /// <summary>
+        /// Return LARS Data.
+        /// </summary>
+        [Fact(DisplayName = "LARSFunding - Does exist"), Trait("LARSReferenceDataService", "Unit")]
         public void LARSFunding_Exists()
         {
             // ARRANGE
@@ -78,9 +126,25 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
         }
 
         /// <summary>
-        /// Return LARS Version.
+        /// Return LARS Data.
         /// </summary>
-        [Fact(DisplayName = "LARSLearningDeliveryCategory - Does exist"), Trait("LARS", "Unit")]
+        [Fact(DisplayName = "LARSFunding - Correct"), Trait("LARSReferenceDataService", "Unit")]
+        public void LARSFunding_Correct()
+        {
+            // ARRANGE
+            var larsServiceMock = LARSFundingTestRun(LARSFundingList(LARSFundingTestValue));
+
+            // ACT
+            var larsFundingExists = larsServiceMock.LARSFundingsForLearnAimRef(LearnAimRefTestValue);
+
+            // ASSERT
+            larsFundingExists.Should().BeEquivalentTo(LARSFundingTestValue);
+        }
+
+        /// <summary>
+        /// Return LARS Data.
+        /// </summary>
+        [Fact(DisplayName = "LARSLearningDeliveryCategory - Does exist"), Trait("LARSReferenceDataService", "Unit")]
         public void LARSLearningDeliveryCategory_Exists()
         {
             // ARRANGE
@@ -94,9 +158,25 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
         }
 
         /// <summary>
-        /// Return LARS Version.
+        /// Return LARS Data.
         /// </summary>
-        [Fact(DisplayName = "LARSFrameworkAims - Does exist"), Trait("LARS", "Unit")]
+        [Fact(DisplayName = "LARSLearningDeliveryCategory - Correct"), Trait("LARSReferenceDataService", "Unit")]
+        public void LARSLearningDeliveryCategory_Correct()
+        {
+            // ARRANGE
+            var larsServiceMock = LARSLearningDeliveryCategoryTestRun(LARSLearningDeliveryCategoryList(LARSLearningDeliveryCategoryTestValue));
+
+            // ACT
+            var larsLearningDeliveryCategoryExists = larsServiceMock.LARSLearningDeliveryCategoriesForLearnAimRef(LearnAimRefTestValue);
+
+            // ASSERT
+            larsLearningDeliveryCategoryExists.Should().BeEquivalentTo(LARSLearningDeliveryCategoryTestValue);
+        }
+
+        /// <summary>
+        /// Return LARS Data.
+        /// </summary>
+        [Fact(DisplayName = "LARSFrameworkAims - Does exist"), Trait("LARSReferenceDataService", "Unit")]
         public void LARSFrameworkAims_Exists()
         {
             // ARRANGE
@@ -109,12 +189,26 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
             larsFrameworkAimsExists.Should().NotBeNull();
         }
 
-        #region Test Helpers
+        /// <summary>
+        /// Return LARS Data.
+        /// </summary>
+        [Fact(DisplayName = "LARSFrameworkAims - Correct"), Trait("LARSReferenceDataService", "Unit")]
+        public void LARSFrameworkAims_Correct()
+        {
+            // ARRANGE
+            var larsServiceMock = LARSFrameworkAimsTestRun(LARSFrameworkAimsList(LARSFrameworkAimsTestValue));
+
+            // ACT
+            var larsFrameworkAimsExists = larsServiceMock.LARSFFrameworkAimsForLearnAimRef(LearnAimRefTestValue);
+
+            // ASSERT
+            larsFrameworkAimsExists.Should().BeEquivalentTo(LARSFrameworkAimsTestValue);
+        }
 
         private readonly Mock<IReferenceDataCache> referenceDataCacheMock = new Mock<IReferenceDataCache>();
 
-        static readonly string LARSCurrentVersionTestValue = "Version_005";
-        static readonly string LearnAimRefTestValue = "123456";
+        private static readonly string LARSCurrentVersionTestValue = "Version_005";
+        private static readonly string LearnAimRefTestValue = "123456";
 
         private static readonly LARSLearningDelivery LARSLearningDeliveryTestValue =
              new LARSLearningDelivery()
@@ -179,7 +273,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
             var larsLearningDeliveryMock = referenceDataCacheMock;
             larsLearningDeliveryMock.SetupGet(rdc => rdc.LARSLearningDelivery).Returns(new Dictionary<string, LARSLearningDelivery>()
              {
-                { LearnAimRefTestValue, larsLearningDelivery }
+                { LearnAimRefTestValue, larsLearningDelivery },
             });
 
             return MockTestObject(larsLearningDeliveryMock.Object);
@@ -190,7 +284,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
             var larsFundingMock = referenceDataCacheMock;
             larsFundingMock.SetupGet(rdc => rdc.LARSFunding).Returns(new Dictionary<string, IEnumerable<LARSFunding>>()
             {
-                { LearnAimRefTestValue, larsFundingList }
+                { LearnAimRefTestValue, larsFundingList },
             });
 
             return MockTestObject(larsFundingMock.Object);
@@ -201,7 +295,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
             var larsLearningDeliveryMock = referenceDataCacheMock;
             larsLearningDeliveryMock.SetupGet(rdc => rdc.LARSAnnualValue).Returns(new Dictionary<string, IEnumerable<LARSAnnualValue>>()
              {
-                { LearnAimRefTestValue, larsAnnualValueList }
+                { LearnAimRefTestValue, larsAnnualValueList },
             });
 
             return MockTestObject(larsLearningDeliveryMock.Object);
@@ -212,7 +306,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
             var larsLearningDeliveryMock = referenceDataCacheMock;
             larsLearningDeliveryMock.SetupGet(rdc => rdc.LARSLearningDeliveryCatgeory).Returns(new Dictionary<string, IEnumerable<LARSLearningDeliveryCategory>>()
              {
-                { LearnAimRefTestValue, larsLearningDeliveryCategoryList }
+                { LearnAimRefTestValue, larsLearningDeliveryCategoryList },
             });
 
             return MockTestObject(larsLearningDeliveryMock.Object);
@@ -223,7 +317,7 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
             var larsLearningDeliveryMock = referenceDataCacheMock;
             larsLearningDeliveryMock.SetupGet(rdc => rdc.LARSFrameworkAims).Returns(new Dictionary<string, IEnumerable<LARSFrameworkAims>>()
              {
-                { LearnAimRefTestValue, larsFrameworkAimsList }
+                { LearnAimRefTestValue, larsFrameworkAimsList },
             });
 
             return MockTestObject(larsLearningDeliveryMock.Object);
@@ -267,8 +361,5 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.Tests.LARS
                 larsLearningDeliveryCategoryData,
             };
         }
-
-        #endregion
-
     }
 }

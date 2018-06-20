@@ -14,6 +14,8 @@ namespace ESFA.DC.ILR.FundingService.FM35.ExternalData.LARS.Model
 
         public DateTime EffectiveFrom { get; set; }
 
-        public int FrameworkComponentType { get; set; }
+        public DateTime? EffectiveTo { get; set; }
+
+        public int? FrameworkComponentType { get; set; }
     }
 }
